@@ -1,0 +1,17 @@
+UnlitGeneric
+{
+	$basetexture	"hl2hud/blackmesa/ammo_9mm"
+	$translucent	1
+	$distancealpha	1
+  $additive	1
+
+	$softedges		1
+	$edgesoftnessstart	.5
+	$edgesoftnessend	.35
+	$scaleedgesoftnessbasedonscreenres 1
+
+	$vertexcolor	1
+	$vertexalpha	1
+	$no_fullbright	1
+	$ignorez	1
+}

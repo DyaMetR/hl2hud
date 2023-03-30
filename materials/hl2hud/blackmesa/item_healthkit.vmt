@@ -1,0 +1,16 @@
+UnlitGeneric
+{
+	$basetexture	"hl2hud/blackmesa/item_healthkit"
+	$translucent	1
+	$distancealpha	1
+
+	$softedges		1
+	$edgesoftnessstart	.8
+	$edgesoftnessend	.46
+	$scaleedgesoftnessbasedonscreenres 1
+
+	$vertexcolor	1
+	$vertexalpha	1
+	$no_fullbright	1
+	$ignorez	1
+}

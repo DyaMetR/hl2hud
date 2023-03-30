@@ -1,0 +1,15 @@
+{
+	"title"	:	"Half-Life 2 Customizable HUD",
+	"type"	:	"effects",
+	"tags"	:	[ "fun", "movie" ],
+	"ignore"	:
+	[
+		"*.psd",
+		"*.vcproj",
+		"*.svn*",
+		"*.git*",
+		"LICENSE",
+		"README.md",
+    "CONTRIBUTING.md"
+	]
+}

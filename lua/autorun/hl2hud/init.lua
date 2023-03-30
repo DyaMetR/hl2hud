@@ -1,0 +1,139 @@
+HL2HUD.include('hudelement.lua')
+HL2HUD.include('animationcontroller.lua')
+HL2HUD.include('fonts.lua')
+HL2HUD.include('ischeme.lua')
+HL2HUD.include('clientscheme.lua')
+HL2HUD.include('override.lua')
+HL2HUD.include('util.lua')
+HL2HUD.include('bind_press.lua')
+HL2HUD.include('weapon_switcher.lua')
+
+HL2HUD.include('vgui/dbuttonedline.lua')
+HL2HUD.include('vgui/dcolormixerbutton.lua')
+HL2HUD.include('vgui/dcolorcombo.lua')
+HL2HUD.include('vgui/dframe.lua')
+HL2HUD.include('vgui/dlist.lua')
+HL2HUD.include('vgui/dlistline.lua')
+HL2HUD.include('vgui/dpreview.lua')
+HL2HUD.include('vgui/dfonteditor.lua')
+HL2HUD.include('vgui/dresourcelist.lua')
+HL2HUD.include('vgui/about.lua')
+HL2HUD.include('vgui/clientscheme/dcolor.lua')
+HL2HUD.include('vgui/clientscheme/dfont.lua')
+HL2HUD.include('vgui/layout/dparameter.lua')
+HL2HUD.include('vgui/layout/dcheckbox.lua')
+HL2HUD.include('vgui/layout/dcolour.lua')
+HL2HUD.include('vgui/layout/dfont.lua')
+HL2HUD.include('vgui/layout/dnumber.lua')
+HL2HUD.include('vgui/layout/doption.lua')
+HL2HUD.include('vgui/layout/dstring.lua')
+HL2HUD.include('vgui/animations/dcommand.lua')
+HL2HUD.include('vgui/animations/dedit.lua')
+HL2HUD.include('vgui/animations/commands/dcommand.lua')
+HL2HUD.include('vgui/animations/commands/danim.lua')
+HL2HUD.include('vgui/animations/editors/danimeditor.lua')
+HL2HUD.include('vgui/animations/editors/dcommandeditor.lua')
+HL2HUD.include('vgui/textures/diconeditor.lua')
+HL2HUD.include('vgui/textures/dspriteeditor.lua')
+HL2HUD.include('vgui/textures/dtextureeditor.lua')
+HL2HUD.include('vgui/textures/dtexturelist.lua')
+
+HL2HUD.include('qmenu/menu.lua')
+HL2HUD.include('qmenu/toolmenu.lua')
+
+HL2HUD.include('elements/health.lua')
+HL2HUD.include('elements/battery.lua')
+HL2HUD.include('elements/ammo.lua')
+HL2HUD.include('elements/ammo2.lua')
+HL2HUD.include('elements/auxpow.lua')
+HL2HUD.include('elements/flashlight.lua')
+HL2HUD.include('elements/weapon_selector.lua')
+HL2HUD.include('elements/poison.lua')
+HL2HUD.include('elements/hint.lua')
+HL2HUD.include('elements/crosshair.lua')
+HL2HUD.include('elements/vehicle.lua')
+HL2HUD.include('elements/quickinfo.lua')
+HL2HUD.include('elements/zoom.lua')
+HL2HUD.include('elements/squad.lua')
+HL2HUD.include('elements/pickup.lua')
+
+-- Half-Life 2 schemes
+HL2HUD.include('schemes/default.lua')
+HL2HUD.include('schemes/halflife2.lua')
+HL2HUD.include('schemes/retail.lua')
+HL2HUD.include('schemes/prerelease.lua')
+HL2HUD.include('schemes/icons.lua')
+HL2HUD.include('schemes/compact.lua')
+
+-- Sourcemod schemes
+HL2HUD.include('schemes/ez.lua')
+HL2HUD.include('schemes/ez2.lua')
+HL2HUD.include('schemes/eleveneightyseven.lua')
+HL2HUD.include('schemes/smod.lua')
+HL2HUD.include('schemes/cdestiny.lua')
+
+-- Custom schemes
+HL2HUD.include('schemes/blackmesa.lua')
+HL2HUD.include('schemes/cstrike.lua')
+HL2HUD.include('schemes/bluemoon.lua')
+HL2HUD.include('schemes/coolvetica.lua')
+HL2HUD.include('schemes/sbox.lua')
+HL2HUD.include('schemes/lcd.lua')
+HL2HUD.include('schemes/nv.lua')
+HL2HUD.include('schemes/sports.lua')
+HL2HUD.include('schemes/hl1.lua')
+HL2HUD.include('schemes/hl1b.lua')
+HL2HUD.include('schemes/hl1c.lua')
+
+-- load third-party add-ons
+local files, directories = file.Find('autorun/hl2hud/add-ons/*.lua', 'LUA')
+for _, file in pairs(files) do
+  HL2HUD.include('add-ons/' .. file)
+end
+
+if SERVER then return end
+
+-- [[ Console variables ]] --
+local hl2hud_enabled = CreateClientConVar('hl2hud_enabled', 1)
+local hl2hud_nosuit = CreateClientConVar('hl2hud_nosuit', 0)
+local hl2hud_alwayshide = CreateClientConVar('hl2hud_alwayshide', 1)
+
+-- [[ Initialization ]] --
+HL2HUD.settings.Init()
+local settings = HL2HUD.settings.Get()
+
+--[[------------------------------------------------------------------
+  Whether the HUD is visible.
+  @return {boolean} is visible
+]]--------------------------------------------------------------------
+function HL2HUD.IsVisible()
+  return hl2hud_enabled:GetBool() and not (not hl2hud_nosuit:GetBool() and (not LocalPlayer().IsSuitEquipped or not LocalPlayer():IsSuitEquipped()))
+end
+
+-- [[ Run animations before drawing the HUD ]] --
+hook.Add('PreDrawHUD', HL2HUD.hookname, function()
+  if not HL2HUD.IsVisible() then return end
+  HL2HUD.animations.UpdateAnimations()
+end)
+
+-- [[ Draw HUD elements ]] --
+hook.Add('HUDPaint', HL2HUD.hookname, function()
+  if not HL2HUD.IsVisible() then return end
+  local scale = HL2HUD.Scale()
+	for name, element in SortedPairsByMemberValue(HL2HUD.elements.All(), 'i', true) do
+		if not settings.HudLayout[name].visible then continue end
+		element:OnThink(settings.HudLayout[name])
+    if not LocalPlayer().Alive or not LocalPlayer():Alive() then continue end
+		element:Draw(settings.HudLayout[name], scale)
+	end
+end)
+
+-- [[ Hide CHud elements ]] --
+hook.Add('HUDShouldDraw', HL2HUD.hookname, function(default)
+  if not HL2HUD.IsVisible() then return end
+  for name, element in pairs(HL2HUD.elements.All()) do
+		if (settings.HudLayout[name].visible or hl2hud_alwayshide:GetBool()) and element.hide == default then
+			return false
+		end
+	end
+end)
