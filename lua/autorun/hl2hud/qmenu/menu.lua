@@ -1,7 +1,7 @@
 
 if SERVER then return end
 
-local URL_STEAMWORKSHOP = 'https://steamcommunity.com/sharedfiles/filedetails/?id=2954934766'
+local URL_STEAMWORKSHOP = 'https://steamcommunity.com/workshop/filedetails/discussion/2954934766/6142387507319055361'
 local URL_GITHUB = 'https://github.com/DyaMetR/hl2hud/issues/new'
 --local URL_DOCUMENTATION = 'https://github.com/DyaMetR/hl2hud/blob/main/docs/index.md'
 
