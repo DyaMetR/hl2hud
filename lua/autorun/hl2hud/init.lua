@@ -129,9 +129,11 @@ hook.Add('HUDPaint', HL2HUD.hookname, function()
 end)
 
 -- [[ Hide CHud elements ]] --
+local hud_fastswitch = GetConVar('hud_fastswitch')
 hook.Add('HUDShouldDraw', HL2HUD.hookname, function(default)
   if not HL2HUD.IsVisible() then return end
   for name, element in pairs(HL2HUD.elements.All()) do
+    if name == 'HudWeaponSelection' and hud_fastswitch:GetBool() then return end
 		if (settings.HudLayout[name].visible or hl2hud_alwayshide:GetBool()) and element.hide == default then
 			return false
 		end

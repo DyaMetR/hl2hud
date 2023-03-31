@@ -286,8 +286,10 @@ end
 
 -- [[ Input ]] --
 local CONVAR_ENABLE = 'hl2hud_enabled'
+local hud_fastswitch = GetConVar('hud_fastswitch')
 UnintrusiveBindPress.add('hl2hud', function(_player, bind, pressed, code)
   if not GetConVar(CONVAR_ENABLE):GetBool() or not HL2HUD.settings.Get().HudLayout.HudWeaponSelection.visible then return end
+  if hud_fastswitch:GetBool() then return end
   if not pressed then return end -- ignore if bind was not pressed
   local visible = HL2HUD.elements.Get('HudWeaponSelection').variables.Alpha > 0
 
