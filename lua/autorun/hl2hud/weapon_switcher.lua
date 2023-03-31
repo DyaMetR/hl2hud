@@ -13,7 +13,7 @@ local MAX_SLOTS = 6 -- maximum number of weapon slots
 
 -- Constants
 local PHYSICS_GUN, CAMERA = 'weapon_physgun', 'gmod_camera'
-local SLOT, INV_PREV, INV_NEXT, ATTACK, ATTACK2 = 'slot', 'invprev', 'invnext', '+attack', '+attack2'
+local SLOT, INV_PREV, INV_NEXT, ATTACK, ATTACK2, LAST_INV = 'slot', 'invprev', 'invnext', '+attack', '+attack2', 'lastinv'
 local VOLUME = .33
 
 -- Variables
@@ -312,6 +312,14 @@ UnintrusiveBindPress.add('hl2hud', function(_player, bind, pressed, code)
     if curPos <= 0  then return true end -- do not show if there is no valid slot
     HL2HUD.animations.StartAnimationSequence('OpenWeaponSelectionMenu')
     return true
+  end
+
+  -- last weapon
+  if bind == LAST_INV then
+    local lastWeapon = LocalPlayer():GetPreviousWeapon()
+    if IsValid(lastWeapon) and lastWeapon:IsWeapon() then
+      input.SelectWeapon(lastWeapon)
+    end
   end
 
   -- cycle through slot

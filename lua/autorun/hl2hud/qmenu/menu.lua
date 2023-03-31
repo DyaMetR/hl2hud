@@ -141,9 +141,9 @@ concommand.Add('hl2hud_menu', function()
       -- Save as...
       file:AddOption(LOCALE.MENU_FILE_SAVE, function()
         Derma_StringRequest(LOCALE.MODAL_SAVEAS, LOCALE.MODAL_FILENAME, '', function(value)
-          local illegal = string.len(string.Trim(_name)) <= 0
+          local illegal = string.len(string.Trim(value)) <= 0
           for _, char in pairs(ILLEGAL_CHARACTERS) do
-            if string.find(_name, char) then
+            if string.find(value, char) then
               illegal = true
               break
             end
@@ -156,7 +156,6 @@ concommand.Add('hl2hud_menu', function()
             if scheme or HL2HUD.settings.SchemeFileExists(HL2HUD.settings.GenerateFileName(value)) then
               Derma_Query(LOCALE.MODAL_DUPLICATE, LOCALE.MODAL_SAVEAS, LOCALE.MODAL_YES, function()
                 HL2HUD.settings.SaveAs(value, cache)
-                HL2HUD.toolmenu.list:AddLine(value)
                 frame:LoadSchemes()
               end, LOCALE.MODAL_NO)
             else
