@@ -24,6 +24,10 @@ ELEMENT:Colour('right_color')
 ELEMENT:Colour('warning_color')
 ELEMENT:String('warning_sound')
 
+function ELEMENT:ShouldDraw(settings)
+  return settings.visible
+end
+
 local m_ammoColour, m_healthColour = Color(255, 255, 255), Color(255, 255, 255)
 local m_warnColour = Color(255, 255, 255)
 function ELEMENT:Init(settings)

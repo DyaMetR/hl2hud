@@ -28,6 +28,10 @@ ELEMENT:Boolean('icon_abspos')
 ELEMENT:Number('icon_xpos')
 ELEMENT:Number('icon_ypos')
 
+function ELEMENT:ShouldDraw(settings)
+  return settings.visible
+end
+
 local m_iAmmo, m_eWeapon = -1, NULL
 function ELEMENT:Init()
 	self:Variable('BgColor', table.Copy(self.colours.BgColor))
@@ -46,7 +50,7 @@ local function GetAmmo()
     local vehicle = LocalPlayer():GetVehicle()
     if not vehicle.GetAmmo then return -1, -1, 0 end
     local primary, _, reserve = vehicle:GetAmmo()
-    return reserve, -1, primary
+    return reserve or -1, -1, primary or 0
   end
 
   -- is weapon valid?
@@ -57,14 +61,13 @@ local function GetAmmo()
   if weapon:IsScripted() then
     local ammo = weapon:CustomAmmoDisplay()
     if ammo then
-      if not ammo.Draw then return -1, -1, 0 end
-      return ammo.PrimaryClip, ammo.PrimaryAmmo or -1, 0, true
+      return ammo.PrimaryClip or -1, ammo.PrimaryAmmo or -1, 0, ammo.Draw and (ammo.PrimaryClip or ammo.PrimaryAmmo)
     end
   end
 
   -- default ammo display
-	local primary = weapon:GetPrimaryAmmoType()
-	local clip, reserve = weapon:Clip1(), LocalPlayer():GetAmmoCount(primary)
+	local primary = weapon:GetPrimaryAmmoType() or 0
+	local clip, reserve = weapon:Clip1() or -1, LocalPlayer():GetAmmoCount(primary) or -1
 	if clip < 0 then return reserve, -1, primary end
 	return clip, reserve, primary
 end

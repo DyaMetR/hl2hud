@@ -358,7 +358,7 @@ concommand.Add('hl2hud_menu', function()
           button = panel:AddButton('icon16/delete.png', LOCALE.CLIENTSCHEME_FONT_REMOVE)
         end
         button.DoClick = function()
-          client.ClientScheme.Fonts[name] = nil
+          cache.ClientScheme.Fonts[name] = nil
           settings.ClientScheme.Fonts[name] = table.Copy(default.ClientScheme.Fonts[name])
           fonts.Panel:CleanNullFonts()
           frame:ReloadScheme()
@@ -545,9 +545,10 @@ concommand.Add('hl2hud_menu', function()
               local params = vgui.Create(class, edit)
               params:Dock(FILL)
               params:DockMargin(0, 2, 2, 2)
+              if cmd.commandType == 'StopAnimation' then params:AddParam2() end
               if params.SetColors then params:SetColors(cache.ClientScheme.Colors) end
-              params:PopulateFields(cmd)
               if params.Populate then params:Populate(cmd.commandType, cache) end
+              params:PopulateFields(cmd)
 
               -- enable saving depending on the validity of data
               params.OnSelectionChanged = function(self) edit:SetCanApply(self:AreFieldsValid()) end

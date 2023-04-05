@@ -38,6 +38,10 @@ ELEMENT:String('crosshair')
 ELEMENT:Colour('color')
 ELEMENT:Colour('unable')
 
+function ELEMENT:ShouldDraw(settings)
+  return settings.visible
+end
+
 local crosshair
 function ELEMENT:Init(settings)
   crosshair = surface.GetTextureID(settings.crosshair)

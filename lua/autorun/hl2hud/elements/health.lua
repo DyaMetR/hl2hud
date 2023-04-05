@@ -20,6 +20,10 @@ ELEMENT:Number('text_ypos')
 ELEMENT:Font('text_font')
 ELEMENT:String('text')
 
+function ELEMENT:ShouldDraw(settings)
+  return settings.visible
+end
+
 local m_iHealth = -1
 function ELEMENT:Init()
   self:Variable('BgColor', table.Copy(self.colours.BgColor))

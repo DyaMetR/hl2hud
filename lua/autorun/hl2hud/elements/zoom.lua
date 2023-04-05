@@ -13,6 +13,10 @@ ELEMENT:Number('DashGap')
 ELEMENT:Number('DashHeight')
 ELEMENT:Colour('Color')
 
+function ELEMENT:ShouldDraw(settings)
+  return settings.visible
+end
+
 local m_bZoomOn, m_flZoomStartTime = false, -1
 function ELEMENT:OnThink()
   local zoom = LocalPlayer():KeyDown(IN_ZOOM)

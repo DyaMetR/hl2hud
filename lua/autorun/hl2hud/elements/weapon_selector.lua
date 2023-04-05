@@ -3,6 +3,8 @@ if SERVER then return end
 
 local ELEMENT = HL2HUD.elements.Register('HudWeaponSelection', 'CHudWeaponSelection')
 
+ELEMENT:SetDrawOnTop(true)
+
 ELEMENT:Boolean('visible')
 ELEMENT:Boolean('compact')
 ELEMENT:Boolean('uppercase')
@@ -35,11 +37,15 @@ function ELEMENT:Init()
   self:Variable('SelectionAlpha', 0)
 end
 
+function ELEMENT:ShouldDraw(settings)
+  return settings.visible
+end
+
 function ELEMENT:OnThink()
   HL2HUD.switcher.CacheWeapons()
 end
 
-function ELEMENT:PostDraw(settings, scale)
+function ELEMENT:Draw(settings, scale)
   local smallBox, boxGap = settings.SmallBoxSize * scale, settings.BoxGap * scale
   local numX, numY = settings.SelectionNumberXPos * scale, settings.SelectionNumberYPos * scale
   local boxW, boxH = settings.LargeBoxWide * scale, settings.LargeBoxTall * scale
@@ -150,9 +156,3 @@ function ELEMENT:PostDraw(settings, scale)
     x = x + smallBox + boxGap
   end
 end
-
--- [[ WORKAROUND: draw this after the HUD has been drawn to override HUDShouldDraw ]] --
-hook.Add('PostDrawHUD', HL2HUD.hookname .. '_HudWeaponSelection', function()
-  if gui.IsGameUIVisible() or not HL2HUD.IsVisible() then return end
-  ELEMENT:PostDraw(HL2HUD.settings.Get().HudLayout.HudWeaponSelection, HL2HUD.Scale())
-end)

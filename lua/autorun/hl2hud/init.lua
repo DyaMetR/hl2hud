@@ -106,36 +106,53 @@ local settings = HL2HUD.settings.Get()
   Whether the HUD is visible.
   @return {boolean} is visible
 ]]--------------------------------------------------------------------
-function HL2HUD.IsVisible()
+function HL2HUD.ShouldDraw()
   return hl2hud_enabled:GetBool() and not (not hl2hud_nosuit:GetBool() and (not LocalPlayer().IsSuitEquipped or not LocalPlayer():IsSuitEquipped()))
 end
 
 -- [[ Run animations before drawing the HUD ]] --
 hook.Add('PreDrawHUD', HL2HUD.hookname, function()
-  if not HL2HUD.IsVisible() then return end
+  if not HL2HUD.ShouldDraw() then return end
   HL2HUD.animations.UpdateAnimations()
+  for name, element in HL2HUD.elements.Iterator() do
+    element:PreDraw(params)
+  end
 end)
 
 -- [[ Draw HUD elements ]] --
 hook.Add('HUDPaint', HL2HUD.hookname, function()
-  if not HL2HUD.IsVisible() then return end
-  local scale = HL2HUD.Scale()
-	for name, element in SortedPairsByMemberValue(HL2HUD.elements.All(), 'i', true) do
-		if not settings.HudLayout[name].visible then continue end
-		element:OnThink(settings.HudLayout[name])
-    if not LocalPlayer().Alive or not LocalPlayer():Alive() then continue end
-		element:Draw(settings.HudLayout[name], scale)
-	end
+  if not HL2HUD.ShouldDraw() then return end
+  local localPlayer = LocalPlayer()
+  if not IsValid(localPlayer) then return end
+  for name, element in HL2HUD.elements.Iterator() do
+    local params = settings.HudLayout[name]
+    if not element:ShouldDraw(params) then continue end
+    element:OnThink(params)
+    if element.OnTop or not localPlayer:Alive() then continue end
+    element:Draw(params, HL2HUD.Scale())
+  end
+end)
+
+-- [[ Draw HUD elements overriding HUDShouldDraw ]] --
+hook.Add('PostDrawHUD', HL2HUD.hookname, function()
+  if not HL2HUD.ShouldDraw() then return end
+  if gui.IsGameUIVisible() then return end
+  local localPlayer = LocalPlayer()
+  if not IsValid(localPlayer) or not localPlayer:Alive() then return end
+  for name, element in HL2HUD.elements.Iterator() do
+    if not element.OnTop then continue end
+    local params = settings.HudLayout[name]
+    if not element:ShouldDraw(params) then continue end
+    element:Draw(params, HL2HUD.Scale())
+  end
 end)
 
 -- [[ Hide CHud elements ]] --
-local hud_fastswitch = GetConVar('hud_fastswitch')
 hook.Add('HUDShouldDraw', HL2HUD.hookname, function(default)
-  if not HL2HUD.IsVisible() then return end
-  for name, element in pairs(HL2HUD.elements.All()) do
-    if name == 'HudWeaponSelection' and hud_fastswitch:GetBool() then return end
-		if (settings.HudLayout[name].visible or hl2hud_alwayshide:GetBool()) and element.hide == default then
-			return false
-		end
-	end
+  if not HL2HUD.ShouldDraw() then return end
+  if CHudScan then return end
+  local replacer = HL2HUD.elements.CHudReplacer(default)
+  if not replacer then return end
+  if not replacer:ShouldDraw(settings.HudLayout[replacer.name]) then return end
+  return false
 end)

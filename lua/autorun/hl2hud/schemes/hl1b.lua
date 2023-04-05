@@ -94,7 +94,11 @@ SCHEME:Animations({
   SuitAuxPowerNoItemsActive = {},
   SuitAuxPowerOneItemActive = {},
   SuitAuxPowerTwoItemsActive = {},
-  SuitAuxPowerThreeItemsActive = {}
+  SuitAuxPowerThreeItemsActive = {},
+  WeaponDoesNotUseClips = {
+		{ 'Animate', 'HudAmmo', 'Position', Vector(0, 0), 'Deaccel', 0, .4 },
+		{ 'Animate', 'HudAmmo', 'Size', Vector(-26, 0), 'Deaccel', 0, .4 }
+	}
 })
 
 HL2HUD.scheme.Register('Military Precision', SCHEME)

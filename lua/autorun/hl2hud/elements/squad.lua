@@ -72,6 +72,10 @@ ELEMENT:String('IconMember')
 ELEMENT:String('IconMedic')
 ELEMENT:Font('IconFont')
 
+function ELEMENT:ShouldDraw(settings)
+  return settings.visible
+end
+
 local lastMembers, members, medics = 0, 0, 0
 function ELEMENT:Init()
   self:Variable('BgColor', table.Copy(self.colours.BgColor))

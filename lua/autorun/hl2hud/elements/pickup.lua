@@ -237,6 +237,10 @@ local function AddItemToHistory(class)
   AddIconToHistory(HISTSLOT_ITEM, { id = class })
 end
 
+function ELEMENT:ShouldDraw(settings)
+  return settings.visible
+end
+
 function ELEMENT:OnThink(settings)
   for i, icon in pairs(m_PickupHistory) do
     if icon.time > CurTime() then continue end

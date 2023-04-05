@@ -46,6 +46,7 @@ if SERVER then
     @param {boolean|nil} can be ignored by the 'minimal hints' console variable
   ]]--------------------------------------------------------------------
   function HL2HUD.SendHint(hint, _player, skippable)
+    if not hint then return end
     net.Start(HOOK)
     net.WriteBool(true)
     net.WriteString(hint)
@@ -71,6 +72,7 @@ if SERVER then
     @param {boolean|nil} can be ignored by the 'minimal hints' console variable
   ]]--------------------------------------------------------------------
   function HL2HUD.SendHintOnce(hint, _player, delay, skippable)
+    if not hint then return end
     if istable(_player) then
       for _, member in pairs(_player) do
         HL2HUD.SendHintOnce(hint, member)
@@ -144,6 +146,10 @@ local hints = {
   bind = '',
   hint = ''
 }
+
+function ELEMENT:ShouldDraw(settings)
+  return settings.visible
+end
 
 function ELEMENT:Init()
   self:Variable('BgColor', table.Copy(self.colours.BgColor))

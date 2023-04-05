@@ -55,8 +55,8 @@ function PANEL:PopulateFields(cmd)
   self.Delay:SetText(cmd.startTime)
   self.Param:SetText(cmd.param)
   if not cmd.param2 then return end
-  self.Param2:SetText(cmd.param2)
   self.Param:OnSelect(_, cmd.param)
+  self.Param2:SetText(cmd.param2)
 end
 
 --[[------------------------------------------------------------------

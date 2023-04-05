@@ -24,6 +24,10 @@ ELEMENT:Boolean('icon_abspos')
 ELEMENT:Number('icon_xpos')
 ELEMENT:Number('icon_ypos')
 
+function ELEMENT:ShouldDraw(settings)
+  return settings.visible
+end
+
 local m_iAmmo, m_eWeapon = -1, NULL
 function ELEMENT:Init()
 	self:Variable('BgColor', table.Copy(self.colours.BgColor))
@@ -46,8 +50,8 @@ local function GetAmmo()
       return 0, ammo.SecondaryAmmo, true
     end
   end
-  local ammo = weapon:GetSecondaryAmmoType()
-  return ammo, LocalPlayer():GetAmmoCount(ammo)
+  local ammo = weapon:GetSecondaryAmmoType() or 0
+  return ammo, LocalPlayer():GetAmmoCount(ammo) or 0
 end
 
 function ELEMENT:OnThink()

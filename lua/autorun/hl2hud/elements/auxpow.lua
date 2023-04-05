@@ -38,6 +38,10 @@ ELEMENT:String('oxygen')
 ELEMENT:String('flashlight')
 ELEMENT:String('sprint')
 
+function ELEMENT:ShouldDraw(settings)
+  return settings.visible
+end
+
 local lastCount = 0
 local lastPower = 1
 function ELEMENT:Init(settings)

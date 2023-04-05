@@ -25,6 +25,10 @@ ELEMENT:Number('BarChunkGap')
 ELEMENT:Colour('NormalColor')
 ELEMENT:Colour('CautionColor')
 
+function ELEMENT:ShouldDraw(settings)
+  return settings.visible
+end
+
 local EPISODIC
 local m_flFlashBattery
 function ELEMENT:OnThink()

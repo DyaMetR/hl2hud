@@ -12,7 +12,7 @@ HL2HUD.switcher = {} -- namespace
 local MAX_SLOTS = 6 -- maximum number of weapon slots
 
 -- Constants
-local PHYSICS_GUN, CAMERA = 'weapon_physgun', 'gmod_camera'
+local PHYSICS_GUN = 'weapon_physgun'
 local SLOT, INV_PREV, INV_NEXT, ATTACK, ATTACK2, LAST_INV = 'slot', 'invprev', 'invnext', '+attack', '+attack2', 'lastinv'
 local VOLUME = .33
 
@@ -47,6 +47,14 @@ end
 ]]--------------------------------------------------------------------
 local function sortWeaponSlot(a, b)
   return a:GetSlotPos() < b:GetSlotPos()
+end
+
+--[[------------------------------------------------------------------
+  Helper function to determine whether the weapon selector is visible.
+  @return {boolean} is it visible
+]]--------------------------------------------------------------------
+local function isOpen()
+  return HL2HUD.elements.Get('HudWeaponSelection').variables.Alpha > 0
 end
 
 --[[------------------------------------------------------------------
@@ -219,7 +227,7 @@ local function moveCursor(forward)
   if weaponCount <= 0 then return end
 
   -- if slot is out of bounds, get the current weapon's
-  if curSlot <= 0 or HL2HUD.elements.Get('HudWeaponSelection').variables.Alpha <= 0 then
+  if curSlot <= 0 or not isOpen() then
     local weapon = LocalPlayer():GetActiveWeapon()
 
     -- if there are no weapons equipped, start at the first slot
@@ -258,7 +266,7 @@ local function cycleSlot(slot)
   local pos = curPos
 
   -- if slot is new, start from the beginning
-  if curSlot ~= slot then pos = 0 end
+  if curSlot ~= slot or not isOpen() then pos = 0 end
 
   -- search for weapon
   curSlot, curPos = findWeapon(slot, pos, true, true)
@@ -285,11 +293,12 @@ function HL2HUD.switcher.Import()
 end
 
 -- [[ Input ]] --
-local CONVAR_ENABLE = 'hl2hud_enabled'
 local hud_fastswitch = GetConVar('hud_fastswitch')
 UnintrusiveBindPress.add('hl2hud', function(_player, bind, pressed, code)
-  if not GetConVar(CONVAR_ENABLE):GetBool() or not HL2HUD.settings.Get().HudLayout.HudWeaponSelection.visible then return end
-  if hud_fastswitch:GetBool() then return end
+  if not HL2HUD.ShouldDraw() then return end -- don't do anything if HUD is disabled
+  if not HL2HUD.elements.Get('HudWeaponSelection'):ShouldDraw(HL2HUD.settings.Get().HudLayout.HudWeaponSelection) then return end -- does the element want to be drawn?
+  if hud_fastswitch:GetBool() then return end -- let fast switch do its thing
+  if weaponCount <= 0 or not LocalPlayer():Alive() or LocalPlayer():InVehicle() then return end -- ignore if player has no weapons, is dead or in a vehicle
   if not pressed then return end -- ignore if bind was not pressed
   local visible = HL2HUD.elements.Get('HudWeaponSelection').variables.Alpha > 0
 

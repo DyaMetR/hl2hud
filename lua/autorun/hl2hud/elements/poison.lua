@@ -38,6 +38,10 @@ ELEMENT:Number('text_ygap')
 ELEMENT:Font('text_font')
 ELEMENT:String('text')
 
+function ELEMENT:ShouldDraw(settings)
+  return settings.visible
+end
+
 function ELEMENT:Init()
   self:Variable('BgColor', table.Copy(self.colours.BgColor))
   self:Variable('FgColor', table.Copy(self.colours.FgColor))

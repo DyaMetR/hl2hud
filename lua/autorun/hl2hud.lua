@@ -1,7 +1,7 @@
 --[[------------------------------------------------------------------
   Half-Life 2 HUD
-  Version 1.0.2
-  March 31th, 2023
+  Version 1.0.4
+  April 4th, 2023
   Made by DyaMetR
   * full credits found in the details below
 ]]--------------------------------------------------------------------
@@ -15,8 +15,8 @@ if CLIENT then
   -- addon information
   HL2HUD.name				= 'Half-Life 2 HUD'
   HL2HUD.category		= 'DyaMetR'
-  HL2HUD.version		= '1.0.2'
-  HL2HUD.date				= 'March 31th, 2023'
+  HL2HUD.version		= '1.0.4'
+  HL2HUD.date				= 'April 4th, 2023'
   HL2HUD.credits		= { -- {name, contribution}
     {'DyaMetR', 'Developer'},
     {'Valve Corporation', 'Original design\nCounter-Strike scheme design\nHalfLife2\nBoxRocket\nCounter-Strike font'},

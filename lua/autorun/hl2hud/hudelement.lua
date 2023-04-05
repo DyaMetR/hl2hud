@@ -16,8 +16,18 @@ HL2HUD.elements.PARAM_BOOLEAN = 5
 HL2HUD.elements.PARAM_OPTION  = 6
 
 local elements = {} -- registered HUD elements
+local hidden = {} -- default HUD elements being hidden (and who hides them)
 
 local ELEMENT = { i = 0, parameters = {}, fonts = {}, variables = {} }
+
+--[[------------------------------------------------------------------
+  Sets whether this element should be drawn on PostDraw instead, to
+  override HUDShouldDraw.
+  @param {boolean} set to be drawn on the overlay
+]]--------------------------------------------------------------------
+function ELEMENT:SetDrawOnTop(draw)
+  self.OnTop = draw
+end
 
 --[[------------------------------------------------------------------
   Declares a new blank parameter.
@@ -115,9 +125,24 @@ end
 function ELEMENT:Init(settings) end
 
 --[[------------------------------------------------------------------
-  Ran alongside the Paint function. Reserved for animation logic.
+  Returns whether the HUD element should be drawn, replacing its
+  default counterpart.
+  @param {table} element settings
+  @return {boolean} should draw
 ]]--------------------------------------------------------------------
-function ELEMENT:OnThink() end
+function ELEMENT:ShouldDraw(settings) return true end
+
+--[[------------------------------------------------------------------
+  Called before drawing the element outside of a rendering context.
+  @param {table} element settings
+]]--------------------------------------------------------------------
+function ELEMENT:PreDraw(settings) end
+
+--[[------------------------------------------------------------------
+  Ran alongside the Paint function. Reserved for animation logic.
+  @param {table} element settings
+]]--------------------------------------------------------------------
+function ELEMENT:OnThink(settings) end
 
 --[[------------------------------------------------------------------
   Paints the HUD on the screen.
@@ -140,7 +165,7 @@ function HL2HUD.elements.Register(name, hide)
   element.i = table.Count(elements)
   element.colours = settings.ClientScheme.Colors
   element.icons = settings.HudTextures
-  element:Boolean('visible')
+  hidden[hide] = element
   return element
 end
 
@@ -169,4 +194,22 @@ end
 ]]--------------------------------------------------------------------
 function HL2HUD.elements.All()
   return elements
+end
+
+--[[------------------------------------------------------------------
+  Returns the element table which is replacing the given CHud element.
+  @param {string} CHud element name
+  @return {table} replacer
+]]--------------------------------------------------------------------
+function HL2HUD.elements.CHudReplacer(hide)
+  return hidden[hide]
+end
+
+--[[------------------------------------------------------------------
+  Creates an iterator for the elements.
+  @return {function} iterator function
+  @return {table} table used by the iterator
+]]--------------------------------------------------------------------
+function HL2HUD.elements.Iterator()
+  return SortedPairsByMemberValue(elements, 'i', true)
 end
