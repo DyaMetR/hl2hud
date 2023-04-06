@@ -263,7 +263,7 @@ function ELEMENT:Draw(settings, scale)
       if not IsValid(pickup.weapon) then continue end
       local icon = database.Weapons[pickup.weapon:GetClass()]
       if not icon then
-        if not pickup.weapon:IsScripted() then continue end
+        if not pickup.weapon:IsScripted() or not pickup.weapon.DrawWeaponSelection then continue end
         local bounce = pickup.weapon.BounceWeaponIcon
         local info = pickup.weapon.DrawWeaponInfoBox
         pickup.weapon.BounceWeaponIcon = false

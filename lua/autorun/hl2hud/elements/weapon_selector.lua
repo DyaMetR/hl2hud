@@ -37,8 +37,9 @@ function ELEMENT:Init()
   self:Variable('SelectionAlpha', 0)
 end
 
+local hud_fastswitch = GetConVar('hud_fastswitch')
 function ELEMENT:ShouldDraw(settings)
-  return settings.visible
+  return settings.visible and not hud_fastswitch:GetBool()
 end
 
 function ELEMENT:OnThink()
@@ -106,7 +107,7 @@ function ELEMENT:Draw(settings, scale)
                 weapon.DrawWeaponInfoBox = false
               end
               local icoY = offset
-              if AUTOICONS then icoY = offset - 16 * scale end
+              if AUTOICONS then icoY = offset - 16 * scale end -- AutoIcons support
               weapon:DrawWeaponSelection(x, icoY, boxW, boxH, alpha)
               weapon.BounceWeaponIcon = bounce
               weapon.DrawWeaponInfoBox = info

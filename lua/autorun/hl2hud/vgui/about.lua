@@ -6,11 +6,13 @@ local PANEL = {}
 local URL_STEAM   = 'https://steamcommunity.com/id/dyametr/myworkshopfiles/'
 local URL_GITHUB  = 'https://github.com/DyaMetR/hl2hud'
 
-local LOCALE_AUTHOR     = '%s presents'
+local LOCALE_AUTHOR     = 'by %s'
 local LOCALE_VERSION    = 'Version %s'
 local LOCALE_THANKS     = 'Thank you very much for downloading and using %s.'
 local LOCALE_DISCLAIMER = 'All third-party fonts and designs belong to their original owners.'
 local LOCALE_COPYRIGHT  = 'No copyright infringement intended.'
+local LOCALE_WORKSHOP   = 'Check out the rest of my Workshop!'
+local LOCALE_REPOSITORY = 'GitHub repository'
 
 -- title font
 surface.CreateFont('hl2hud_about_title', {
@@ -30,20 +32,12 @@ surface.CreateFont('hl2hud_about_subtitle', {
 ]]--------------------------------------------------------------------
 function PANEL:Init()
   local header = vgui.Create('DImage', self)
-  header:SetTall(130)
+  header:SetTall(154)
   header:Dock(TOP)
-  header:DockPadding(0, 12, 0, 0)
+  header:DockPadding(0, 24, 0, 0)
   header:SetImage('hl2hud/background0.png')
   header:SetImageColor(Color(144, 144, 144))
   header:SetKeepAspect(true)
-
-    local author = vgui.Create('DLabel', header)
-    author:SetFont('DermaDefaultBold')
-    author:SetText(string.format(LOCALE_AUTHOR, 'DyaMetR'))
-    author:SizeToContents()
-    author:Dock(TOP)
-    author:DockMargin(0, 0, 0, 8)
-    author:SetContentAlignment(8)
 
     local title = vgui.Create('DLabel', header)
     title:SetFont('hl2hud_about_title')
@@ -66,15 +60,27 @@ function PANEL:Init()
     version:Dock(TOP)
     version:SetContentAlignment(8)
 
+    local author = vgui.Create('DLabel', header)
+    author:SetText(string.format(LOCALE_AUTHOR, 'DyaMetR'))
+    author:SizeToContents()
+    author:Dock(LEFT)
+    author:DockMargin(8, 14, 0, 0)
+
+    local date = vgui.Create('DLabel', header)
+    date:SetText(HL2HUD.date)
+    date:SizeToContents()
+    date:Dock(RIGHT)
+    date:DockMargin(0, 14, 8, 0)
+
   local contents = vgui.Create('Panel', self)
   contents:Dock(FILL)
-  contents:DockMargin(16, 16, 16, 16)
+  contents:DockMargin(8, 10, 8, 0)
 
     local thanks = vgui.Create('DLabel', contents)
     thanks:SetText(string.format(LOCALE_THANKS, HL2HUD.name))
     thanks:SizeToContents()
     thanks:Dock(TOP)
-    thanks:DockMargin(0, 0, 0, 18)
+    thanks:DockMargin(0, 0, 0, 12)
 
     local disclaimer = vgui.Create('DLabel', contents)
     disclaimer:SetText(LOCALE_DISCLAIMER)
@@ -91,15 +97,10 @@ function PANEL:Init()
   local footer = vgui.Create('Panel', self)
   footer:SetTall(32)
   footer:Dock(BOTTOM)
-  footer:DockMargin(8, 0, 4, 4)
-
-    local date = vgui.Create('DLabel', footer)
-    date:SetText(HL2HUD.date)
-    date:SizeToContents()
-    date:Dock(LEFT)
-    date:DockMargin(0, 14, 0, 0)
+  footer:DockMargin(4, 0, 4, 4)
 
     local steam = vgui.Create('DImageButton', footer)
+    steam:SetTooltip(LOCALE_WORKSHOP)
     steam:SetWide(32)
     steam:Dock(RIGHT)
     steam:DockMargin(8, 0, 0, 0)
@@ -107,12 +108,13 @@ function PANEL:Init()
     steam.DoClick = function() gui.OpenURL(URL_STEAM) end
 
     local github = vgui.Create('DImageButton', footer)
+    github:SetTooltip(LOCALE_REPOSITORY)
     github:SetWide(32)
     github:Dock(RIGHT)
     github:SetImage('hl2hud/github32.png')
     github.DoClick = function() gui.OpenURL(URL_GITHUB) end
 
-  self:SetSize(480, 310)
+  self:SetSize(480, 290)
   self:SetDraggable(false)
   self:SetBackgroundBlur(true)
   self:MakePopup()
