@@ -10,6 +10,8 @@ ELEMENT:Boolean('visible')
 ELEMENT:Font('font')
 ELEMENT:String('crosshair')
 ELEMENT:Colour('color')
+ELEMENT:Number('xoffset')
+ELEMENT:Number('yoffset')
 
 local override = false
 
@@ -24,7 +26,7 @@ function ELEMENT:PreDraw(settings)
 end
 
 function ELEMENT:ShouldDraw(settings)
-  local inVehicle, vehicle, weapon = LocalPlayer():InVehicle(), LocalPlayer():GetVehicle()
+  local inVehicle, vehicle = LocalPlayer():InVehicle(), LocalPlayer():GetVehicle()
   if (inVehicle and vehicle:GetClass() ~= CLASS_AIRBOAT) or LocalPlayer():IsFrozen() or not CROSSHAIR_CONVAR:GetBool() then return false end
   return settings.visible and not override
 end
@@ -33,6 +35,7 @@ function ELEMENT:Draw(settings, scale)
   local x, y = ScrW() * .5, ScrH() * .5
 
   -- change crosshair position while driving the airboat
+  local inVehicle, vehicle = LocalPlayer():InVehicle(), LocalPlayer():GetVehicle()
   if inVehicle and vehicle:GetClass() == CLASS_AIRBOAT and not LocalPlayer():GetAllowWeaponsInVehicle() then
     -- nullify one of the angles
     local ang = vehicle:GetAngles()
@@ -45,5 +48,5 @@ function ELEMENT:Draw(settings, scale)
   end
 
   -- draw crosshair
-  draw.SimpleText(settings.crosshair, self.fonts.font, x, y, self.colours[settings.color], TEXT_ALIGN_CENTER, TEXT_ALIGN_CENTER)
+  draw.SimpleText(settings.crosshair, self.fonts.font, x + settings.xoffset * scale, y + settings.yoffset * scale, self.colours[settings.color], TEXT_ALIGN_CENTER, TEXT_ALIGN_CENTER)
 end

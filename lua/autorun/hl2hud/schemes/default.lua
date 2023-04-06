@@ -221,7 +221,9 @@ SCHEME:Layout({
     visible = true,
     font = 'Crosshairs',
     crosshair = 'Q',
-    color = 'ZoomReticleColor'
+    color = 'ZoomReticleColor',
+    xoffset = 0,
+    yoffset = 0
   },
   HudVehicle = {
     visible = true,
