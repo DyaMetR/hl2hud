@@ -20,14 +20,19 @@ function ELEMENT:PreDraw(settings)
   local localPlayer = LocalPlayer()
   if not IsValid(localPlayer) then return end
   local weapon = localPlayer:GetActiveWeapon()
-  if not IsValid(weapon) or not weapon:IsScripted() or not weapon.DoDrawCrosshair then return end
-  if not weapon.DrawCrosshair then override = true end
+  if not IsValid(weapon) or not weapon:IsScripted() then return end
+  if not weapon.DrawCrosshair then
+    override = true
+    return
+  end
+  if not weapon.DoDrawCrosshair then return end
   override = weapon:DoDrawCrosshair(0, 0) or false
 end
 
 function ELEMENT:ShouldDraw(settings)
-  local inVehicle, vehicle = LocalPlayer():InVehicle(), LocalPlayer():GetVehicle()
-  if (inVehicle and vehicle:GetClass() ~= CLASS_AIRBOAT) or LocalPlayer():IsFrozen() or not CROSSHAIR_CONVAR:GetBool() then return false end
+  local localPlayer = LocalPlayer()
+  local inVehicle, vehicle = localPlayer:InVehicle(), localPlayer:GetVehicle()
+  if (inVehicle and vehicle:GetClass() ~= CLASS_AIRBOAT) or localPlayer:IsFrozen() or not CROSSHAIR_CONVAR:GetBool() then return false end
   return settings.visible and not override
 end
 
