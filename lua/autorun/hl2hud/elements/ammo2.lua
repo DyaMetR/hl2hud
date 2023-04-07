@@ -43,6 +43,7 @@ end
 local function GetAmmo()
   if LocalPlayer():InVehicle() then return 0, 0 end
   local weapon = LocalPlayer():GetActiveWeapon()
+  if not IsValid(weapon) then return 0, 0 end
   if weapon:IsScripted() then
     if weapon.DrawAmmo == false then return 0, 0 end
     local ammo = weapon:CustomAmmoDisplay()
