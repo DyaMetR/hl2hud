@@ -134,7 +134,7 @@ hook.Add('HUDPaint', HL2HUD.hookname, function()
 end)
 
 -- [[ Draw HUD elements overriding HUDShouldDraw ]] --
-hook.Add('PostDrawHUD', HL2HUD.hookname, function()
+hook.Add('DrawOverlay', HL2HUD.hookname, function()
   if not HL2HUD.ShouldDraw() then return end
   if gui.IsGameUIVisible() then return end
   local localPlayer = LocalPlayer()

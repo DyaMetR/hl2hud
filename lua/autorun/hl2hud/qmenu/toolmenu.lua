@@ -9,6 +9,7 @@ local LOCALE_ENABLE         = 'Enabled'
 local LOCALE_NOSUIT         = 'Draw without suit'
 local LOCALE_HIDECHUD       = 'Keep CHud elements hidden'
 local LOCALE_MINIMAL_HINTS  = 'Minimal hints'
+local LOCALE_LIMITER        = 'Limit scale (up to 1440p)'
 local LOCALE_SCHEMES        = 'Schemes'
 local LOCALE_RESET          = 'Reset scheme to default'
 local LOCALE_EDIT           = 'Edit current scheme'
@@ -33,6 +34,7 @@ hook.Add('PopulateToolMenu', UID, function()
     panel:CheckBox(LOCALE_NOSUIT, 'hl2hud_nosuit')
     panel:CheckBox(LOCALE_HIDECHUD, 'hl2hud_alwayshide')
     panel:CheckBox(LOCALE_MINIMAL_HINTS, 'hl2hud_minimalhints')
+    panel:CheckBox(LOCALE_LIMITER, 'hl2hud_limitscale')
 
     -- list of schemes
     local schemes = vgui.Create('Panel')

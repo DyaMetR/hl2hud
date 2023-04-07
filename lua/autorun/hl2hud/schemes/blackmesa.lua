@@ -11,6 +11,7 @@ SCHEME:Scheme({
   BgColor = Color(0, 0, 0, 0),
   BrightBg = Color(0, 0, 0, 0),
   DamagedFg = Color(255, 0, 0),
+  DamagedBg = Color(0, 0, 0, 0),
   BrightDamagedFg = Color(255, 0, 0),
   SelectionNumberFg = Color(255, 220, 0),
   SelectionTextFg = Color(0, 0, 0, 0),
@@ -29,11 +30,12 @@ SCHEME:Scheme({
 SCHEME:Font('WeaponIcons', 'HalfLife2', 48, 1000, true, 0, 1)
 SCHEME:Font('WeaponIconsSelected', 'HalfLife2', 48, 1000, true, 6, 1)
 SCHEME:Font('WeaponIconsSmall', 'HalfLife2', 32, 0, true, 0, 1)
-SCHEME:Font('AuxPowerIcon', 'HalfLife2', 24, 1000, true, 0, 1)
+SCHEME:Font('AuxPowerIcon', 'HalfLife2', 20, 0, true, 0, 1)
 SCHEME:Font('HudNumbers', 'Alte DIN 1451 Mittelschrift', 32, 1000, true, 0, 1)
 SCHEME:Font('HudNumbersGlow', 'Alte DIN 1451 Mittelschrift', 32, 1000, true, 4, 1)
 SCHEME:Font('HudNumbersSmall', 'Alte DIN 1451 Mittelschrift', 16, 1000, true, 0, 1)
-SCHEME:Font('HudHintTextSmall', 'Impact', 32, 1000, true, 0, 1)
+SCHEME:Font('HudHintTextSmall', 'Alte DIN 1451 Mittelschrift', 9, 1000, true, 0, 1)
+SCHEME:Font('HudCross', 'Impact', 32, 0, true, 0, 1)
 SCHEME:Font('HudBattery', 'Counter-Strike', 24, 0, true, 0, 1)
 SCHEME:Font('HudSelectionNumbers', 'Alte DIN 1451 Mittelschrift', 11, 700)
 
@@ -47,7 +49,8 @@ SCHEME:Layout({
     digit_align = 2,
     text_xpos = 44,
     text_ypos = 1,
-    text = '+'
+    text = '+',
+    text_font = 'HudCross'
   },
   HudSuit = {
     xpos = 86,
@@ -103,14 +106,14 @@ SCHEME:Layout({
   },
   HudSuitPower = {
     xpos = 24,
-    ypos = 40,
+    ypos = 42,
     wide = 124,
     text_xpos = 4,
-    text_ypos = 1,
+    text_ypos = 3,
     font = 'AuxPowerIcon',
     text = '*',
     text2_ypos = 32,
-    BarInsetX = 20
+    BarInsetX = 18
   },
   HudSquadStatus = {
     xpos = 30,
@@ -224,7 +227,16 @@ SCHEME:Animations({
   SuitAuxPowerNoItemsActive = {},
   SuitAuxPowerOneItemActive = {},
   SuitAuxPowerTwoItemsActive = {},
-  SuitAuxPowerThreeItemsActive = {}
+  SuitAuxPowerThreeItemsActive = {},
+  PoisonDamageTaken = {
+    { 'Animate', 'HudPoisonDamageIndicator', 'FgColor', 'BrightFg', 'Linear', 0, 0 },
+    { 'RunEvent', 'PoisonPulse', 0 }
+  },
+  PoisonPulse = {
+    { 'Animate', 'HudPoisonDamageIndicator', 'Alpha', 255, 'Linear', 0, .75 },
+    { 'Animate', 'HudPoisonDamageIndicator', 'Alpha', 0, 'Linear', .75, 1.25 },
+    { 'RunEvent', 'PoisonLoop', 2 }
+  }
 })
 
 -- same sized ammunition icons

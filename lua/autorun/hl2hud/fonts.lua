@@ -8,7 +8,9 @@ local fonts = {} -- registered fonts
   Returns the HUD scale.
   @return {number} scale
 ]]--------------------------------------------------------------------
+local hl2hud_limiter = CreateClientConVar('hl2hud_limitscale', 1)
 function HL2HUD.Scale()
+  if hl2hud_limiter:GetBool() then return math.min(ScrH(), 1440) / 480 end
   return ScrH() / 480
 end
 
