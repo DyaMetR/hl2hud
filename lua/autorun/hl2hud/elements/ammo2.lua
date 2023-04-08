@@ -28,7 +28,7 @@ function ELEMENT:ShouldDraw(settings)
   return settings.visible
 end
 
-local m_iAmmo, m_iType = -1, 0
+local m_iAmmo, m_eWeapon = -1, NULL
 function ELEMENT:Init()
 	self:Variable('BgColor', table.Copy(self.colours.BgColor))
 	self:Variable('FgColor', table.Copy(self.colours.FgColor))
@@ -37,28 +37,19 @@ function ELEMENT:Init()
   self:Variable('Blur', 0)
   self:Variable('Alpha', 0)
   m_iAmmo = -1
-  m_iType = 0
+  m_eWeapon = NULL
 end
 
 local function GetAmmo()
-  if LocalPlayer():InVehicle() then return 0, 0 end
+  if LocalPlayer():InVehicle() then return 0, 0, LocalPlayer():GetVehicle() end
   local weapon = LocalPlayer():GetActiveWeapon()
-  if not IsValid(weapon) then return 0, 0 end
-  if weapon:IsScripted() then
-    if weapon.DrawAmmo == false then return 0, 0 end
-    local ammo = weapon:CustomAmmoDisplay()
-    if ammo then
-      if not ammo.Draw then return 0, 0 end
-      if not ammo.SecondaryAmmo then return 0, 0 end
-      return 0, ammo.SecondaryAmmo, true
-    end
-  end
+  if not IsValid(weapon) then return 0, 0, NULL end
   local ammo = weapon:GetSecondaryAmmoType() or 0
-  return ammo, LocalPlayer():GetAmmoCount(ammo) or 0
+  return ammo, LocalPlayer():GetAmmoCount(ammo) or 0, weapon
 end
 
 function ELEMENT:OnThink()
-  local ammotype, ammo, custom = GetAmmo()
+  local ammotype, ammo, weapon = GetAmmo()
 
   -- ammo changed
   if m_iAmmo ~= ammo then
@@ -73,13 +64,13 @@ function ELEMENT:OnThink()
   end
 
   -- weapon changed
-	if ammotype ~= m_iType then
-    if ammotype <= 0 and not custom then
+	if weapon ~= m_eWeapon then
+    if ammotype <= 0 then
       HL2HUD.animations.StartAnimationSequence('WeaponDoesNotUseSecondaryAmmo')
     else
       HL2HUD.animations.StartAnimationSequence('WeaponUsesSecondaryAmmo')
     end
-    m_iType = ammotype
+    m_eWeapon = weapon
   end
 end
 

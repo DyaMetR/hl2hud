@@ -40,6 +40,7 @@ HL2HUD.include('vgui/textures/dtexturelist.lua')
 
 HL2HUD.include('qmenu/menu.lua')
 HL2HUD.include('qmenu/toolmenu.lua')
+HL2HUD.include('qmenu/contextmenu.lua')
 
 HL2HUD.include('elements/health.lua')
 HL2HUD.include('elements/battery.lua')

@@ -2,14 +2,15 @@ if SERVER then return end
 
 HL2HUD.toolmenu = HL2HUD.toolmenu or {}
 
-local CATEGORY = 'Options'
+local CATEGORY = 'Utilities'
 local UID = 'hl2hud'
 
 local LOCALE_ENABLE         = 'Enabled'
 local LOCALE_NOSUIT         = 'Draw without suit'
 local LOCALE_HIDECHUD       = 'Keep CHud elements hidden'
 local LOCALE_MINIMAL_HINTS  = 'Minimal hints'
-local LOCALE_LIMITER        = 'Limit scale (up to 1440p)'
+local LOCALE_LIMITER        = 'Limit scale (up to %ip)'
+local LOCALE_WARNING        = 'Some things may stop working properly past %ip! Disable at your own risk.'
 local LOCALE_SCHEMES        = 'Schemes'
 local LOCALE_RESET          = 'Reset scheme to default'
 local LOCALE_EDIT           = 'Edit current scheme'
@@ -26,15 +27,20 @@ local LOCALE_MODAL_CANCEL		= 'Cancel'
 -- populate tool menu
 hook.Add('PopulateToolMenu', UID, function()
   -- add option
-  spawnmenu.AddToolMenuOption(CATEGORY, HL2HUD.category, UID, HL2HUD.name, nil, nil, function(panel)
+  spawnmenu.AddToolMenuOption(CATEGORY, HL2HUD.name, UID, 'Settings', nil, nil, function(panel)
     panel:ClearControls()
+
+    -- change scale limit depending on OS
+    local limit = 1440
+    if system.IsLinux() then limit = 1080 end
 
     -- parameters
     panel:CheckBox(LOCALE_ENABLE, 'hl2hud_enabled')
     panel:CheckBox(LOCALE_NOSUIT, 'hl2hud_nosuit')
     panel:CheckBox(LOCALE_HIDECHUD, 'hl2hud_alwayshide')
     panel:CheckBox(LOCALE_MINIMAL_HINTS, 'hl2hud_minimalhints')
-    panel:CheckBox(LOCALE_LIMITER, 'hl2hud_limitscale')
+    panel:CheckBox(string.format(LOCALE_LIMITER, limit), 'hl2hud_limitscale')
+    panel:ControlHelp(string.format(LOCALE_WARNING, limit))
 
     -- list of schemes
     local schemes = vgui.Create('Panel')
