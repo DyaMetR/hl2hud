@@ -138,9 +138,11 @@ end
   @param {boolean} antialias
 ]]--------------------------------------------------------------------
 function PANEL:SetFont(font, size, weight, additive, blur, scanlines, symbol, scalable, antialias)
+	local bold = false
+	if weight then bold = weight >= 1000 end
 	self.Font:SetText(font)
 	self.Size:SetText(size)
-	self.Weight:SetToggle(weight >= 1000)
+	self.Weight:SetToggle(bold)
 	self.Additive:SetToggle(additive)
 	self.Blur:SetText(blur or 0)
 	self.Scanlines:SetText(scanlines or 0)

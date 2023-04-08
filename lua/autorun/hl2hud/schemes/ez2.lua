@@ -17,8 +17,11 @@ SCHEME:Scheme({
 })
 
 SCHEME:Font('WeaponIconsMP', 'HL2MP', 64, 0, true)
-SCHEME:Font('WeaponIconsSelected', 'HL2MP', 64, 0, true, 5)
+SCHEME:Font('WeaponIconsSelected', 'HL2MP', 64, 0, true, 2)
 SCHEME:Font('WeaponIconsSmallMP', 'HL2MP', 32, 0, true)
+SCHEME:Font('EZ2', 'ez2_hud', 56, 0, true)
+SCHEME:Font('EZ2Selected', 'ez2_hud', 56, 0, true, 2)
+SCHEME:Font('EZ2Small', 'ez2_hud', 24, 0, true)
 SCHEME:Font('HudNumbers', 'Frak', 32, 0, true)
 SCHEME:Font('HudNumbersGlow', 'Frak', 32, 0, true, 4, 2)
 SCHEME:Font('HudNumbersSmall', 'Frak', 16, 1000, true)
@@ -82,12 +85,41 @@ SCHEME:Animations({
   }
 })
 
+local WEAPONS = {
+  weapon_stunstick = 'a',
+  weapon_pistol = 'b',
+  weapon_357 = 'd',
+  weapon_smg1 = 'e',
+  weapon_ar2 = 'g',
+  weapon_shotgun = 'h',
+  weapon_crossbow = 'l',
+  weapon_rpg = 'i',
+  weapon_frag = 'm',
+  weapon_slam = 'j'
+}
+
 for id, _ in pairs(HL2HUD.utils.DefaultIcons.ammo) do
-  local weapon = HL2HUD.utils.AltIcons[HL2HUD.utils.DefaultIcons.ammoWeapon[id]]
-  if weapon then SCHEME:AmmoWeaponIcon(id, 'WeaponIconsSmallMP', weapon, -4, 6) end
+  local class, font = HL2HUD.utils.DefaultIcons.ammoWeapon[id], 'WeaponIconsSmallMP'
+  local x, y = -4, 6
+  local weapon = HL2HUD.utils.AltIcons[class]
+  if WEAPONS[class] then
+    weapon = WEAPONS[class]
+    font = 'EZ2Small'
+    x = 0
+    y = 0
+  end
+  if weapon then SCHEME:AmmoWeaponIcon(id, font, weapon, x, y) end
 end
 for class, icon in pairs(HL2HUD.utils.AltIcons) do
-  SCHEME:WeaponIcon(class, 'WeaponIconsMP', icon, 'WeaponIconsSelected', nil, nil, 12)
+  local font1, font2 = 'WeaponIconsMP', 'WeaponIconsSelected'
+  local offset = 12
+  if WEAPONS[class] then
+    icon = WEAPONS[class]
+    font1 = 'EZ2'
+    font2 = 'EZ2Selected'
+    offset = 0
+  end
+  SCHEME:WeaponIcon(class, font1, icon, font2, nil, nil, offset)
 end
 
 HL2HUD.scheme.Register('Entropy Zero 2', SCHEME)

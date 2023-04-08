@@ -69,6 +69,7 @@ HL2HUD.include('schemes/compact.lua')
 -- Sourcemod schemes
 HL2HUD.include('schemes/ez.lua')
 HL2HUD.include('schemes/ez2.lua')
+HL2HUD.include('schemes/gstring.lua')
 HL2HUD.include('schemes/eleveneightyseven.lua')
 HL2HUD.include('schemes/smod.lua')
 HL2HUD.include('schemes/cdestiny.lua')

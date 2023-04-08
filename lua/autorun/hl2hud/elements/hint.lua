@@ -79,6 +79,7 @@ if SERVER then
       end
       return
     end
+    if not _player.HL2HUD_HintOnce then _player.HL2HUD_HintOnce = {} end
     if _player.HL2HUD_HintOnce[hint] then return end
     timer.Simple(delay or 0, function()
       if not IsValid(_player) then return end
@@ -86,11 +87,6 @@ if SERVER then
     end)
     _player.HL2HUD_HintOnce[hint] = true
   end
-
-  -- [[ Initiailize weapon hint table ]] --
-  hook.Add('PlayerInitialSpawn', HOOK, function(_player)
-    _player.HL2HUD_HintOnce = {}
-  end)
 
   -- [[ Receive hint from trigger ]] --
   local ENT_CLASS, IN_SHOW = 'env_hudhint', 'ShowHudHint'

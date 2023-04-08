@@ -60,15 +60,10 @@ if SERVER then
     net.Send(_player)
   end
 
-  -- [[ Initialize FULL message delay table ]] --
-  hook.Add('PlayerInitialSpawn', NET, function(_player)
-    if _player.HL2HUD_Full then return end
-    _player.HL2HUD_Full = {}
-  end)
-
   -- [[ Check whether the player is full on a weapon's ammunition ]] --
   hook.Add('PlayerCanPickupWeapon', NET, function(_player, weapon)
     if not IsValid(weapon) or weapon:GetPrimaryAmmoType() <= 0 then return end
+    if not _player.HL2HUD_Full then _player.HL2HUD_Full = {} end
     local ammoType = game.GetAmmoName(weapon:GetPrimaryAmmoType())
     if _player.HL2HUD_Full[ammoType] and _player.HL2HUD_Full[ammoType] > CurTime() then return end
     SendAmmoDeniedMessage(_player, ammoType)
@@ -78,6 +73,7 @@ if SERVER then
   -- [[ Check if the picked up item was an ammo box, and if the player is maxed out on its ammo ]] --
   hook.Add('PlayerCanPickupItem', NET, function(_player, item)
     if not IsValid(item) or not ammoEnts[item:GetClass()] then return end
+    if not _player.HL2HUD_Full then _player.HL2HUD_Full = {} end
     local ammoType = ammoEnts[item:GetClass()]
     if _player.HL2HUD_Full[ammoType] and _player.HL2HUD_Full[ammoType] > CurTime() then return end
     SendAmmoDeniedMessage(_player, ammoType)
