@@ -50,12 +50,22 @@ function ELEMENT:Init()
   self:Variable('Alpha', 0)
 end
 
+local m_bFakeCured = false
 local m_flPoisonCureTime, m_bPoisoned = 0, false
 function ELEMENT:OnThink()
   if not m_bPoisoned then return end
-  if m_flPoisonCureTime < CurTime() or not LocalPlayer():Alive() then
+  local localPlayer = LocalPlayer()
+  if m_flPoisonCureTime < CurTime() or not localPlayer:Alive() then
     HL2HUD.animations.StartAnimationSequence('PoisonDamageCured')
     m_bPoisoned = false
+    return
+  end
+  if localPlayer:Health() >= localPlayer:GetMaxHealth() and not m_bFakeCured then
+    HL2HUD.animations.StartAnimationSequence('PoisonDamageCured')
+    m_bFakeCured = true
+  elseif localPlayer:Health() < localPlayer:GetMaxHealth() and m_bFakeCured then
+    HL2HUD.animations.StartAnimationSequence('PoisonDamageTaken')
+    m_bFakeCured = false
   end
 end
 

@@ -577,5 +577,49 @@ SCHEME:EntityPickup('item_healthkit', 'WeaponIcons', '+')
 SCHEME:EntityPickup('item_battery', 'WeaponIcons', '*')
 SCHEME:AmmoIcon('slam', 'WeaponIconsSmallMP', HL2HUD.utils.AltIcons.weapon_slam, nil, 9)
 SCHEME:AmmoPickup('slam', 'WeaponIconsSmallMP', HL2HUD.utils.AltIcons.weapon_slam)
+SCHEME:WeaponSprite('weapon_annabelle', surface.GetTextureID('sprites/w_icons2'), 256, 256, 0, 128, 128, 192, 0, 0, false)
+SCHEME:WeaponSelectedSprite('weapon_annabelle', surface.GetTextureID('sprites/w_icons2b'), 256, 256, 0, 128, 128, 192, 0, 0, false)
+
+-- [[ Half-Life: Source icons ]]
+local HUD1, HUD2, HUD3, HUD4, HUD5, HUD6, HUD7 = surface.GetTextureID('sprites/640hud1'), surface.GetTextureID('sprites/640hud2'), surface.GetTextureID('sprites/640hud3'), surface.GetTextureID('sprites/640hud4'), surface.GetTextureID('sprites/640hud5'), surface.GetTextureID('sprites/640hud6'), surface.GetTextureID('sprites/640hud7')
+local W, H, AY, AW, AH = 170, 45, 74, 24, 23
+local WEAPONS = {
+  weapon_crowbar_hl1 = { 0, HUD1, HUD4 },
+  weapon_glock_hl1 = { 1, HUD1, HUD4 },
+  weapon_357_hl1 = { 2, HUD1, HUD4 },
+  weapon_mp5_hl1 = { 3, HUD1, HUD4 },
+  weapon_shotgun_hl1 = { 4, HUD1, HUD4 },
+  weapon_crossbow_hl1 = { 0, HUD2, HUD5 },
+  weapon_rpg_hl1 = { 1, HUD2, HUD5 },
+  weapon_gauss = { 2, HUD2, HUD5 },
+  weapon_egon = { 3, HUD2, HUD5 },
+  weapon_hornetgun = { 4, HUD2, HUD5 },
+  weapon_handgrenade = { 0, HUD3, HUD6 },
+  weapon_satchel = { 1, HUD3, HUD6 },
+  weapon_tripmine = { 2, HUD3, HUD6 },
+  weapon_snark = { 3, HUD3, HUD6 }
+}
+local AMMOTYPES = {
+  ['9mmRound'] = { 0, 0 },
+  ['357Round'] = { 0, 1 },
+  MP5_Grenade = { 0, 2 },
+  BuckshotHL1 = { 0, 3 },
+  XBowBoltHL1 = { 0, 4 },
+  RPG_Rocket = { 0, 5 },
+  Uranium = { 1, 0 },
+  Hornet = { 1, 1 },
+  GrenadeHL1 = { 1, 2 },
+  Satchel = { 1, 3 },
+  Snark = { 1, 4 },
+  TripMine = { 1, 5 }
+}
+for class, icon in pairs(WEAPONS) do
+  SCHEME:WeaponSprite(class, icon[2], 256, 256, 0, H * icon[1], W, H * (icon[1] + 1), 0, 0, false)
+  SCHEME:WeaponSelectedSprite(class, icon[3], 256, 256, 0, H * icon[1], W, H * (icon[1] + 1), 0, 0, false)
+end
+for ammotype, icon in pairs(AMMOTYPES) do
+  SCHEME:AmmoPickupSprite(ammotype, HUD7, 256, 128, AW * icon[2], AY + AH * icon[1], AW * (icon[2] + 1), AY + AH * (icon[1] + 1), 0, 1, false)
+  SCHEME:AmmoSprite(ammotype, HUD7, 256, 128, AW * icon[2], AY + AH * icon[1], AW * (icon[2] + 1), AY + AH * (icon[1] + 1), 0, 2, false)
+end
 
 HL2HUD.scheme.Register('Default', SCHEME)

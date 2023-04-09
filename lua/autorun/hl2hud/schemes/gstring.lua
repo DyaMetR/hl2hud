@@ -25,8 +25,8 @@ SCHEME:Font('HudNumbers', 'Birdman', 25, 122, true, 0, 2)
 SCHEME:Font('HudNumbersGlow', 'Birdman', 25, 0, true, 4, 2)
 SCHEME:Font('HudNumbersSmall', 'Birdman', 16, 1000, true, 0, 2)
 SCHEME:Font('HudSelectionNumbers', 'Birdman', 9, 1000, true, 0, 2)
-SCHEME:Font('HudHintTextSmall', 'Birdman', 11, 211, true)
-SCHEME:Font('HudSelectionText', 'whitrabt', 5)
+SCHEME:Font('HudHintTextSmall', 'Birdman', 11, 211, true, 0, 2)
+SCHEME:Font('HudSelectionText', 'whitrabt', 5, 0, false, 0, 2)
 
 SCHEME:Layout({
   HudHealth = {
@@ -173,7 +173,8 @@ SCHEME:Animations({
     { 'StopPanelAnimations', 'HudAmmoSecondary', 0 },
     { 'Animate', 'HudAmmoSecondary', 'Alpha', 0, 'Linear', 0, .1 }
   },
-  SuitAuxPowerNotMax = {}
+  SuitAuxPowerNotMax = {},
+  SquadStatusShow = {}
 })
 
 for weapon, _ in pairs(HL2HUD.scheme.GetDefault().HudTextures.Selected) do
