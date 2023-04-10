@@ -1,6 +1,6 @@
 --[[------------------------------------------------------------------
   Half-Life 2 HUD
-  Version 1.2.2
+  Version 1.2.3
   April 10th, 2023
   Made by DyaMetR
   * full credits found in the details below
@@ -14,7 +14,7 @@ HL2HUD.hookname			= 'hl2hud'
 if CLIENT then
   -- addon information
   HL2HUD.name				= 'Half-Life 2 HUD'
-  HL2HUD.version		= '1.2.2'
+  HL2HUD.version		= '1.2.3'
   HL2HUD.date				= 'April 10th, 2023'
   HL2HUD.credits		= { -- {name, contribution}
     {'DyaMetR', 'Developer'},
