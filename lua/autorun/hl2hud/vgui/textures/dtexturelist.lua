@@ -14,7 +14,7 @@ function PANEL:Init()
   self.Editor = editor
 
     local add = editor:AddButton('icon16/add.png', LOCALE_ICONS_ADD)
-    add.OnClick = function() self:OnAdded(editor:GenerateIconData()) end
+    add.DoClick = function() self:OnAdded(editor:GenerateIconData()) end
     add:SetEnabled(false)
 
   editor.OnValueChanged = function() add:SetEnabled(editor:Validated()) end

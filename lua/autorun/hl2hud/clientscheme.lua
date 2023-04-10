@@ -135,9 +135,10 @@ function HL2HUD.settings.LoadSchemeFromDisk(path)
   local scheme = util.JSONToTable(file.Read(path, PATH))
   for category, textures in pairs(scheme.HudTextures) do
     for icon, texture in pairs(textures) do
+      if isnumber(texture.texture) then continue end -- check if it was already parsed (from a numeric key entry)
       if isnumber(icon) then -- fix for stored ammo types which get converted to numbers (such as 357)
-        textures[icon] = nil
         textures[tostring(icon)] = texture
+        textures[icon] = nil
       end
       if texture == -1 or texture.type ~= HL2HUD.scheme.ICON_SPRITE then continue end
       texture.texture = surface.GetTextureID(texture.texture)
