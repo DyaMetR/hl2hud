@@ -17,7 +17,7 @@ if SERVER then
   -- [[ Update vehicles weapon status ]] --
   hook.Add('Tick', HL2HUD.hookname, function()
     for _, vehicle in pairs(ents.GetAll()) do
-      if not vehicle:IsVehicle() or not IsValid(vehicle:GetDriver()) or not vehicle:GetInternalVariable(NWVAR_ENABLE) then continue end
+      if not vehicle:IsVehicle() or not IsValid(vehicle:GetDriver()) or not vehicle:GetDriver():IsPlayer() or not vehicle:GetInternalVariable(NWVAR_ENABLE) then continue end
       vehicle:SetNWBool(NWVAR_FIRE, vehicle:GetInternalVariable(NWVAR_FIRE))
       net.Start(NET)
       net.WriteVector(vehicle:GetInternalVariable(NWVAR_CROSSHAIR) - vehicle:GetPos())
