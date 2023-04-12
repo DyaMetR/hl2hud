@@ -40,6 +40,9 @@ SCHEME:Layout({
   HudHistoryResource = {
     Episodic = true,
     ShowMissingIcons = false
+  },
+  HudDamageIndicator = {
+    visible = true
   }
 })
 

@@ -121,6 +121,9 @@ SCHEME:Layout({
     right_bracket = '',
     right_bracket_empty = '',
     warning_sound = 'hl2hud/gstring/warning.wav'
+  },
+  HudDamageIndicator = {
+    visible = true
   }
 })
 

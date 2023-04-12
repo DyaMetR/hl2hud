@@ -57,6 +57,9 @@ SCHEME:Layout({
     text_inset = 40,
     NumberFont = 'HudNumbersTiny',
     ShowMissingIcons = false
+  },
+  HudDamageIndicator = {
+    visible = true
   }
 })
 

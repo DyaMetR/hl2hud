@@ -32,6 +32,9 @@ SCHEME:Layout({
   },
   HudHistoryResource = {
     ShowMissingIcons = false
+  },
+  HudDamageIndicator = {
+    visible = true
   }
 })
 

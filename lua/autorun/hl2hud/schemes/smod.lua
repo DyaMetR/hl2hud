@@ -135,6 +135,9 @@ SCHEME:Layout({
     IconInsetX = 4,
     IconInsetY = -6,
     IconFont = 'HudIcons'
+  },
+  HudDamageIndicator = {
+    visible = true
   }
 })
 

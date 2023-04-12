@@ -69,6 +69,9 @@ SCHEME:Layout({
     right_bracket = '',
     right_bracket_empty = '',
     warning_sound = 'hl2hud/ez2/warning.wav'
+  },
+  HudDamageIndicator = {
+    visible = true
   }
 })
 
