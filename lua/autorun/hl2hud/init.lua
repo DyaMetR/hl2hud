@@ -57,6 +57,7 @@ HL2HUD.include('elements/quickinfo.lua')
 HL2HUD.include('elements/zoom.lua')
 HL2HUD.include('elements/squad.lua')
 HL2HUD.include('elements/pickup.lua')
+HL2HUD.include('elements/damage.lua')
 
 -- Half-Life 2 schemes
 HL2HUD.include('schemes/default.lua')
@@ -70,6 +71,7 @@ HL2HUD.include('schemes/compact.lua')
 HL2HUD.include('schemes/ez.lua')
 HL2HUD.include('schemes/ez2.lua')
 HL2HUD.include('schemes/gstring.lua')
+HL2HUD.include('schemes/gstringbeta.lua')
 HL2HUD.include('schemes/eleveneightyseven.lua')
 HL2HUD.include('schemes/smod.lua')
 HL2HUD.include('schemes/cdestiny.lua')
@@ -109,12 +111,22 @@ local settings = HL2HUD.settings.Get()
   @return {boolean} is visible
 ]]--------------------------------------------------------------------
 function HL2HUD.ShouldDraw()
-  return hl2hud_enabled:GetBool() and not (not hl2hud_nosuit:GetBool() and (not LocalPlayer().IsSuitEquipped or not LocalPlayer():IsSuitEquipped()))
+  return hl2hud_enabled:GetBool()
+end
+
+--[[------------------------------------------------------------------
+  Whether the player has the suit equipped.
+  @return {boolean} is suit equipped
+]]--------------------------------------------------------------------
+function HL2HUD.IsSuitEquipped()
+  local localPlayer = LocalPlayer()
+  if not IsValid(localPlayer) then return end
+  return (not hl2hud_nosuit:GetBool() or localPlayer:IsSuitEquipped()) and localPlayer:Alive()
 end
 
 -- [[ Run animations before drawing the HUD ]] --
 hook.Add('PreDrawHUD', HL2HUD.hookname, function()
-  if not HL2HUD.ShouldDraw() then return end
+  if not HL2HUD.ShouldDraw() or not HL2HUD.IsSuitEquipped() then return end
   HL2HUD.animations.UpdateAnimations()
   for name, element in HL2HUD.elements.Iterator() do
     element:PreDraw(params)
@@ -124,13 +136,11 @@ end)
 -- [[ Draw HUD elements ]] --
 hook.Add('HUDPaint', HL2HUD.hookname, function()
   if not HL2HUD.ShouldDraw() then return end
-  local localPlayer = LocalPlayer()
-  if not IsValid(localPlayer) then return end
   for name, element in HL2HUD.elements.Iterator() do
     local params = settings.HudLayout[name]
     if not element:ShouldDraw(params) then continue end
     element:OnThink(params)
-    if element.OnTop or not localPlayer:Alive() then continue end
+    if element.OnTop or (not element.DrawAlways and not HL2HUD.IsSuitEquipped()) then continue end
     element:Draw(params, HL2HUD.Scale())
   end
 end)
@@ -139,10 +149,9 @@ end)
 hook.Add('DrawOverlay', HL2HUD.hookname, function()
   if not HL2HUD.ShouldDraw() then return end
   if gui.IsGameUIVisible() then return end
-  local localPlayer = LocalPlayer()
-  if not IsValid(localPlayer) or not localPlayer:Alive() then return end
   for name, element in HL2HUD.elements.Iterator() do
     if not element.OnTop then continue end
+    if not element.DrawAlways and not HL2HUD.IsSuitEquipped() then continue end
     local params = settings.HudLayout[name]
     if not element:ShouldDraw(params) then continue end
     element:Draw(params, HL2HUD.Scale())

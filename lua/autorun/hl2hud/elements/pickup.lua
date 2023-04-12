@@ -320,29 +320,29 @@ function ELEMENT:Draw(settings, scale)
 end
 
 -- [[ Helper function to determine whether the element is visible ]] --
-local function IsEnabled() return GetConVar('hl2hud_enabled'):GetBool() and HL2HUD.settings.Get().HudLayout.HudHistoryResource.visible end
+local function ShouldDraw() return HL2HUD.ShouldDraw() and HL2HUD.IsSuitEquipped() and ELEMENT:ShouldDraw(HL2HUD.settings.Get().HudLayout.HudHistoryResource) end
 
 -- [[ Ammo picked up ]] --
 hook.Add('HUDAmmoPickedUp', HL2HUD.hookname, function(ammo, amount)
-  if not IsEnabled() then return end
+  if not ShouldDraw() then return end
   AddAmmoToHistory(ammo, amount)
 end)
 
 -- [[ Weapon picked up ]] --
 hook.Add('HUDWeaponPickedUp', HL2HUD.hookname, function(weapon)
-  if not IsEnabled() then return end
+  if not ShouldDraw() then return end
   AddWeaponToHistory(weapon)
 end)
 
 -- [[ Item picked up ]] --
 hook.Add('HUDItemPickedUp', HL2HUD.hookname, function(class)
-  if not IsEnabled() then return end
+  if not ShouldDraw() then return end
   AddItemToHistory(class)
 end)
 
 -- [[ Hide default pickup history ]] --
 hook.Add('HUDDrawPickupHistory', HL2HUD.hookname, function()
-  if not IsEnabled() then return end
+  if not ShouldDraw() then return end
   return false
 end)
 

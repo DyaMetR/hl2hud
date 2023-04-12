@@ -63,6 +63,11 @@ SCHEME:Layout({
     ShowMissingIcons = false
   },
   HUDQuickInfo = {
+    visible = true,
+    left_bracket = '',
+    left_bracket_empty = '',
+    right_bracket = '',
+    right_bracket_empty = '',
     warning_sound = 'hl2hud/ez2/warning.wav'
   }
 })

@@ -21,6 +21,10 @@ SCHEME:Scheme({
 })
 
 SCHEME:Font('WeaponIcons', 'HalfLife2', 46, 0, true)
+SCHEME:Font('AmmoIcons', 'gstring2', 38, 0, true, 0, 2)
+SCHEME:Font('WeaponIconsSmall', 'HalfLife2', 28, 0, true, 0, 2)
+SCHEME:Font('WeaponIconsSmallMP', 'HL2MP', 28, 0, true, 0, 2)
+SCHEME:Font('Crosshairs', 'gstring_crosshairs', 40, 0, true, nil, nil, nil, false, false)
 SCHEME:Font('HudNumbers', 'Birdman', 25, 122, true, 0, 2)
 SCHEME:Font('HudNumbersGlow', 'Birdman', 25, 0, true, 4, 2)
 SCHEME:Font('HudNumbersSmall', 'Birdman', 16, 1000, true, 0, 2)
@@ -62,7 +66,8 @@ SCHEME:Layout({
     digit_xpos = 46,
     digit_ypos = 1,
     digit2_xpos = 85,
-    digit2_ypos = 5
+    digit2_ypos = 5,
+    icon_visible = true
   },
   HudAmmoSecondary = {
     xpos = 22,
@@ -73,7 +78,11 @@ SCHEME:Layout({
     text_xpos = 40,
     text_ypos = 32,
     digit_xpos = 8,
-    digit_ypos = 1
+    digit_ypos = 1,
+    icon_visible = true,
+    icon_abspos = true,
+    icon_xpos = 42,
+    icon_ypos = 20
   },
   HudFlashlight = {
     xpos = 22,
@@ -106,6 +115,11 @@ SCHEME:Layout({
     SelectSnd = 'hl2hud/gstring/wpn_select.wav'
   },
   HUDQuickInfo = {
+    visible = true,
+    left_bracket = '',
+    left_bracket_empty = '',
+    right_bracket = '',
+    right_bracket_empty = '',
     warning_sound = 'hl2hud/gstring/warning.wav'
   }
 })
@@ -119,14 +133,7 @@ SCHEME:Animations({
   },
   HealthDamageTaken = {},
   HealthLow = {
-    { 'StopEvent', 'HealthDamageTaken', 0 },
-    { 'StopEvent', 'HealthPulse', 0 },
-    { 'StopEvent', 'HealthLoop', 0 },
-    { 'RunEvent', 'HealthPulse', 1 }
-  },
-  HealthPulse = {
-    { 'Animate', 'HudHealth', 'FgColor', 'DamagedFg', 'Linear', 0, 0 },
-    { 'RunEvent', 'HealthPulse', .8 }
+    { 'Animate', 'HudHealth', 'FgColor', 'DamagedFg', 'Linear', 0, 0 }
   },
   SuitArmorLow = {},
   AmmoIncreased = {
@@ -176,6 +183,20 @@ SCHEME:Animations({
   SuitAuxPowerNotMax = {},
   SquadStatusShow = {}
 })
+
+local AMMOTYPES = {
+  Pistol = 'p',
+  SMG1 = 'r',
+  SMG1_Grenade = 't',
+  Buckshot = 's',
+  Grenade = 'v',
+  RPG_Round = 'x'
+}
+
+for id, icon in pairs(AMMOTYPES) do
+  SCHEME:AmmoIcon(id, 'AmmoIcons', icon)
+  SCHEME:AmmoPickup(id, 'AmmoIcons', icon)
+end
 
 for weapon, _ in pairs(HL2HUD.scheme.GetDefault().HudTextures.Selected) do
   SCHEME:RemoveSelectedWeaponIcon(weapon)

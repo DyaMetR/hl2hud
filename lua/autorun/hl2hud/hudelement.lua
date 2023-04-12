@@ -165,7 +165,7 @@ function HL2HUD.elements.Register(name, hide)
   element.i = table.Count(elements)
   element.colours = settings.ClientScheme.Colors
   element.icons = settings.HudTextures
-  hidden[hide] = element
+  if hide then hidden[hide] = element end
   return element
 end
 

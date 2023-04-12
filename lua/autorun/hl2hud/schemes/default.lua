@@ -315,6 +315,9 @@ SCHEME:Layout({
     text_ygap = 14,
     text_font = 'HudHintTextSmall',
     text = '#Valve_HudPoisonDamage'
+  },
+  HudDamageIndicator = {
+    visible = false
   }
 })
 

@@ -21,16 +21,14 @@ function ELEMENT:PreDraw(settings)
   if not IsValid(localPlayer) then return end
   local weapon = localPlayer:GetActiveWeapon()
   if not IsValid(weapon) or not weapon:IsScripted() then return end
-  if not weapon.DrawCrosshair then
-    override = true
-    return
-  end
+  if not weapon.DrawCrosshair then override = true return end
   if not weapon.DoDrawCrosshair then return end
   override = weapon:DoDrawCrosshair(0, 0) or false
 end
 
 function ELEMENT:ShouldDraw(settings)
   local localPlayer = LocalPlayer()
+  if GetViewEntity() ~= localPlayer then return false end
   local inVehicle, vehicle = localPlayer:InVehicle(), localPlayer:GetVehicle()
   if (inVehicle and vehicle:GetClass() ~= CLASS_AIRBOAT) or localPlayer:IsFrozen() or not CROSSHAIR_CONVAR:GetBool() then return false end
   return settings.visible and not override
@@ -38,10 +36,19 @@ end
 
 function ELEMENT:Draw(settings, scale)
   local x, y = ScrW() * .5, ScrH() * .5
+  local localPlayer = LocalPlayer()
+
+  -- support for SWEP.AccurateCrosshair
+  local weapon = localPlayer:GetActiveWeapon()
+  if IsValid(weapon) and weapon:IsScripted() and weapon.AccurateCrosshair then
+    local pos = localPlayer:GetEyeTrace().HitPos:ToScreen()
+    x = pos.x
+    y = pos.y
+  end
 
   -- change crosshair position while driving the airboat
-  local inVehicle, vehicle = LocalPlayer():InVehicle(), LocalPlayer():GetVehicle()
-  if inVehicle and vehicle:GetClass() == CLASS_AIRBOAT and not LocalPlayer():GetAllowWeaponsInVehicle() then
+  local inVehicle, vehicle = localPlayer:InVehicle(), localPlayer:GetVehicle()
+  if inVehicle and vehicle:GetClass() == CLASS_AIRBOAT and not localPlayer:GetAllowWeaponsInVehicle() then
     -- nullify one of the angles
     local ang = vehicle:GetAngles()
     ang.z = 0

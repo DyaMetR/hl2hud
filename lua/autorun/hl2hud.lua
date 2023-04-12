@@ -1,7 +1,7 @@
 --[[------------------------------------------------------------------
   Half-Life 2 HUD
-  Version 1.2.4
-  April 11th, 2023
+  Version 1.3
+  April 12th, 2023
   Made by DyaMetR
   * full credits found in the details below
 ]]--------------------------------------------------------------------
@@ -14,8 +14,8 @@ HL2HUD.hookname			= 'hl2hud'
 if CLIENT then
   -- addon information
   HL2HUD.name				= 'Half-Life 2 HUD'
-  HL2HUD.version		= '1.2.4'
-  HL2HUD.date				= 'April 11th, 2023'
+  HL2HUD.version		= '1.3'
+  HL2HUD.date				= 'April 12th, 2023'
   HL2HUD.credits		= { -- {name, contribution}
     {'DyaMetR', 'Developer'},
     {'Valve Corporation', 'Original design\nCounter-Strike scheme design\nHalfLife2\nBoxRocket\nCounter-Strike font'},
@@ -25,7 +25,7 @@ if CLIENT then
     {'SMOD Developer\'s Group', 'SMOD scheme design\nSMODGUI'},
     {'CD2 Development Team', 'Combine Destiny scheme design'},
     {'Crowbar Collective', 'Black Mesa scheme design\nBlack Mesa ammunition icons'},
-    {'Eyaura', 'G String scheme design'},
+    {'Eyaura', 'G String scheme design\nG String Beta scheme design\ngstring_crosshairs\ngstring2'},
     {'Albert-Jan Pool', 'DIN'},
     {'Michael Moss', 'Android Insomnia'},
     {'Ray Larabie', 'Frak\nPricedown'},
@@ -40,6 +40,8 @@ if CLIENT then
     {'Randy Ford', 'Futured'},
     {'Dale Harris', 'Birdman'},
     {'Matthew Welch', 'White Rabbit'},
+    {'Subhashish Panigrahi', 'eLePhAnT uNcLe'},
+    {'Unknown', 'GarbageFont'},
     {'Matsilagi', 'Additional testing'}
   }
 end
