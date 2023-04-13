@@ -40,6 +40,7 @@ function PANEL:Init()
     local input
     if isnumber(value) then
       input = vgui.Create('DNumberWang', self.Value)
+      input:SetMinMax(-9999, 9999)
     elseif IsColor(value) then
       input = vgui.Create('DColorComboBox', self.Value)
       input:SetColors(self.Colors)

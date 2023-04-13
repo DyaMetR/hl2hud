@@ -97,6 +97,9 @@ SCHEME:Layout({
     IconInsetX = 8,
     IconInsetY = -4,
     IconGap = 24
+  },
+  HudFlashlight = {
+    xpos = 182
   }
 })
 

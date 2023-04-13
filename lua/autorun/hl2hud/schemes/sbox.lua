@@ -52,13 +52,16 @@ SCHEME:Layout({
   },
   HudSuitPower = {
     ypos = 42,
-    text2_ypos = 24
+    text2_ypos = 32
   },
   HudSquadStatus = {
     xpos = 32,
     ypos = 50,
     tall = 36,
     text = ''
+  },
+  HudFlashlight = {
+    xpos = 216
   }
 })
 

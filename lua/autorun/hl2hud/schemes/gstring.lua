@@ -22,6 +22,7 @@ SCHEME:Scheme({
 
 SCHEME:Font('WeaponIcons', 'HalfLife2', 46, 0, true)
 SCHEME:Font('AmmoIcons', 'gstring2', 38, 0, true, 0, 2)
+SCHEME:Font('FlashlightIcon', 'gstring2', 32, 0, true, 0, 2)
 SCHEME:Font('WeaponIconsSmall', 'HalfLife2', 28, 0, true, 0, 2)
 SCHEME:Font('WeaponIconsSmallMP', 'HL2MP', 28, 0, true, 0, 2)
 SCHEME:Font('Crosshairs', 'gstring_crosshairs', 40, 0, true, nil, nil, nil, false, false)
@@ -93,7 +94,8 @@ SCHEME:Layout({
     halign = 2,
     icon_xpos = 16,
     icon_ypos = -6,
-    BarInsetY = 148
+    BarInsetY = 148,
+    font = 'FlashlightIcon'
   },
   HudZoom = {
     Circle1Radius = 0,

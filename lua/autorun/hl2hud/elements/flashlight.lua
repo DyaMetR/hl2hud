@@ -16,6 +16,8 @@ ELEMENT:Alignment('valign')
 ELEMENT:Font('font')
 ELEMENT:Number('icon_xpos')
 ELEMENT:Number('icon_ypos')
+ELEMENT:String('icon_off')
+ELEMENT:String('icon_on')
 ELEMENT:Number('BarInsetX')
 ELEMENT:Number('BarInsetY')
 ELEMENT:Number('BarWidth')
@@ -43,7 +45,8 @@ function ELEMENT:Draw(settings, scale)
   local barw, barh, chk, gap = settings.BarWidth * scale, settings.BarHeight * scale, settings.BarChunkWidth * scale, settings.BarChunkGap * scale
   if settings.halign > 1 then x = ScrW() - (x + w) end
   if settings.valign > 1 then y = ScrH() - (y + h) end
-  local chunks = barw / (chk + gap)
+  local chunks = 0
+  if barw > 0 and chk > 0 then chunks = barw / (chk + gap) end -- avoid division by zero
   local enabled = chunks * m_flFlashBattery + .5
 
   -- is flashlight on
@@ -66,7 +69,7 @@ function ELEMENT:Draw(settings, scale)
     local inX, inY = settings.BarInsetX * scale, settings.BarInsetY * scale
     for i=1, chunks do
       if i > enabled then surface.SetAlphaMultiplier(alpha / 8 / 255) end
-      draw.RoundedBox(0, x + inX + math.ceil(chk + gap) * (i - 1), y + inY, chk, barh, colour)
+      draw.RoundedBox(0, x + inX + math.Round(chk + gap) * (i - 1), y + inY, chk, barh, colour)
     end
   end
   surface.SetAlphaMultiplier(1)

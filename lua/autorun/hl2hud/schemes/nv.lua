@@ -89,6 +89,11 @@ SCHEME:Layout({
   HudSquadStatus = {
     ypos = 62,
     text_ypos = 32
+  },
+  HudFlashlight = {
+    xpos = 146,
+    BarChunkWidth = 1,
+    BarChunkGap = 1
   }
 })
 

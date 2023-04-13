@@ -54,9 +54,9 @@ function ELEMENT:Init(settings)
   lastCount = 0
 end
 
-local actions = {}
+local auxpow, actions = 1, {}
 function ELEMENT:OnThink(settings)
-  local auxpow = hook.Run(HOOK_AUXPOW) or LocalPlayer():GetSuitPower() * .01
+  auxpow = hook.Run(HOOK_AUXPOW) or (LocalPlayer():GetSuitPower() * .01)
 
   -- fetch vanilla labels
   table.Empty(actions)
@@ -109,12 +109,13 @@ function ELEMENT:Draw(settings, scale)
   draw.SimpleText(language.GetPhrase(settings.text), self.fonts.font, x + settings.text_xpos * scale, y + settings.text_ypos * scale, self.variables.AuxPowerColor)
 
   -- draw bar
-  local segments = math.floor((w - inx * 2)/(chw + gap))
+  local segments = 0
+  if chw > 0 then segments = math.floor((w - inx * 2)/(chw + gap)) end -- avoid division by zero
   for i=1, segments do
     surface.SetAlphaMultiplier(alpha * (settings.AuxPowerDisabledAlpha / 255))
     draw.RoundedBox(0, x + inx + math.floor(chw + gap) * (i - 1), y + iny, chw, bh, self.variables.AuxPowerColor)
     surface.SetAlphaMultiplier(alpha)
-    if LocalPlayer():GetSuitPower() * .01 < i / segments then continue end
+    if auxpow < i / segments then continue end
     draw.RoundedBox(0, x + inx + math.floor(chw + gap) * (i - 1), y + iny, chw, bh, self.variables.AuxPowerColor)
   end
 

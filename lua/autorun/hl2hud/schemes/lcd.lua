@@ -29,6 +29,7 @@ SCHEME:Scheme({
 SCHEME:Font('WeaponIcons', 'HalfLife2', 56, 0)
 SCHEME:Font('WeaponIconsSelected', 'HalfLife2', 56, 0, false, 5)
 SCHEME:Font('WeaponIconsSmall', 'HalfLife2', 32, 0)
+SCHEME:Font('WeaponIconsSmallMP', 'HL2MP', 32, 0)
 SCHEME:Font('Crosshairs', 'HalfLife2', 40, 0, false, nil, nil, nil, false, false)
 SCHEME:Font('QuickInfo', 'HL2cross', 28, 0)
 SCHEME:Font('HudNumbers', 'Typo Digit Demo', 36, 0, false, nil, nil, nil, true, false)
@@ -120,6 +121,11 @@ SCHEME:Layout({
   HudWeaponSelection = {},
   HudCrosshair = {
     color = 'Crosshair'
+  },
+  HudFlashlight = {
+    xpos = 126,
+    NormalColor = 'FgColor',
+    CautionColor = 'FgColor'
   }
 })
 

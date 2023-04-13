@@ -4,6 +4,7 @@ if SERVER then return end
 local SCHEME = HL2HUD.scheme.Create()
 
 SCHEME:Scheme({
+  Normal = Color(255, 176, 0),
   FgColor = Color(255, 176, 0, 120),
   BrightFg = Color(255, 176, 0),
   DamagedFg = Color(192, 28, 0, 140),
@@ -118,6 +119,9 @@ SCHEME:Layout({
     IconGap = 10,
     IconMember = 'k',
     IconMedic = 'k'
+  },
+  HudFlashlight = {
+    ypos = 9
   }
 })
 

@@ -21,6 +21,7 @@ SCHEME:Scheme({
 
 SCHEME:Font('Crosshairs', 'GarbageFont1', 40, 0, true, nil, nil, nil, false, false)
 SCHEME:Font('QuickInfo', 'GarbageFont', 28, 0, true)
+SCHEME:Font('FlashlightIcon', 'gstring2', 32, 0, true)
 SCHEME:Font('HudNumbers', 'eLePhAnT uNcLe', 32, 0, true)
 SCHEME:Font('HudNumbersGlow', 'eLePhAnT uNcLe', 32, 0, true, 4, 2)
 SCHEME:Font('HudNumbersSmall', 'eLePhAnT uNcLe', 16, 1000, true)
@@ -91,6 +92,18 @@ SCHEME:Layout({
   },
   HudDamageIndicator = {
     visible = true
+  },
+  HudFlashlight = {
+    xpos = 22,
+    ypos = 46,
+    wide = 30,
+    tall = 17,
+    valign = 1,
+    halign = 2,
+    icon_xpos = 16,
+    icon_ypos = -6,
+    BarInsetY = 148,
+    font = 'FlashlightIcon'
   }
 })
 

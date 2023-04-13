@@ -11,8 +11,7 @@ local fonts = {} -- registered fonts
 local hl2hud_limiter = CreateClientConVar('hl2hud_limitscale', 1)
 function HL2HUD.Scale()
   if not hl2hud_limiter:GetBool() then return ScrH() / 480 end
-  if system.IsLinux() then return math.min(ScrH(), 1080) / 480 end
-  return math.min(ScrH(), 1440) / 480
+  return math.min(ScrH(), 1080) / 480
 end
 
 --[[------------------------------------------------------------------

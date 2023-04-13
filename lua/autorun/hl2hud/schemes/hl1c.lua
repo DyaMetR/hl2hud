@@ -82,6 +82,14 @@ SCHEME:Layout({
     SelectionNumberXPos = 8,
     SelectionNumberYPos = 3,
     SkipEmpty = true
+  },
+  HudFlashlight = {
+    xpos = 12,
+    ypos = 8,
+    halign = 2,
+    valign = 1,
+    BarChunkWidth = 1,
+    BarChunkGap = 0
   }
 })
 

@@ -138,6 +138,16 @@ SCHEME:Layout({
   },
   HudDamageIndicator = {
     visible = true
+  },
+  HudFlashlight = {
+    xpos = 16,
+    ypos = 12,
+    halign = 2,
+    valign = 1,
+    NormalColor = 'FgColor',
+    BarChunkWidth = 1,
+    BarChunkGap = 1,
+    BarWidth = 24
   }
 })
 

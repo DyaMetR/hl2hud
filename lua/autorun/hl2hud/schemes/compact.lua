@@ -50,6 +50,9 @@ SCHEME:Layout({
   },
   HudPoisonDamageIndicator = {
     ypos = 100
+  },
+  HudFlashlight = {
+    xpos = 144
   }
 })
 

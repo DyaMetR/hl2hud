@@ -124,6 +124,14 @@ function HL2HUD.IsSuitEquipped()
   return (not hl2hud_nosuit:GetBool() or localPlayer:IsSuitEquipped()) and localPlayer:Alive()
 end
 
+--[[------------------------------------------------------------------
+  Whether the given element should be visible.
+  @return {boolean} is element visible
+]]--------------------------------------------------------------------
+function HL2HUD.ShouldDrawElement(element)
+  return HL2HUD.elements.Get(element):ShouldDraw(settings.HudLayout[element])
+end
+
 -- [[ Run animations before drawing the HUD ]] --
 hook.Add('PreDrawHUD', HL2HUD.hookname, function()
   if not HL2HUD.ShouldDraw() or not HL2HUD.IsSuitEquipped() then return end

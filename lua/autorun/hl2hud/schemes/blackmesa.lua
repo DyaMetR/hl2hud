@@ -123,6 +123,12 @@ SCHEME:Layout({
   },
   HudHistoryResource = {
     history_gap = 32
+  },
+  HudFlashlight = {
+    xpos = 12,
+    ypos = 8,
+    halign = 2,
+    valign = 1
   }
 })
 
