@@ -62,7 +62,7 @@ local function GetAmmo()
     if weapon.DrawAmmo == false then return -1, -1, 0 end
     local ammo = weapon:CustomAmmoDisplay()
     if ammo then
-      return ammo.PrimaryClip or -1, ammo.PrimaryAmmo or -1, 0, ammo.Draw and (ammo.PrimaryClip or ammo.PrimaryAmmo)
+      return ammo.PrimaryClip or -1, ammo.PrimaryAmmo or -1, weapon:GetPrimaryAmmoType() or 0, ammo.Draw and (ammo.PrimaryClip or ammo.PrimaryAmmo)
     end
   end
 

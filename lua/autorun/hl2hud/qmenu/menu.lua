@@ -160,7 +160,7 @@ concommand.Add('hl2hud_menu', function()
               end, LOCALE.MODAL_NO)
             else
               HL2HUD.settings.SaveAs(value, cache)
-              HL2HUD.toolmenu.list:AddLine(value)
+              if HL2HUD.toolmenu.list then HL2HUD.toolmenu.list:AddLine(value) end
               frame:LoadSchemes()
             end
           end
