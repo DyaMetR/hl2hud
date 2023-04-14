@@ -1,3 +1,7 @@
+--[[------------------------------------------------------------------
+  Support for H.E.V Mk V Auxiliary Power addon
+  https://steamcommunity.com/sharedfiles/filedetails/?id=1758584347
+]]--------------------------------------------------------------------
 
 if SERVER then return end
 

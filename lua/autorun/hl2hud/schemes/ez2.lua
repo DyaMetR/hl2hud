@@ -93,6 +93,7 @@ SCHEME:Animations({
   }
 })
 
+-- [[ Half-Life 2 weapon icons ]] --
 local WEAPONS = {
   weapon_stunstick = 'a',
   weapon_pistol = 'b',
@@ -105,7 +106,6 @@ local WEAPONS = {
   weapon_frag = 'm',
   weapon_slam = 'j'
 }
-
 for id, _ in pairs(HL2HUD.utils.DefaultIcons.ammo) do
   local class, font = HL2HUD.utils.DefaultIcons.ammoWeapon[id], 'WeaponIconsSmallMP'
   local x, y = -4, 6
@@ -128,6 +128,40 @@ for class, icon in pairs(HL2HUD.utils.AltIcons) do
     offset = 0
   end
   SCHEME:WeaponIcon(class, font1, icon, font2, nil, nil, offset)
+end
+
+--[[------------------------------------------------------------------
+  Entropy Zero 2 SWEPs support
+  https://steamcommunity.com/sharedfiles/filedetails/?id=2856656789
+]]--------------------------------------------------------------------
+local SWEPs = {
+  ez2cwep_magnum = 'd',
+  ez2cwep_ar2 = 'g',
+  ez2cwep_ar2_proto = 'g',
+  ez2cwep_crossbow = 'l',
+  ez2cwep_grenade = 'm',
+  ez2cwep_mp5 = 'f',
+  ez2cwep_pistol = 'b',
+  ez2cwep_pulse_pistol = 'c',
+  ez2cwep_rpg = 'i',
+  ez2cwep_slam = 'j',
+  ez2cwep_shotgun = 'h',
+  ez2cwep_smg = 'e',
+  tfa_ez2_magnum = 'd',
+  tfa_ez2_ar2 = 'g',
+  tfa_ez2_ar2_proto = 'g',
+  tfa_ez2_crossbow = 'l',
+  tfa_ez2_grenade = 'm',
+  tfa_ez2_mp5 = 'f',
+  tfa_ez2_pistol = 'b',
+  tfa_ez2_pulse_pistol = 'c',
+  tfa_ez2_rpg = 'i',
+  tfa_ez2_slam = 'j',
+  tfa_ez2_shotgun = 'h',
+  tfa_ez2_smg = 'e'
+}
+for class, icon in pairs(SWEPs) do
+  SCHEME:WeaponIcon(class, 'EZ2', icon, 'EZ2Selected', nil, nil, 0)
 end
 
 HL2HUD.scheme.Register('Entropy Zero 2', SCHEME)
