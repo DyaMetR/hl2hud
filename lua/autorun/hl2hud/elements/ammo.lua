@@ -58,7 +58,7 @@ local function GetAmmo()
 	if not IsValid(weapon) then return -1, -1, 0 end
 
   -- custom ammo display
-  if weapon:IsScripted() then
+  if weapon:IsScripted() and weapon.CustomAmmoDisplay then
     if weapon.DrawAmmo == false then return -1, -1, 0 end
     local ammo = weapon:CustomAmmoDisplay()
     if ammo then
