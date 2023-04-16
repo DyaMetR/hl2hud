@@ -53,3 +53,14 @@ The scheme customization menu allows you to change numerous aspects of your HUD,
 +   `HudLayout` changes HUD elements' properties.
 +   `HudAnimations` changes how the HUD reacts to certain events.
 +   `HudTextures` changes the different icons for weapons, ammunition and items.
+
+### Manual initialization
+
+In case you're playing on a server that has `sv_allowcslua` enabled, you can initialize this HUD with the console command: `lua_openscript_cl hl2hud_init.lua`
+
+**BEWARE**: The following features will NOT work on a server that does not have this addon installed.
+
++   Poison damage indicator
++   _FULL_ ammunition pickup message
++   Vehicle crosshairs
++   Squad status indicator

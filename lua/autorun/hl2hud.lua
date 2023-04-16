@@ -1,7 +1,7 @@
 --[[------------------------------------------------------------------
   Half-Life 2 HUD
-  Version 1.4.3
-  April 14th, 2023
+  Version 1.4.4
+  April 16th, 2023
   Made by DyaMetR
   * full credits found in the details below
 ]]--------------------------------------------------------------------
@@ -14,8 +14,8 @@ HL2HUD.hookname			= 'hl2hud'
 if CLIENT then
   -- addon information
   HL2HUD.name				= 'Half-Life 2 HUD'
-  HL2HUD.version		= '1.4.3'
-  HL2HUD.date				= 'April 14th, 2023'
+  HL2HUD.version		= '1.4.4'
+  HL2HUD.date				= 'April 16th, 2023'
   HL2HUD.credits		= { -- {name, contribution}
     {'DyaMetR', 'Developer'},
     {'Valve Corporation', 'Original design\nCounter-Strike scheme design\nHalfLife2\nBoxRocket\nCounter-Strike font'},
@@ -47,8 +47,8 @@ if CLIENT then
 end
 
 --[[------------------------------------------------------------------
-Includes a file sharedwise
-@param {string} file
+  Includes a file sharedwise
+  @param {string} file
 ]]--------------------------------------------------------------------
 function HL2HUD.include(path)
   include(path)
