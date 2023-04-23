@@ -49,9 +49,10 @@ end
   @param {Color} text colour
   @param {Color} weapon icon colour
   @param {Color} background colour
+  @param {Color} selected background colour
   @param {Color} empty slot background colour
 ]]--------------------------------------------------------------------
-local function DrawWeaponSelector(x, y, slot, weapon, numcol, textcol, fgcol, bgcol, emptycol)
+local function DrawWeaponSelector(x, y, slot, weapon, numcol, textcol, fgcol, bgcol, selbgcol, emptycol)
   local scale = HL2HUD.Scale()
   for i=1, 6 do
     local w, h = 32 * scale, 32 * scale
@@ -60,10 +61,11 @@ local function DrawWeaponSelector(x, y, slot, weapon, numcol, textcol, fgcol, bg
     if i == slot then
       w = 112 * scale
       h = 80 * scale
+      background = selbgcol
     end
     draw.RoundedBox(8, x, y, w, h, background)
     if i < 6 then draw.SimpleText(i, FONT_PREFIX .. FONT_HUDSELECTIONNUMBERS, x + 4 * scale, y + 4 * scale, numcol) end
-    if slot == i then
+    if i == slot then
       draw.SimpleText(weapon, FONT_WEAPONICON, x + w * .5, y + h * .5, fgcol, TEXT_ALIGN_CENTER, TEXT_ALIGN_CENTER)
       draw.SimpleText(weapon, FONT_WEAPONICONGLOW, x + w * .5, y + h * .5, fgcol, TEXT_ALIGN_CENTER, TEXT_ALIGN_CENTER)
       draw.SimpleText(WEAPON_NAME, FONT_PREFIX .. FONT_HUDSELECTIONTEXT, x + w * .5, y + 69 * scale, textcol, TEXT_ALIGN_CENTER, nil)
@@ -162,7 +164,7 @@ function PANEL:PaintOver()
   draw.RoundedBox(0, FRAME_WIDTH, self:GetTall() - FRAME_WIDTH, self:GetWide() - FRAME_WIDTH * 2, FRAME_WIDTH, skin.control_color_highlight)
 
   -- draw weapon selector
-  DrawWeaponSelector(4 * scale, 4 * scale, 3, 'a', self.Scheme.ClientScheme.Colors.SelectionNumberFg, self.Scheme.ClientScheme.Colors.SelectionTextFg, self.Scheme.ClientScheme.Colors.BrightFg, self.Scheme.ClientScheme.Colors.SelectionBoxBg, self.Scheme.ClientScheme.Colors.SelectionEmptyBoxBg)
+  DrawWeaponSelector(4 * scale, 4 * scale, 3, 'a', self.Scheme.ClientScheme.Colors.SelectionNumberFg, self.Scheme.ClientScheme.Colors.SelectionTextFg, self.Scheme.ClientScheme.Colors.BrightFg, self.Scheme.ClientScheme.Colors.SelectionBoxBg, self.Scheme.ClientScheme.Colors.SelectionSelectedBoxBg, self.Scheme.ClientScheme.Colors.SelectionEmptyBoxBg)
 
   -- draw numeric displays
   DrawNumericDisplay(self:GetWide() * .16, self:GetTall() - 4 * scale, 100, 225, self.Scheme.ClientScheme.Colors.FgColor, self.Scheme.ClientScheme.Colors.BgColor)

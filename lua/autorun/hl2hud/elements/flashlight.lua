@@ -18,6 +18,7 @@ ELEMENT:Number('icon_xpos')
 ELEMENT:Number('icon_ypos')
 ELEMENT:String('icon_off')
 ELEMENT:String('icon_on')
+ELEMENT:Number('FlashlightDisabledAlpha')
 ELEMENT:Number('BarInsetX')
 ELEMENT:Number('BarInsetY')
 ELEMENT:Number('BarWidth')
@@ -68,7 +69,7 @@ function ELEMENT:Draw(settings, scale)
   if m_flFlashBattery < 1 then
     local inX, inY = settings.BarInsetX * scale, settings.BarInsetY * scale
     for i=1, chunks do
-      if i > enabled then surface.SetAlphaMultiplier(alpha / 8 / 255) end
+      if i > enabled then surface.SetAlphaMultiplier(alpha * (settings.FlashlightDisabledAlpha / 255) / 255) end
       draw.RoundedBox(0, x + inX + math.Round(chk + gap) * (i - 1), y + inY, chk, barh, colour)
     end
   end

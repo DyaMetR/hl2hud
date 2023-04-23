@@ -180,6 +180,7 @@ SCHEME:Layout({
     icon_on = '©',
     icon_xpos = 4,
     icon_ypos = -8,
+    FlashlightDisabledAlpha = 32,
     BarInsetX = 4,
     BarInsetY = 18,
     BarWidth = 28,

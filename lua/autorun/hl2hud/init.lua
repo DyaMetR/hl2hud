@@ -110,8 +110,9 @@ local settings = HL2HUD.settings.Get()
   Whether the HUD is visible.
   @return {boolean} is visible
 ]]--------------------------------------------------------------------
+local cl_drawhud = GetConVar('cl_drawhud')
 function HL2HUD.ShouldDraw()
-  return hl2hud_enabled:GetBool()
+  return hl2hud_enabled:GetBool() and cl_drawhud:GetBool()
 end
 
 --[[------------------------------------------------------------------
@@ -121,7 +122,7 @@ end
 function HL2HUD.IsSuitEquipped()
   local localPlayer = LocalPlayer()
   if not IsValid(localPlayer) then return end
-  return (not hl2hud_nosuit:GetBool() or localPlayer:IsSuitEquipped()) and localPlayer:Alive()
+  return (hl2hud_nosuit:GetBool() or localPlayer:IsSuitEquipped()) and localPlayer:Alive()
 end
 
 --[[------------------------------------------------------------------
