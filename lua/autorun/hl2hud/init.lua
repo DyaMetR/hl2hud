@@ -4,6 +4,7 @@ HL2HUD.include('fonts.lua')
 HL2HUD.include('ischeme.lua')
 HL2HUD.include('clientscheme.lua')
 HL2HUD.include('override.lua')
+HL2HUD.include('serverside.lua')
 HL2HUD.include('util.lua')
 HL2HUD.include('bind_press.lua')
 HL2HUD.include('weapon_switcher.lua')
@@ -95,10 +96,13 @@ for _, file in pairs(files) do
   HL2HUD.include('add-ons/' .. file)
 end
 
+-- [[ Server console variables ]] --
+local hl2hud_csdefaultenabled = CreateConVar('hl2hud_csdefaultenabled', 1, { FCVAR_REPLICATED, FCVAR_ARCHIVE, FCVAR_NOTIFY }, 'Enable addon by default on clients that did not have it previously installed')
+
 if SERVER then return end
 
 -- [[ Console variables ]] --
-local hl2hud_enabled = CreateClientConVar('hl2hud_enabled', 1)
+local hl2hud_enabled = CreateClientConVar('hl2hud_enabled', hl2hud_csdefaultenabled:GetInt())
 local hl2hud_nosuit = CreateClientConVar('hl2hud_nosuit', 0)
 local hl2hud_alwayshide = CreateClientConVar('hl2hud_alwayshide', 1)
 

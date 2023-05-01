@@ -320,7 +320,7 @@ function ELEMENT:Draw(settings, scale)
 end
 
 -- [[ Helper function to determine whether the element is visible ]] --
-local function ShouldDraw() return HL2HUD.ShouldDraw() and HL2HUD.IsSuitEquipped() and ELEMENT:ShouldDraw(HL2HUD.settings.Get().HudLayout.HudHistoryResource) end
+local function ShouldDraw() return HL2HUD.ShouldDraw() and ELEMENT:ShouldDraw(HL2HUD.settings.Get().HudLayout.HudHistoryResource) end
 
 -- [[ Ammo picked up ]] --
 hook.Add('HUDAmmoPickedUp', HL2HUD.hookname, function(ammo, amount)

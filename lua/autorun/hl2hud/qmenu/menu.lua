@@ -35,6 +35,9 @@ local LOCALE = {
   MENU_FILE_EXIT             = 'Exit',
   MENU_EDIT                  = 'Edit',
   MENU_EDIT_APPLY            = 'Apply changes',
+	MENU_EDIT_SUBMIT					 = 'Submit',
+	MENU_EDIT_SUBMIT_DEFAULT	 = 'As server\'s default scheme',
+	MENU_EDIT_SUBMIT_OVERRIDE	 = 'As server-wide scheme override',
   MENU_HELP                  = 'Help',
   MENU_HELP_ABOUT            = 'About',
   MENU_HELP_REPORT           = 'Report a bug',
@@ -174,6 +177,19 @@ concommand.Add('hl2hud_menu', function()
 
       -- Apply changes
       edit:AddOption(LOCALE.MENU_EDIT_APPLY, function() HL2HUD.settings.Apply(cache) end):SetIcon('icon16/accept.png')
+
+			-- Submit
+			if not game.SinglePlayer() and LocalPlayer():IsAdmin() then
+				local submit, parent = edit:AddSubMenu(LOCALE.MENU_EDIT_SUBMIT)
+				parent:SetIcon('icon16/shield.png')
+				submit:SetDeleteSelf(false)
+
+					-- .. as the server's default scheme
+					submit:AddOption(LOCALE.MENU_EDIT_SUBMIT_DEFAULT, function() HL2HUD.server.SubmitDefault(cache) end)
+
+					-- .. as a server-wide scheme override
+					submit:AddOption(LOCALE.MENU_EDIT_SUBMIT_OVERRIDE, function() HL2HUD.server.SubmitOverride(cache) end)
+			end
 
     local help = frame:AddMenu(LOCALE.MENU_HELP)
 

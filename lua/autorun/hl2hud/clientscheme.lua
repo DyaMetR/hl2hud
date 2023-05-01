@@ -60,13 +60,25 @@ end
 ]]--------------------------------------------------------------------
 function HL2HUD.settings.ApplyClientScheme()
   ApplyDefault()
-  HL2HUD.utils.MergeSchemeLayers(settings, client)
+  if HL2HUD.server.override then
+    HL2HUD.utils.MergeSchemeLayers(settings, HL2HUD.server.override)
+  elseif table.IsEmpty(client) and HL2HUD.server.default then
+    HL2HUD.utils.MergeSchemeLayers(settings, HL2HUD.server.default) -- apply server default scheme if we have none
+  else
+    HL2HUD.utils.MergeSchemeLayers(settings, client)
+  end
 end
 
 --[[------------------------------------------------------------------
   Fetches all active overrides and applies them.
 ]]--------------------------------------------------------------------
 function HL2HUD.settings.ApplyOverride()
+  -- apply server override
+  if HL2HUD.server.override then
+    HL2HUD.utils.MergeSchemeLayers(settings, HL2HUD.server.override)
+  end
+
+  -- apply Lua overrides
   for _, override in pairs(HL2HUD.settings.overrides) do
     HL2HUD.utils.MergeSchemeLayers(settings, override)
   end
@@ -105,7 +117,7 @@ end
 ]]--------------------------------------------------------------------
 function HL2HUD.settings.Load(name)
   local scheme = HL2HUD.scheme.Get(name)
-  if name == HL2HUD.scheme.default then scheme = HL2HUD.scheme.CreateDataTable() end
+  if name == HL2HUD.scheme.default then scheme = {} end
   HL2HUD.settings.Apply(scheme)
   HL2HUD.settings.Save()
 end
@@ -117,10 +129,12 @@ end
 ]]--------------------------------------------------------------------
 function HL2HUD.settings.WriteSchemeToDisk(path, scheme)
   local data = table.Copy(scheme)
-  for category, textures in pairs(data.HudTextures) do
-    for icon, texture in pairs(textures) do
-      if texture == -1 or texture.type ~= HL2HUD.scheme.ICON_SPRITE then continue end
-      texture.texture = surface.GetTextureNameByID(texture.texture)
+  if data.HudTextures then
+    for category, textures in pairs(data.HudTextures) do
+      for icon, texture in pairs(textures) do
+        if texture == -1 or texture.type ~= HL2HUD.scheme.ICON_SPRITE then continue end
+        texture.texture = surface.GetTextureNameByID(texture.texture)
+      end
     end
   end
   file.Write(path, util.TableToJSON(data))
@@ -133,15 +147,17 @@ end
 ]]--------------------------------------------------------------------
 function HL2HUD.settings.LoadSchemeFromDisk(path)
   local scheme = util.JSONToTable(file.Read(path, PATH))
-  for category, textures in pairs(scheme.HudTextures) do
-    for icon, texture in pairs(textures) do
-      if texture ~= -1 and isnumber(texture.texture) then continue end -- check if it was already parsed (from a numeric key entry)
-      if isnumber(icon) then -- fix for stored ammo types which get converted to numbers (such as 357)
-        textures[tostring(icon)] = texture
-        textures[icon] = nil
+  if scheme.HudTextures then
+    for category, textures in pairs(scheme.HudTextures) do
+      for icon, texture in pairs(textures) do
+        if texture ~= -1 and isnumber(texture.texture) then continue end -- check if it was already parsed (from a numeric key entry)
+        if isnumber(icon) then -- fix for stored ammo types which get converted to numbers (such as 357)
+          textures[tostring(icon)] = texture
+          textures[icon] = nil
+        end
+        if texture == -1 or texture.type ~= HL2HUD.scheme.ICON_SPRITE then continue end
+        texture.texture = surface.GetTextureID(texture.texture)
       end
-      if texture == -1 or texture.type ~= HL2HUD.scheme.ICON_SPRITE then continue end
-      texture.texture = surface.GetTextureID(texture.texture)
     end
   end
   return scheme
