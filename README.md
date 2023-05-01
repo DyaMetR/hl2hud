@@ -33,7 +33,7 @@ This addon for Garry's Mod mimicks the Heads Up Display feature from Valve's 200
 
 Once installed you can find the options at:
 
-`Build menu (Q by default) -> Options -> DyaMetR -> Half-Life 2 HUD`
+`Build menu (Q by default) -> Utilities -> Half-Life 2 HUD`
 
 Here you can find the following options:
 
