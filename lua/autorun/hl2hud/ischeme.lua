@@ -483,6 +483,14 @@ function HL2HUD.scheme.CreateDataTable()
 end
 
 --[[------------------------------------------------------------------
+  Returns the scheme data table.
+  @return {table} data table
+]]--------------------------------------------------------------------
+function HL2HUD.scheme.GetDataReference()
+  return DATA_TABLE
+end
+
+--[[------------------------------------------------------------------
   Returns a blank scheme.
   @return {table} blank scheme
 ]]--------------------------------------------------------------------
