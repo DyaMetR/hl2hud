@@ -106,6 +106,7 @@ concommand.Add('hl2hud_menu', function()
 		-- check if the cache table is empty
 		local valid = false
 		for category, contents in pairs(cache) do
+			if not istable(contents) then continue end
 			if not table.IsEmpty(HL2HUD.scheme.GetDataReference()[category]) then
 				for _, subcontents in pairs(contents) do
 					if not table.IsEmpty(subcontents) then

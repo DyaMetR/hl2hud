@@ -22,12 +22,15 @@ if SERVER then
 
   -- [[ Load server configuration ]] --
   hook.Add('Initialize', HL2HUD.hookname, function()
+    if game.SinglePlayer() then return end
     if file.Exists(FILE_DEFAULT, PATH) then default = util.JSONToTable(file.Read(FILE_DEFAULT, PATH)) end
     if file.Exists(FILE_OVERRIDE, PATH) then override = util.JSONToTable(file.Read(FILE_OVERRIDE, PATH)) end
   end)
 
   -- [[ Submit server information after joining ]] --
   hook.Add('PlayerInitialSpawn', HL2HUD.hookname, function(_player)
+    if game.SinglePlayer() then return end
+    
     -- send default scheme
     if not table.IsEmpty(default) then
       net.Start(NET_DEFAULT)
