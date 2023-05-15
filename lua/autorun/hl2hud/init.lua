@@ -90,93 +90,95 @@ HL2HUD.include('schemes/hl1.lua')
 HL2HUD.include('schemes/hl1b.lua')
 HL2HUD.include('schemes/hl1c.lua')
 
+-- [[ Server console variables ]] --
+local hl2hud_csdefaultenabled = CreateConVar('hl2hud_csdefaultenabled', 1, { FCVAR_REPLICATED, FCVAR_ARCHIVE, FCVAR_NOTIFY }, 'Enable addon by default on clients that did not have it previously installed')
+
+if CLIENT then
+
+  -- [[ Console variables ]] --
+  local hl2hud_enabled = CreateClientConVar('hl2hud_enabled', hl2hud_csdefaultenabled:GetInt())
+  local hl2hud_nosuit = CreateClientConVar('hl2hud_nosuit', 0)
+  local hl2hud_alwayshide = CreateClientConVar('hl2hud_alwayshide', 1)
+
+  -- [[ Initialization ]] --
+  HL2HUD.settings.Init()
+  local settings = HL2HUD.settings.Get()
+
+  --[[------------------------------------------------------------------
+    Whether the HUD is visible.
+    @return {boolean} is visible
+  ]]--------------------------------------------------------------------
+  local cl_drawhud = GetConVar('cl_drawhud')
+  function HL2HUD.ShouldDraw()
+    return hl2hud_enabled:GetBool() and cl_drawhud:GetBool()
+  end
+
+  --[[------------------------------------------------------------------
+    Whether the player has the suit equipped.
+    @return {boolean} is suit equipped
+  ]]--------------------------------------------------------------------
+  function HL2HUD.IsSuitEquipped()
+    local localPlayer = LocalPlayer()
+    if not IsValid(localPlayer) then return end
+    return (hl2hud_nosuit:GetBool() or localPlayer:IsSuitEquipped()) and localPlayer:Alive()
+  end
+
+  --[[------------------------------------------------------------------
+    Whether the given element should be visible.
+    @return {boolean} is element visible
+  ]]--------------------------------------------------------------------
+  function HL2HUD.ShouldDrawElement(element)
+    return HL2HUD.elements.Get(element):ShouldDraw(settings.HudLayout[element])
+  end
+
+  -- [[ Run animations before drawing the HUD ]] --
+  hook.Add('PreDrawHUD', HL2HUD.hookname, function()
+    if not HL2HUD.ShouldDraw() or not HL2HUD.IsSuitEquipped() then return end
+    HL2HUD.animations.UpdateAnimations()
+    for name, element in HL2HUD.elements.Iterator() do
+      element:PreDraw(params)
+    end
+  end)
+
+  -- [[ Draw HUD elements ]] --
+  hook.Add('HUDPaint', HL2HUD.hookname, function()
+    if not HL2HUD.ShouldDraw() then return end
+    for name, element in HL2HUD.elements.Iterator() do
+      local params = settings.HudLayout[name]
+      if not element:ShouldDraw(params) then continue end
+      element:OnThink(params)
+      if element.OnTop or (not element.DrawAlways and not HL2HUD.IsSuitEquipped()) then continue end
+      element:Draw(params, HL2HUD.Scale())
+    end
+  end)
+
+  -- [[ Draw HUD elements overriding HUDShouldDraw ]] --
+  hook.Add('DrawOverlay', HL2HUD.hookname, function()
+    if not HL2HUD.ShouldDraw() then return end
+    if gui.IsGameUIVisible() then return end
+    for name, element in HL2HUD.elements.Iterator() do
+      if not element.OnTop then continue end
+      if not element.DrawAlways and not HL2HUD.IsSuitEquipped() then continue end
+      local params = settings.HudLayout[name]
+      if not element:ShouldDraw(params) then continue end
+      element:Draw(params, HL2HUD.Scale())
+    end
+  end)
+
+  -- [[ Hide CHud elements ]] --
+  hook.Add('HUDShouldDraw', HL2HUD.hookname, function(default)
+    if not HL2HUD.ShouldDraw() then return end
+    if CHudScan then return end
+    local replacer = HL2HUD.elements.CHudReplacer(default)
+    if not replacer then return end
+    if not replacer:ShouldDraw(settings.HudLayout[replacer.name]) then return end
+    return false
+  end)
+
+end
+
 -- load third-party add-ons
 local files, directories = file.Find('autorun/hl2hud/add-ons/*.lua', 'LUA')
 for _, file in pairs(files) do
   HL2HUD.include('add-ons/' .. file)
 end
-
--- [[ Server console variables ]] --
-local hl2hud_csdefaultenabled = CreateConVar('hl2hud_csdefaultenabled', 1, { FCVAR_REPLICATED, FCVAR_ARCHIVE, FCVAR_NOTIFY }, 'Enable addon by default on clients that did not have it previously installed')
-
-if SERVER then return end
-
--- [[ Console variables ]] --
-local hl2hud_enabled = CreateClientConVar('hl2hud_enabled', hl2hud_csdefaultenabled:GetInt())
-local hl2hud_nosuit = CreateClientConVar('hl2hud_nosuit', 0)
-local hl2hud_alwayshide = CreateClientConVar('hl2hud_alwayshide', 1)
-
--- [[ Initialization ]] --
-HL2HUD.settings.Init()
-local settings = HL2HUD.settings.Get()
-
---[[------------------------------------------------------------------
-  Whether the HUD is visible.
-  @return {boolean} is visible
-]]--------------------------------------------------------------------
-local cl_drawhud = GetConVar('cl_drawhud')
-function HL2HUD.ShouldDraw()
-  return hl2hud_enabled:GetBool() and cl_drawhud:GetBool()
-end
-
---[[------------------------------------------------------------------
-  Whether the player has the suit equipped.
-  @return {boolean} is suit equipped
-]]--------------------------------------------------------------------
-function HL2HUD.IsSuitEquipped()
-  local localPlayer = LocalPlayer()
-  if not IsValid(localPlayer) then return end
-  return (hl2hud_nosuit:GetBool() or localPlayer:IsSuitEquipped()) and localPlayer:Alive()
-end
-
---[[------------------------------------------------------------------
-  Whether the given element should be visible.
-  @return {boolean} is element visible
-]]--------------------------------------------------------------------
-function HL2HUD.ShouldDrawElement(element)
-  return HL2HUD.elements.Get(element):ShouldDraw(settings.HudLayout[element])
-end
-
--- [[ Run animations before drawing the HUD ]] --
-hook.Add('PreDrawHUD', HL2HUD.hookname, function()
-  if not HL2HUD.ShouldDraw() or not HL2HUD.IsSuitEquipped() then return end
-  HL2HUD.animations.UpdateAnimations()
-  for name, element in HL2HUD.elements.Iterator() do
-    element:PreDraw(params)
-  end
-end)
-
--- [[ Draw HUD elements ]] --
-hook.Add('HUDPaint', HL2HUD.hookname, function()
-  if not HL2HUD.ShouldDraw() then return end
-  for name, element in HL2HUD.elements.Iterator() do
-    local params = settings.HudLayout[name]
-    if not element:ShouldDraw(params) then continue end
-    element:OnThink(params)
-    if element.OnTop or (not element.DrawAlways and not HL2HUD.IsSuitEquipped()) then continue end
-    element:Draw(params, HL2HUD.Scale())
-  end
-end)
-
--- [[ Draw HUD elements overriding HUDShouldDraw ]] --
-hook.Add('DrawOverlay', HL2HUD.hookname, function()
-  if not HL2HUD.ShouldDraw() then return end
-  if gui.IsGameUIVisible() then return end
-  for name, element in HL2HUD.elements.Iterator() do
-    if not element.OnTop then continue end
-    if not element.DrawAlways and not HL2HUD.IsSuitEquipped() then continue end
-    local params = settings.HudLayout[name]
-    if not element:ShouldDraw(params) then continue end
-    element:Draw(params, HL2HUD.Scale())
-  end
-end)
-
--- [[ Hide CHud elements ]] --
-hook.Add('HUDShouldDraw', HL2HUD.hookname, function(default)
-  if not HL2HUD.ShouldDraw() then return end
-  if CHudScan then return end
-  local replacer = HL2HUD.elements.CHudReplacer(default)
-  if not replacer then return end
-  if not replacer:ShouldDraw(settings.HudLayout[replacer.name]) then return end
-  return false
-end)
