@@ -16,10 +16,10 @@ if SERVER then
 
   -- [[ Update player driven vehicles weapon status ]] --
   hook.Add('Tick', HL2HUD.hookname, function()
-    for _, ply in pairs(player.GetAll()) do
+    for _, ply in pairs(player.GetAll()) do -- we only ever see it for the players, so we will only do it for players
       if not IsValid(ply) or not ply:InVehicle() or not IsValid(ply:GetVehicle()) then continue end
       local vehicle = ply:GetVehicle()
-      if not vehicle:IsVehicle() or not IsValid(vehicle:GetDriver()) or vehicle:GetDriver() != ply or not vehicle:GetInternalVariable(NWVAR_ENABLE) then continue end
+      if not IsValid(vehicle) or not vehicle:IsVehicle() or not IsValid(vehicle:GetDriver()) or not vehicle:GetDriver():IsPlayer() or not vehicle:GetInternalVariable(NWVAR_ENABLE) then continue end -- secondary old checks, will still be a magnitude more performant
       vehicle:SetNWBool(NWVAR_FIRE, vehicle:GetInternalVariable(NWVAR_FIRE))
       net.Start(NET)
       net.WriteVector(vehicle:GetInternalVariable(NWVAR_CROSSHAIR) - vehicle:GetPos())
