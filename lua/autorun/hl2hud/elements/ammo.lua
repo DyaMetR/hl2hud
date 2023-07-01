@@ -32,7 +32,7 @@ function ELEMENT:ShouldDraw(settings)
   return settings.visible
 end
 
-local m_iAmmo, m_eWeapon = -1, NULL
+local m_iAmmo, m_eWeapon, m_iSecondary = -1, NULL, 0
 function ELEMENT:Init()
 	self:Variable('BgColor', table.Copy(self.colours.BgColor))
 	self:Variable('FgColor', table.Copy(self.colours.FgColor))
@@ -42,6 +42,7 @@ function ELEMENT:Init()
   self:Variable('Alpha', 255)
   m_iAmmo = -1
 	m_eWeapon = NULL
+  m_iSecondary = 0
 end
 
 local function GetAmmo()
@@ -50,33 +51,33 @@ local function GetAmmo()
     local vehicle = LocalPlayer():GetVehicle()
     if not vehicle.GetAmmo then return -1, -1, 0 end
     local primary, _, reserve = vehicle:GetAmmo()
-    return reserve or -1, -1, primary or 0
+    return reserve or -1, -1, primary or 0, 0
   end
 
   -- is weapon valid?
   local weapon = LocalPlayer():GetActiveWeapon()
-	if not IsValid(weapon) then return -1, -1, 0 end
+	if not IsValid(weapon) then return -1, -1, 0, 0 end
 
   -- custom ammo display
   if weapon:IsScripted() and weapon.CustomAmmoDisplay then
-    if weapon.DrawAmmo == false then return -1, -1, 0 end
+    if weapon.DrawAmmo == false then return -1, -1, 0, 0 end
     local ammo = weapon:CustomAmmoDisplay()
     if ammo then
-      return ammo.PrimaryClip or -1, ammo.PrimaryAmmo or -1, weapon:GetPrimaryAmmoType() or 0, ammo.Draw and (ammo.PrimaryClip or ammo.PrimaryAmmo)
+      return ammo.PrimaryClip or -1, ammo.PrimaryAmmo or -1, weapon:GetPrimaryAmmoType() or 0, weapon:GetSecondaryAmmoType() or 0, ammo.Draw and (ammo.PrimaryClip or ammo.PrimaryAmmo)
     end
   end
 
   -- default ammo display
-	local primary = weapon:GetPrimaryAmmoType() or 0
+	local primary, secondary = weapon:GetPrimaryAmmoType() or 0, weapon:GetSecondaryAmmoType() or 0
 	local clip, reserve = weapon:Clip1() or -1, LocalPlayer():GetAmmoCount(primary) or -1
-	if clip < 0 then return reserve, -1, primary end
-	return clip, reserve, primary
+	if clip < 0 then return reserve, -1, primary, secondary end
+	return clip, reserve, primary, secondary
 end
 
 function ELEMENT:OnThink()
   local weapon = LocalPlayer():GetActiveWeapon()
   if LocalPlayer():InVehicle() then weapon = LocalPlayer():GetVehicle() end
-	local clip, reserve, ammotype, custom = GetAmmo()
+	local clip, reserve, ammotype, secondary, custom = GetAmmo()
 
 	-- ammunition amount changed
 	if clip ~= m_iAmmo then
@@ -92,20 +93,27 @@ function ELEMENT:OnThink()
 		m_iAmmo = clip
 	end
 
-	-- weapon changed
-	if m_eWeapon ~= weapon then
+	-- weapon changed (or secondary ammo type changed)
+	if m_eWeapon ~= weapon or m_iSecondary ~= secondary then
+    -- resize and reposition indicator
 		if reserve >= 0 then
       HL2HUD.animations.StartAnimationSequence('WeaponUsesClips')
 		else
 			HL2HUD.animations.StartAnimationSequence('WeaponDoesNotUseClips')
 		end
-		HL2HUD.animations.StartAnimationSequence('WeaponChanged')
+
+    -- do not play animation unless we truly changed our weapon
+		if m_eWeapon ~= weapon then
+      HL2HUD.animations.StartAnimationSequence('WeaponChanged')
+    end
+
 		m_eWeapon = weapon
+    m_iSecondary = secondary
 	end
 end
 
 function ELEMENT:Draw(settings, scale)
-	local clip, reserve, ammotype, custom = GetAmmo()
+	local clip, reserve, ammotype, _, custom = GetAmmo()
 	if ammotype <= 0 and not custom then return end
 	local x, y = (settings.xpos + self.variables.Position.x) * scale, (settings.ypos + self.variables.Position.y) * scale
 	local w, h = (settings.wide + self.variables.Size.x) * scale, (settings.tall + self.variables.Size.y) * scale
