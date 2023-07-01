@@ -94,10 +94,11 @@ local function cacheWeapons(force)
   weaponCount = #weapons
   table.Empty(weaponList)
 
-  -- add weapons
+  -- add weapons (except those out of bounds)
   for _, weapon in pairs(weapons) do
     -- weapon slots start at 0, so we need to make it start at 1 because of lua tables
-    local slot = math.min(weapon:GetSlot() + 1, MAX_SLOTS)
+    local slot = weapon:GetSlot() + 1
+    if slot < 1 or slot > MAX_SLOTS then continue end
 
     -- do not add if the slot is out of bounds
     if slot <= 0 then continue end
@@ -199,7 +200,6 @@ local function findWeapon(slot, pos, forward, inSlot)
         if not inSlot then
           slot = findSlot(slot - 1, false)
         end
-
         pos = cacheLength[slot]
       end
       weapon = cache[slot][pos] -- update current weapon
@@ -231,7 +231,7 @@ local function moveCursor(forward)
     local weapon = LocalPlayer():GetActiveWeapon()
 
     -- if there are no weapons equipped, start at the first slot
-    if IsValid(weapon) then
+    if IsValid(weapon) and weapon:GetSlot() > 0 and weapon:GetSlot() < MAX_SLOTS then
       -- make sure weapon is on the cache
       if not weaponPos[weapon] then
         cacheWeapons(true)

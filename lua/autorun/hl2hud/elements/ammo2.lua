@@ -28,7 +28,7 @@ function ELEMENT:ShouldDraw(settings)
   return settings.visible
 end
 
-local m_iAmmo, m_eWeapon = -1, NULL
+local m_iAmmo, m_iAmmoType = -1, 0
 function ELEMENT:Init()
 	self:Variable('BgColor', table.Copy(self.colours.BgColor))
 	self:Variable('FgColor', table.Copy(self.colours.FgColor))
@@ -49,7 +49,7 @@ local function GetAmmo()
 end
 
 function ELEMENT:OnThink()
-  local ammotype, ammo, weapon = GetAmmo()
+  local ammotype, ammo = GetAmmo()
 
   -- ammo changed
   if m_iAmmo ~= ammo then
@@ -64,13 +64,13 @@ function ELEMENT:OnThink()
   end
 
   -- weapon changed
-	if weapon ~= m_eWeapon then
+	if ammotype ~= m_iAmmoType then
     if ammotype <= 0 then
       HL2HUD.animations.StartAnimationSequence('WeaponDoesNotUseSecondaryAmmo')
     else
       HL2HUD.animations.StartAnimationSequence('WeaponUsesSecondaryAmmo')
     end
-    m_eWeapon = weapon
+    m_iAmmoType = ammotype
   end
 end
 
