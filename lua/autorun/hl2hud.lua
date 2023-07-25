@@ -1,7 +1,7 @@
 --[[------------------------------------------------------------------
   Half-Life 2 HUD
-  Version 1.5.4
-  July 1st, 2023
+  Version 1.6
+  July 25th, 2023
   Made by DyaMetR
   * full credits found in the details below
 ]]--------------------------------------------------------------------
@@ -14,18 +14,18 @@ HL2HUD.hookname			= 'hl2hud'
 if CLIENT then
   -- addon information
   HL2HUD.name				= 'Half-Life 2 HUD'
-  HL2HUD.version		= '1.5.4'
-  HL2HUD.date				= 'July 1st, 2023'
+  HL2HUD.version		= '1.6'
+  HL2HUD.date				= 'July 25th, 2023'
   HL2HUD.credits		= { -- {name, contribution}
-    {'DyaMetR', 'Developer'},
-    {'Valve Corporation', 'Original design\nCounter-Strike scheme design\nHalfLife2\nBoxRocket\nCounter-Strike font'},
-    {'Team Garry', 'Default design'},
-    {'Breadmen', 'Entropy Zero scheme design\nEntropy Zero 2 scheme design\nez2_hud'},
-    {'TeamGT', '1187 scheme design'},
-    {'SMOD Developer\'s Group', 'SMOD scheme design\nSMODGUI'},
-    {'CD2 Development Team', 'Combine Destiny scheme design'},
-    {'Crowbar Collective', 'Black Mesa scheme design\nBlack Mesa ammunition icons'},
-    {'Eyaura', 'G String scheme design\nG String Beta scheme design\ngstring_crosshairs\ngstring2'},
+    {'DyaMetR', '#hl2hud.credits.author'},
+    {'Valve Corporation', '#hl2hud.credits.valve'},
+    {'Facepunch', '#hl2hud.credits.facepunch'},
+    {'Breadmen', '#hl2hud.credits.entropyzero'},
+    {'TeamGT', '#hl2hud.credits.1187'},
+    {'SMOD Developer\'s Group', '#hl2hud.credits.smod'},
+    {'CD2 Development Team', '#hl2hud.credits.cd'},
+    {'Crowbar Collective', '#hl2hud.credits.blackmesa'},
+    {'Eyaura', '#hl2hud.credits.gstring'},
     {'Albert-Jan Pool', 'DIN'},
     {'Michael Moss', 'Android Insomnia'},
     {'Ray Larabie', 'Frak\nPricedown'},
@@ -42,7 +42,7 @@ if CLIENT then
     {'Matthew Welch', 'White Rabbit'},
     {'Subhashish Panigrahi', 'eLePhAnT uNcLe'},
     {'Unknown', 'GarbageFont'},
-    {'Matsilagi', 'Additional testing'}
+    {'Matsilagi', '#hl2hud.credits.other'}
   }
 end
 

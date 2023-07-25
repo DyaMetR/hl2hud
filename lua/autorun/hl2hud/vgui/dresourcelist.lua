@@ -6,8 +6,6 @@ local PANEL = {}
 local BUTTON_WIDTH  = 128
 local BUTTON_MARGIN = 3
 
-local LOCALE_RESET  = 'Reset to default'
-
 --[[------------------------------------------------------------------
   Creates the list and options panel.
 ]]--------------------------------------------------------------------
@@ -23,7 +21,7 @@ function PANEL:Init()
       local button = vgui.Create('DButton', reset)
       button:Dock(FILL)
       button:DockPadding(BUTTON_MARGIN, BUTTON_MARGIN, BUTTON_MARGIN, BUTTON_MARGIN)
-      button:SetText(LOCALE_RESET)
+      button:SetText('#hl2hud.menu.clientscheme.reset')
       button:SetIcon('icon16/bomb.png')
       button.DoClick = function() self:DoReset() end
       self.Button = button

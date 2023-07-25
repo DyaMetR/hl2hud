@@ -4,34 +4,29 @@ if SERVER then return end
 local DEFAULT_FONT  = 'WeaponIcons'
 local MARGIN        = 2
 
-local LOCALE_FONT   = 'Scheme font'
-local LOCALE_ICON   = 'Icon character'
-local LOCALE_XOFF   = 'Horizontal offset'
-local LOCALE_YOFF   = 'Vertical offset'
-
 local PANEL = {}
 
 function PANEL:Init()
   local font = vgui.Create('DComboBox', self)
-  font:SetTooltip(LOCALE_FONT)
+  font:SetTooltip('#hl2hud.menu.hudtextures.properties.font')
   font:SetText(DEFAULT_FONT)
   font.OnSelect = function() self:OnValueChanged() end
   self.Font = font
 
   local icon = vgui.Create('DTextEntry', self)
-  icon:SetPlaceholderText(LOCALE_ICON)
+  icon:SetPlaceholderText('#hl2hud.menu.hudtextures.properties.character')
   icon:SetUpdateOnType(true)
   icon.OnValueChange = function() self:OnValueChanged() end
   self.Icon = icon
 
   local x = vgui.Create('DNumberWang', self)
-  x:SetTooltip(LOCALE_XOFF)
+  x:SetTooltip('#hl2hud.menu.hudtextures.properties.x')
   x:SetMinMax(-9999, 9999)
   x.OnValueChanged = function() self:OnValueChanged() end
   self.XOff = x
 
   local y = vgui.Create('DNumberWang', self)
-  y:SetTooltip(LOCALE_YOFF)
+  y:SetTooltip('#hl2hud.menu.hudtextures.properties.y')
   y:SetMinMax(-9999, 9999)
   y.OnValueChanged = function() self:OnValueChanged() end
   self.YOff = y

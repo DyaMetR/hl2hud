@@ -4,10 +4,6 @@
 
 if SERVER then return end
 
-local LOCALE_MIN = '(Down to %d)'
-local LOCALE_MAX = '(Up to %d)'
-local LOCALE_MINMAX = '(Between %d and %d)'
-
 local HINT_COLOUR = Color(120, 120, 120)
 
 local PANEL = {}
@@ -39,13 +35,13 @@ function PANEL:SetParameter(element, parameter)
 		label:SetPos(control:GetX() + control:GetWide() + 8, 10)
 		label:SetTextColor(HINT_COLOUR)
 		if not properties.min then
-			label:SetText(string.format(LOCALE_MAX, properties.max))
+			label:SetText(string.format(language.GetPhrase('hl2hud.menu.hudlayout.parameter.number.max'), properties.max))
 			self.Wang:SetMax(properties.max)
 		elseif not properties.max then
-			label:SetText(string.format(LOCALE_MIN, properties.min))
+			label:SetText(string.format(language.GetPhrase('hl2hud.menu.hudlayout.parameter.number.min'), properties.min))
 			self.Wang:SetMin(properties.min)
 		else
-			label:SetText(string.format(LOCALE_MINMAX), properties.min, properties.max)
+			label:SetText(string.format(language.GetPhrase('hl2hud.menu.hudlayout.parameter.number.minmax')), properties.min, properties.max)
 			self.Wang:SetMinMax(properties.min, properties.max)
 		end
 		label:SizeToContents()

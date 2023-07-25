@@ -3,16 +3,6 @@ if SERVER then return end
 
 local PANEL = {}
 
-local LOCALE_FONT       = 'Font family'
-local LOCALE_SIZE       = 'Font size'
-local LOCALE_WEIGHT     = 'Bold'
-local LOCALE_ADDITIVE   = 'Additive'
-local LOCALE_BLUR       = 'Blur size'
-local LOCALE_SCANLINES  = 'Scanlines'
-local LOCALE_SYMBOL     = 'Enable symbols'
-local LOCALE_SCALABLE   = 'Scalable'
-local LOCALE_ANTIALIAS  = 'Antialias'
-
 --[[------------------------------------------------------------------
 	Creates the controls.
 ]]--------------------------------------------------------------------
@@ -21,7 +11,7 @@ function PANEL:Init()
 	local font = vgui.Create('DTextEntry', self)
   font:Dock(FILL)
   font:DockMargin(0, 0, 2, 0)
-	font:SetPlaceholderText(LOCALE_FONT)
+	font:SetPlaceholderText('#hl2hud.menu.clientscheme.fonts.properties.font')
 	font.OnLoseFocus = function(_) self:OnValueChanged() end
 	self.Font = font
 
@@ -35,7 +25,7 @@ function PANEL:Init()
 	-- font size
 	local size = vgui.Create('DNumberWang', controls)
 	size:SetWide(32)
-	size:SetTooltip(LOCALE_SIZE)
+	size:SetTooltip('#hl2hud.menu.clientscheme.fonts.properties.size')
 	size.OnValueChanged = function(_) self:OnValueChanged() end
 	self.Size = size
 
@@ -45,7 +35,7 @@ function PANEL:Init()
 	bold:SetSize(24, 20)
 	bold:SetImage('icon16/text_bold.png')
 	bold:SetIsToggle(true)
-	bold:SetTooltip(LOCALE_WEIGHT)
+	bold:SetTooltip('#hl2hud.menu.clientscheme.fonts.properties.weight_bold')
 	bold:SetText('')
 	bold.OnToggled = function(_) self:OnValueChanged() end
 	self.Weight = bold
@@ -56,7 +46,7 @@ function PANEL:Init()
 	additive:SetSize(24, 20)
 	additive:SetImage('icon16/rainbow.png')
 	additive:SetIsToggle(true)
-	additive:SetTooltip(LOCALE_ADDITIVE)
+	additive:SetTooltip('#hl2hud.menu.clientscheme.fonts.properties.additive')
 	additive:SetText('')
 	additive.OnToggled = function(_) self:OnValueChanged() end
 	self.Additive = additive
@@ -71,7 +61,7 @@ function PANEL:Init()
 	local blur = vgui.Create('DNumberWang', controls)
 	blur:SetX(108)
 	blur:SetWide(32)
-  blur:SetTooltip(LOCALE_BLUR)
+  blur:SetTooltip('#hl2hud.menu.clientscheme.fonts.properties.blur')
 	blur.OnValueChanged = function(_) self:OnValueChanged() end
 	self.Blur = blur
 
@@ -85,7 +75,7 @@ function PANEL:Init()
 	local scanlines = vgui.Create('DNumberWang', controls)
 	scanlines:SetX(163)
 	scanlines:SetWide(32)
-  scanlines:SetTooltip(LOCALE_SCANLINES)
+  scanlines:SetTooltip('#hl2hud.menu.clientscheme.fonts.properties.scanlines')
 	scanlines.OnValueChanged = function(_) self:OnValueChanged() end
 	self.Scanlines = scanlines
 
@@ -95,7 +85,7 @@ function PANEL:Init()
 	symbol:SetSize(24, 20)
 	symbol:SetImage('icon16/emoticon_grin.png')
 	symbol:SetIsToggle(true)
-	symbol:SetTooltip(LOCALE_SYMBOL)
+	symbol:SetTooltip('#hl2hud.menu.clientscheme.fonts.properties.symbol')
 	symbol:SetText('')
 	symbol.OnToggled = function(_) self:OnValueChanged() end
 	self.Symbol = symbol
@@ -106,7 +96,7 @@ function PANEL:Init()
   scalable:SetSize(24, 20)
   scalable:SetImage('icon16/text_smallcaps.png')
   scalable:SetIsToggle(true)
-  scalable:SetTooltip(LOCALE_SCALABLE)
+  scalable:SetTooltip('#hl2hud.menu.clientscheme.fonts.properties.scalable')
   scalable:SetText('')
   scalable:SetToggle(true)
   scalable.OnToggled = function(_) self:OnValueChanged() end
@@ -118,7 +108,7 @@ function PANEL:Init()
   antialias:SetSize(24, 20)
   antialias:SetImage('icon16/script_palette.png')
   antialias:SetIsToggle(true)
-  antialias:SetTooltip(LOCALE_ANTIALIAS)
+  antialias:SetTooltip('#hl2hud.menu.clientscheme.fonts.properties.antialias')
   antialias:SetText('')
   antialias:SetToggle(true)
   antialias.OnToggled = function(_) self:OnValueChanged() end

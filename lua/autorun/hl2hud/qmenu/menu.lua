@@ -22,69 +22,6 @@ local CONTROL = {
 local PREVIEW_BACKGROUND = 'hl2hud/background%i.png'
 local ILLEGAL_CHARACTERS = {'\'', '/', ':', '*', '?', '"', '<', '>', '|'}
 
-local LOCALE = {
-  TITLE                      = 'Scheme properties',
-  CATEGORY_CLIENTSCHEME      = 'ClientScheme',
-  CATEGORY_LAYOUT            = 'HudLayout',
-  CATEGORY_ICONS             = 'HudTextures',
-  CATEGORY_ANIMATIONS        = 'HudAnimations',
-  MENU_FILE                  = 'File',
-  MENU_FILE_NEW              = 'New',
-  MENU_FILE_OPEN             = 'Open',
-  MENU_FILE_SAVE             = 'Save as...',
-  MENU_FILE_EXIT             = 'Exit',
-  MENU_EDIT                  = 'Edit',
-  MENU_EDIT_APPLY            = 'Apply changes',
-	MENU_EDIT_SUBMIT					 = 'Submit',
-	MENU_EDIT_SUBMIT_DEFAULT	 = 'As server\'s default scheme',
-	MENU_EDIT_SUBMIT_OVERRIDE	 = 'As server-wide scheme override',
-  MENU_HELP                  = 'Help',
-  MENU_HELP_ABOUT            = 'About',
-  MENU_HELP_REPORT           = 'Report a bug',
-  MENU_HELP_STEAM            = 'Steam Workshop',
-  MENU_HELP_GITHUB           = 'Open an issue on GitHub',
-  MENU_HELP_DOCS             = 'Documentation',
-  CLIENTSCHEME_COLOURS       = 'Colours',
-  CLIENTSCHEME_COLOUR_ADD    = 'Add colour',
-  CLIENTSCHEME_COLOUR_NAME   = 'Colour name',
-  CLIENTSCHEME_COLOUR_RESET  = 'Reset colour',
-  CLIENTSCHEME_COLOUR_REMOVE = 'Remove colour',
-  CLIENTSCHEME_FONTS         = 'Fonts',
-  CLIENTSCHEME_FONT_ADD      = 'Add font',
-  CLIENTSCHEME_FONT_NAME     = 'Font name',
-  CLIENTSCHEME_FONT_RESET    = 'Reset font',
-  CLIENTSCHEME_FONT_REMOVE   = 'Remove font',
-  LAYOUT_RESET               = 'Reset layout',
-  LAYOUT_ELEMENT_RESET       = 'Reset to default',
-  LAYOUT_ELEMENTS            = 'Elements',
-  ICONS_CATEGORY_WEAPONS     = 'Weapons',
-  ICONS_CATEGORY_SELECTED    = 'Selected weapons',
-  ICONS_CATEGORY_AMMO        = 'Ammunition counter',
-  ICONS_CATEGORY_AMMOPICKUP  = 'Ammunition pickup',
-  ICONS_CATEGORY_AMMOWEAPONS = 'Ammunition weapon',
-  ICONS_CATEGORY_PICKUP      = 'Entity pickup',
-  ICONS_WEAPONCLASS          = 'Weapon class',
-  ICONS_AMMOTYPE             = 'Ammunition type',
-  ICONS_ENTCLASS             = 'Entity class',
-  ANIMATIONS_SEQUENCES       = 'Sequences',
-  ANIMATIONS_SEQUENCE_ADD    = 'Add sequence',
-  ANIMATIONS_SEQUENCE_NAME   = 'Sequence name',
-  ANIMATIONS_SEQUENCE_REMOVE = 'Remove sequence',
-  ANIMATIONS_SEQUENCE_RESET  = 'Reset sequence',
-  ANIMATIONS_COMMAND_ADD     = 'Add command',
-  ANIMATIONS_COMMAND_REMOVE  = 'Remove command',
-  ANIMATIONS_COMMANDTYPE     = 'Command type',
-  ANIMATIONS_EDITCOMMAND     = 'Edit animation command',
-  MODAL_SAVEAS               = 'Save as...',
-  MODAL_FILENAME             = 'Enter a name for your new scheme.',
-  MODAL_DUPLICATE            = 'There\'s already a scheme with this name and will be overwritten. Are you sure?',
-  MODAL_ERROR_DUPLICATE      = 'This name is being used by a default scheme and cannot be overwritten.\nPlease choose a different name for your scheme.',
-  MODAL_YES                  = 'Yes',
-  MODAL_NO                   = 'No',
-  MODAL_OK                   = 'OK',
-  MODAL_ERROR_FORMAT         = 'File names cannot contain \' / : * ? < > | or be empty.'
-}
-
 --[[------------------------------------------------------------------
   Creates the customization menu.
 ]]--------------------------------------------------------------------
@@ -98,7 +35,7 @@ concommand.Add('hl2hud_menu', function()
 
   -- [[ Window ]] --
   local frame = vgui.Create('HL2HUD_Frame')
-  frame:SetTitle(LOCALE.TITLE)
+  frame:SetTitle('#hl2hud.menu')
   frame:SetSize(math.max(ScrW() * W, MIN_W), math.max(ScrH() * H, MIN_H))
   frame:Center()
   frame:MakePopup()
@@ -140,17 +77,17 @@ concommand.Add('hl2hud_menu', function()
   end
 
     -- [[ Menu bar ]] --
-    local file = frame:AddMenu(LOCALE.MENU_FILE)
+    local file = frame:AddMenu('#hl2hud.menu.menubar.file')
 
       -- New
-      file:AddOption(LOCALE.MENU_FILE_NEW, function()
+      file:AddOption('#hl2hud.menu.menubar.file.new', function()
         cache = HL2HUD.scheme.CreateDataTable() -- load client data
         settings = table.Copy(default) -- reload merged settings
         frame:ReloadScheme()
       end):SetIcon('icon16/page_add.png')
 
       -- Load
-      local load, parent = file:AddSubMenu(LOCALE.MENU_FILE_OPEN)
+      local load, parent = file:AddSubMenu('#hl2hud.menu.menubar.file.open')
       parent:SetIcon('icon16/folder_page.png')
       load:SetDeleteSelf(false)
       frame.LoadSchemes = function()
@@ -167,8 +104,8 @@ concommand.Add('hl2hud_menu', function()
       frame:LoadSchemes()
 
       -- Save as...
-      file:AddOption(LOCALE.MENU_FILE_SAVE, function()
-        Derma_StringRequest(LOCALE.MODAL_SAVEAS, LOCALE.MODAL_FILENAME, '', function(value)
+      file:AddOption('#hl2hud.menu.menubar.file.save_as', function()
+        Derma_StringRequest('#hl2hud.menu.menubar.file.save_as', '#hl2hud.menu.save_as.filename', '', function(value)
           local illegal = string.len(string.Trim(value)) <= 0
           for _, char in pairs(ILLEGAL_CHARACTERS) do
             if string.find(value, char) then
@@ -177,15 +114,15 @@ concommand.Add('hl2hud_menu', function()
             end
           end
           if illegal then
-            Derma_Message(LOCALE.MODAL_ERROR_FORMAT, LOCALE.MODAL_SAVEAS, LOCALE.MODAL_OK)
+            Derma_Message('#hl2hud.menu.save_as.format_error', '#hl2hud.menu.menubar.file.save_as', '#hl2hud.menu.save_as.ok')
           else
             local scheme = HL2HUD.scheme.Get(value)
-            if scheme and scheme.engine then Derma_Message(LOCALE.MODAL_ERROR_DUPLICATE, LOCALE.MODAL_SAVEAS) return end
+            if scheme and scheme.engine then Derma_Message('#hl2hud.menu.save_as.duplicate_error', '#hl2hud.menu.menubar.file.save_as') return end
             if scheme or HL2HUD.settings.SchemeFileExists(HL2HUD.settings.GenerateFileName(value)) then
-              Derma_Query(LOCALE.MODAL_DUPLICATE, LOCALE.MODAL_SAVEAS, LOCALE.MODAL_YES, function()
+              Derma_Query('#hl2hud.menu.save_as.duplicate', '#hl2hud.menu.menubar.file.save_as', '#hl2hud.menu.save_as.yes', function()
                 HL2HUD.settings.SaveAs(value, cache)
                 frame:LoadSchemes()
-              end, LOCALE.MODAL_NO)
+              end, '#hl2hud.menu.save_as.no')
             else
               HL2HUD.settings.SaveAs(value, cache)
               if HL2HUD.toolmenu.list then HL2HUD.toolmenu.list:AddLine(value) end
@@ -196,53 +133,49 @@ concommand.Add('hl2hud_menu', function()
       end):SetIcon('icon16/disk.png')
 
       -- Exit
-      file:AddOption(LOCALE.MENU_FILE_EXIT, function() frame:Close() end):SetIcon('icon16/cancel.png')
+      file:AddOption('#hl2hud.menu.menubar.file.exit', function() frame:Close() end):SetIcon('icon16/cancel.png')
 
-    local edit = frame:AddMenu(LOCALE.MENU_EDIT)
+    local edit = frame:AddMenu('#hl2hud.menu.menubar.edit')
 
       -- Apply changes
-      edit:AddOption(LOCALE.MENU_EDIT_APPLY, function() HL2HUD.settings.Apply(cache) end):SetIcon('icon16/accept.png')
+      edit:AddOption('#hl2hud.menu.menubar.edit.apply', function() HL2HUD.settings.Apply(cache) end):SetIcon('icon16/accept.png')
 
 			-- Submit
 			if not game.SinglePlayer() and LocalPlayer():IsAdmin() then
-				local submit, parent = edit:AddSubMenu(LOCALE.MENU_EDIT_SUBMIT)
+				local submit, parent = edit:AddSubMenu('#hl2hud.menu.menubar.edit.submit')
 				parent:SetIcon('icon16/shield.png')
 				submit:SetDeleteSelf(false)
 
 					-- .. as the server's default scheme
-					submit:AddOption(LOCALE.MENU_EDIT_SUBMIT_DEFAULT, function() HL2HUD.server.SubmitDefault(cache) end)
+					submit:AddOption('#hl2hud.menu.menubar.edit.submit.default', function() HL2HUD.server.SubmitDefault(cache) end)
 
 					-- .. as a server-wide scheme override
-					submit:AddOption(LOCALE.MENU_EDIT_SUBMIT_OVERRIDE, function() HL2HUD.server.SubmitOverride(cache) end)
+					submit:AddOption('#hl2hud.menu.menubar.edit.submit.override', function() HL2HUD.server.SubmitOverride(cache) end)
 			end
 
-    local help = frame:AddMenu(LOCALE.MENU_HELP)
+    local help = frame:AddMenu('#hl2hud.menu.menubar.help')
 
       -- Report bug
-      local bug, parent = help:AddSubMenu(LOCALE.MENU_HELP_REPORT)
+      local bug, parent = help:AddSubMenu('#hl2hud.menu.menubar.help.bug_report')
       parent:SetIcon('icon16/bug.png')
       bug:SetDeleteSelf(false)
 
         -- ... on the Steam Workshop
-        bug:AddOption(LOCALE.MENU_HELP_STEAM, function() gui.OpenURL(URL_STEAMWORKSHOP) end):SetIcon('hl2hud/steam16.png')
+        bug:AddOption('#hl2hud.menu.menubar.help.bug_report.steam', function() gui.OpenURL(URL_STEAMWORKSHOP) end):SetIcon('hl2hud/steam16.png')
 
         -- ... on the GitHub repository
-        bug:AddOption(LOCALE.MENU_HELP_GITHUB, function() gui.OpenURL(URL_GITHUB) end):SetIcon('hl2hud/github16.png')
+        bug:AddOption('#hl2hud.menu.menubar.help.bug_report.github', function() gui.OpenURL(URL_GITHUB) end):SetIcon('hl2hud/github16.png')
 
       -- About
       help:AddSpacer()
-      help:AddOption(LOCALE.MENU_HELP_ABOUT, function()
+      help:AddOption('#hl2hud.menu.menubar.help.about', function()
         local about = vgui.Create('HL2HUD_About')
-        about:SetTitle(LOCALE.MENU_HELP_ABOUT)
+        about:SetTitle('#hl2hud.menu.menubar.help.about')
         about:Center()
       end):SetIcon('icon16/information.png')
 
-      -- Documentation
-      --help:AddSpacer()
-      --help:AddOption(LOCALE.MENU_HELP_DOCS, function() gui.OpenURL(URL_DOCUMENTATION) end):SetIcon('icon16/book.png')
-
     -- [[ ClientScheme ]] --
-    local scheme = frame:AddSheet(LOCALE.CATEGORY_CLIENTSCHEME, vgui.Create('Panel'), 'icon16/palette.png')
+    local scheme = frame:AddSheet('#hl2hud.menu.clientscheme', vgui.Create('Panel'), 'icon16/palette.png')
 
       local preview = vgui.Create('HL2HUD_Preview', scheme.Panel)
       preview:SetImage(string.format(PREVIEW_BACKGROUND, math.random(0, 1)))
@@ -256,7 +189,7 @@ concommand.Add('hl2hud_menu', function()
       editor:GetChild(0):DockMargin(2, 1, 6, 0)
 
         -- colour list
-        local colours = editor:AddSheet(LOCALE.CLIENTSCHEME_COLOURS, vgui.Create('HL2HUD_ResourceList'), 'icon16/color_wheel.png')
+        local colours = editor:AddSheet('#hl2hud.menu.clientscheme.colors', vgui.Create('HL2HUD_ResourceList'), 'icon16/color_wheel.png')
         colours.Panel:Dock(FILL)
         colours.Panel.CleanNullColours = function(self)
           for element, parameters in pairs(cache.HudLayout) do
@@ -289,12 +222,12 @@ concommand.Add('hl2hud_menu', function()
             picker:Dock(LEFT)
 
             local name = vgui.Create('DTextEntry', bottom)
-            name:SetPlaceholderText(LOCALE.CLIENTSCHEME_COLOUR_NAME)
+            name:SetPlaceholderText('#hl2hud.menu.clientscheme.colors.name')
             name:Dock(FILL)
             name:DockMargin(2, 0, 2, 0)
             name:SetUpdateOnType(true)
 
-          local add = bottom:AddButton('icon16/add.png', LOCALE.CLIENTSCHEME_COLOUR_ADD)
+          local add = bottom:AddButton('icon16/add.png', '#hl2hud.menu.clientscheme.colors.add')
           add:SetEnabled(false)
           add.DoClick = function()
             local colName, col = name:GetValue(), picker:GetValue()
@@ -305,7 +238,7 @@ concommand.Add('hl2hud_menu', function()
           name.OnValueChange = function(self, value) add:SetEnabled(string.len(value) > 0) end
 
         -- font list
-        local fonts = editor:AddSheet(LOCALE.CLIENTSCHEME_FONTS, vgui.Create('HL2HUD_ResourceList'), 'icon16/style.png')
+        local fonts = editor:AddSheet('#hl2hud.menu.clientscheme.fonts', vgui.Create('HL2HUD_ResourceList'), 'icon16/style.png')
         fonts.Panel:Dock(FILL)
         fonts.Panel.CleanNullFonts = function(self)
           for element, parameters in pairs(cache.HudLayout) do
@@ -328,7 +261,7 @@ concommand.Add('hl2hud_menu', function()
           bottom:DockPadding(2, 2, 2, 2)
 
             local name = vgui.Create('DTextEntry', bottom)
-            name:SetPlaceholderText(LOCALE.CLIENTSCHEME_FONT_NAME)
+            name:SetPlaceholderText('#hl2hud.menu.clientscheme.fonts.name')
             name:Dock(LEFT)
             name:DockMargin(0, 0, 2, 0)
             name:SetUpdateOnType(true)
@@ -337,7 +270,7 @@ concommand.Add('hl2hud_menu', function()
             editor:Dock(FILL)
             editor:DockMargin(0, 0, 2, 0)
 
-            local add = bottom:AddButton('icon16/add.png', LOCALE.CLIENTSCHEME_FONT_ADD)
+            local add = bottom:AddButton('icon16/add.png', '#hl2hud.menu.clientscheme.fonts.add')
             add:SetEnabled(false)
             add.DoClick = function()
               local fontName, data = name:GetValue(), editor:GenerateFontData()
@@ -367,9 +300,9 @@ concommand.Add('hl2hud_menu', function()
 
         local button
         if default.ClientScheme.Colors[colour] then
-          button = panel:AddButton('icon16/arrow_refresh.png', LOCALE.CLIENTSCHEME_COLOUR_RESET)
+          button = panel:AddButton('icon16/arrow_refresh.png', '#hl2hud.menu.clientscheme.colors.reset')
         else
-          button = panel:AddButton('icon16/delete.png', LOCALE.CLIENTSCHEME_COLOUR_REMOVE)
+          button = panel:AddButton('icon16/delete.png', '#hl2hud.menu.clientscheme.colors.remove')
         end
         button.DoClick = function()
           cache.ClientScheme.Colors[colour] = nil
@@ -394,9 +327,9 @@ concommand.Add('hl2hud_menu', function()
 
         local button
         if default.ClientScheme.Fonts[name] then
-          button = panel:AddButton('icon16/arrow_refresh.png', LOCALE.CLIENTSCHEME_FONT_RESET)
+          button = panel:AddButton('icon16/arrow_refresh.png', '#hl2hud.menu.clientscheme.fonts.reset')
         else
-          button = panel:AddButton('icon16/delete.png', LOCALE.CLIENTSCHEME_FONT_REMOVE)
+          button = panel:AddButton('icon16/delete.png', '#hl2hud.menu.clientscheme.fonts.remove')
         end
         button.DoClick = function()
           cache.ClientScheme.Fonts[name] = nil
@@ -409,7 +342,7 @@ concommand.Add('hl2hud_menu', function()
     frame.ClientScheme = scheme
 
     -- [[ HudLayout ]] --
-    local layout = frame:AddSheet(LOCALE.CATEGORY_LAYOUT, vgui.Create('Panel'), 'icon16/layout.png')
+    local layout = frame:AddSheet('#hl2hud.menu.hudlayout', vgui.Create('Panel'), 'icon16/layout.png')
 
       -- reset layout
       local header = vgui.Create('Panel', layout.Panel)
@@ -417,7 +350,7 @@ concommand.Add('hl2hud_menu', function()
 
         local reset = vgui.Create('DButton', header)
         reset:Dock(LEFT)
-        reset:SetText(LOCALE.LAYOUT_RESET)
+        reset:SetText('#hl2hud.menu.hudlayout.reset')
         reset:SetIcon('icon16/layout_delete.png')
         reset:SetWide(128)
         reset.DoClick = function()
@@ -428,7 +361,7 @@ concommand.Add('hl2hud_menu', function()
 
       -- elements list
       local elements = vgui.Create('DListView', layout.Panel)
-      elements:AddColumn(LOCALE.LAYOUT_ELEMENTS)
+      elements:AddColumn('#hl2hud.menu.hudlayout.elements')
       for element, _ in SortedPairsByMemberValue(HL2HUD.elements.All(), 'i') do
         elements:AddLine(element)
       end
@@ -443,7 +376,7 @@ concommand.Add('hl2hud_menu', function()
         reset:Dock(TOP)
         reset:DockMargin(0, 0, 0, 5)
         reset:SetWide(128)
-        reset:SetText(LOCALE.LAYOUT_ELEMENT_RESET)
+        reset:SetText('#hl2hud.menu.hudlayout.elements.reset')
         reset:SetImage('icon16/bomb.png')
         reset.DoClick = function()
           if cache.HudLayout[element] then table.Empty(cache.HudLayout[element]) end
@@ -497,7 +430,7 @@ concommand.Add('hl2hud_menu', function()
       divider:DockMargin(0, 5, 0, 0)
 
     -- [[ HudAnimations ]] --
-    local animations = frame:AddSheet(LOCALE.CATEGORY_ANIMATIONS, vgui.Create('Panel'), 'icon16/film.png')
+    local animations = frame:AddSheet('#hl2hud.menu.hudanimations', vgui.Create('Panel'), 'icon16/film.png')
 
       local sequences = vgui.Create('Panel', animations.Panel)
       sequences.Populate = function(self)
@@ -515,7 +448,7 @@ concommand.Add('hl2hud_menu', function()
 
           local reset = vgui.Create('DButton', header)
           reset:Dock(LEFT)
-          reset:SetText('Reset animations')
+          reset:SetText('#hl2hud.menu.hudanimations.reset')
           reset:SetImage('icon16/bomb.png')
           reset:SetWide(128)
           reset.DoClick = function()
@@ -528,10 +461,10 @@ concommand.Add('hl2hud_menu', function()
           name:SetWide(256)
           name:Dock(RIGHT)
           name:DockMargin(0, 2, 2, 2)
-          name:SetPlaceholderText(LOCALE.ANIMATIONS_SEQUENCE_NAME)
+          name:SetPlaceholderText('#hl2hud.menu.hudanimations.sequences.name')
           name:SetUpdateOnType(true)
 
-          local add = header:AddButton('icon16/add.png', LOCALE.ANIMATIONS_SEQUENCE_ADD)
+          local add = header:AddButton('icon16/add.png', '#hl2hud.menu.hudanimations.sequences.add')
           add.DoClick = function(self)
             local seqName = name:GetValue()
             cache.HudAnimations[seqName] = {}
@@ -545,7 +478,7 @@ concommand.Add('hl2hud_menu', function()
         list:SetMultiSelect(false)
         list:Dock(FILL)
         list:DockMargin(0, 5, 0, 0)
-        list:AddColumn(LOCALE.ANIMATIONS_SEQUENCES)
+        list:AddColumn('#hl2hud.menu.hudanimations.sequences')
         list.OnRowSelected = function(self, _, line)
           sequences.Sequence:Populate(line:GetValue(1))
         end
@@ -554,8 +487,8 @@ concommand.Add('hl2hud_menu', function()
       local sequence = vgui.Create('HL2HUD_ResourceList', animations.Panel)
       sequence:SetVisible(false)
       sequence.Populate = function(self, seqname)
-        local label = LOCALE.ANIMATIONS_SEQUENCE_RESET
-        if not default.HudAnimations[seqname] then label = LOCALE.ANIMATIONS_SEQUENCE_REMOVE end
+        local label = '#hl2hud.menu.hudanimations.sequences.reset'
+        if not default.HudAnimations[seqname] then label = '#hl2hud.menu.hudanimations.sequences.remove' end
         self:Clear()
         self:SetButton(label, 'icon16/film_delete.png')
         self:SetVisible(true)
@@ -571,11 +504,11 @@ concommand.Add('hl2hud_menu', function()
           local line = vgui.Create(class, panel)
           line:Dock(FILL)
           line:DockPadding(5, 0, 0, 0)
-          line:AddColumn(cmd.commandType, LOCALE.ANIMATIONS_COMMANDTYPE)
+          line:AddColumn(cmd.commandType, '#hl2hud.menu.hudanimations.command.type')
           line:Populate(cmd)
 
           -- create editor
-          line:AddButton('icon16/script_edit.png', LOCALE.ANIMATIONS_EDITCOMMAND).DoClick = function()
+          line:AddButton('icon16/script_edit.png', '#hl2hud.menu.hudanimations.animations.edit_command').DoClick = function()
             local edit = vgui.Create('HL2HUD_CommandLineEdit', panel)
             edit:Dock(FILL)
             edit:SetText(cmd.commandType)
@@ -633,7 +566,7 @@ concommand.Add('hl2hud_menu', function()
         local bottom = sequence:AddBottom('HL2HUD_ButtonedLine')
 
           local command = vgui.Create('DComboBox', bottom)
-          command:SetTooltip(LOCALE.ANIMATIONS_COMMANDTYPE)
+          command:SetTooltip('#hl2hud.menu.hudanimations.command.type')
           command:Dock(LEFT)
           command:DockMargin(2, 2, 0, 2)
 
@@ -643,7 +576,7 @@ concommand.Add('hl2hud_menu', function()
           end
 
           -- add button
-          local add = bottom:AddButton('icon16/add.png', LOCALE.ANIMATIONS_COMMAND_ADD)
+          local add = bottom:AddButton('icon16/add.png', '#hl2hud.menu.hudanimations.animations.add_command')
           add.DoClick = function()
             local _, line = list:GetSelectedLine()
             local seqname = line:GetValue(1)
@@ -685,12 +618,12 @@ concommand.Add('hl2hud_menu', function()
       divider:SetTopHeight(frame:GetTall() * .33)
 
   -- [[ HudTextures ]] --
-  local icons = frame:AddSheet(LOCALE.CATEGORY_ICONS, vgui.Create('DColumnSheet'), 'icon16/pictures.png')
+  local icons = frame:AddSheet('#hl2hud.menu.hudtextures', vgui.Create('DColumnSheet'), 'icon16/pictures.png')
   icons.Panel:GetChild(0):DockMargin(2, 1, 6, 0)
   icons.Panel:GetChild(0):SetWide(146)
 
     local weapons = vgui.Create('HL2HUD_TextureList')
-    weapons.Editor:SetClassPlaceholder(LOCALE.ICONS_WEAPONCLASS)
+    weapons.Editor:SetClassPlaceholder('#hl2hud.menu.hudtextures.weapons.weapon_class')
     weapons.OnAdded = function(_, class, data)
       cache.HudTextures.Weapons[class] = data
       settings.HudTextures.Weapons[class] = data
@@ -712,10 +645,10 @@ concommand.Add('hl2hud_menu', function()
       cache.HudTextures.Weapons[class] = data
       settings.HudTextures.Weapons[class] = data
     end
-    icons.Panel:AddSheet(LOCALE.ICONS_CATEGORY_WEAPONS, weapons, 'icon16/gun.png')
+    icons.Panel:AddSheet('#hl2hud.menu.hudtextures.weapons', weapons, 'icon16/gun.png')
 
     local selected = vgui.Create('HL2HUD_TextureList')
-    selected.Editor:SetClassPlaceholder(LOCALE.ICONS_WEAPONCLASS)
+    selected.Editor:SetClassPlaceholder('#hl2hud.menu.hudtextures.weapons.weapon_class')
     selected.OnAdded = function(_, class, data)
       cache.HudTextures.Selected[class] = data
       settings.HudTextures.Selected[class] = data
@@ -737,10 +670,10 @@ concommand.Add('hl2hud_menu', function()
       cache.HudTextures.Selected[class] = data
       settings.HudTextures.Selected[class] = data
     end
-    icons.Panel:AddSheet(LOCALE.ICONS_CATEGORY_SELECTED, selected, 'icon16/arrow_in.png')
+    icons.Panel:AddSheet('#hl2hud.menu.hudtextures.selected_weapons', selected, 'icon16/arrow_in.png')
 
     local ammo = vgui.Create('HL2HUD_TextureList')
-    ammo.Editor:SetClassPlaceholder(LOCALE.ICONS_AMMOTYPE)
+    ammo.Editor:SetClassPlaceholder('#hl2hud.menu.hudtextures.ammo.ammo_type')
     ammo.OnAdded = function(_, class, data)
       cache.HudTextures.AmmoInv[class] = data
       settings.HudTextures.AmmoInv[class] = data
@@ -762,10 +695,10 @@ concommand.Add('hl2hud_menu', function()
       cache.HudTextures.AmmoInv[class] = data
       settings.HudTextures.AmmoInv[class] = data
     end
-    icons.Panel:AddSheet(LOCALE.ICONS_CATEGORY_AMMO, ammo, 'icon16/bomb.png')
+    icons.Panel:AddSheet('#hl2hud.menu.hudtextures.ammo', ammo, 'icon16/bomb.png')
 
     local pickup = vgui.Create('HL2HUD_TextureList')
-    pickup.Editor:SetClassPlaceholder(LOCALE.ICONS_AMMOTYPE)
+    pickup.Editor:SetClassPlaceholder('#hl2hud.menu.hudtextures.ammo.ammo_type')
     pickup.OnAdded = function(_, class, data)
       cache.HudTextures.Ammo[class] = data
       settings.HudTextures.Ammo[class] = data
@@ -787,10 +720,10 @@ concommand.Add('hl2hud_menu', function()
       cache.HudTextures.Ammo[class] = data
       settings.HudTextures.Ammo[class] = data
     end
-    icons.Panel:AddSheet(LOCALE.ICONS_CATEGORY_AMMOPICKUP, pickup, 'icon16/coins_add.png')
+    icons.Panel:AddSheet('#hl2hud.menu.hudtextures.ammo_pickup', pickup, 'icon16/coins_add.png')
 
     local ammowep = vgui.Create('HL2HUD_TextureList')
-    ammowep.Editor:SetClassPlaceholder(LOCALE.ICONS_AMMOTYPE)
+    ammowep.Editor:SetClassPlaceholder('#hl2hud.menu.hudtextures.ammo.ammo_type')
     ammowep.OnAdded = function(_, class, data)
       cache.HudTextures.AmmoWep[class] = data
       settings.HudTextures.AmmoWep[class] = data
@@ -812,10 +745,10 @@ concommand.Add('hl2hud_menu', function()
       cache.HudTextures.AmmoWep[class] = data
       settings.HudTextures.AmmoWep[class] = data
     end
-    icons.Panel:AddSheet(LOCALE.ICONS_CATEGORY_AMMOWEAPONS, ammowep, 'icon16/information.png')
+    icons.Panel:AddSheet('#hl2hud.menu.hudtextures.ammo_weapon', ammowep, 'icon16/information.png')
 
     local ent = vgui.Create('HL2HUD_TextureList')
-    ent.Editor:SetClassPlaceholder(LOCALE.ICONS_ENTCLASS)
+    ent.Editor:SetClassPlaceholder('#hl2hud.menu.hudtextures.pickup.ent_class')
     ent.OnAdded = function(_, class, data)
       cache.HudTextures.Entities[class] = data
       settings.HudTextures.Entities[class] = data
@@ -837,7 +770,7 @@ concommand.Add('hl2hud_menu', function()
       cache.HudTextures.Entities[class] = data
       settings.HudTextures.Entities[class] = data
     end
-    icons.Panel:AddSheet(LOCALE.ICONS_CATEGORY_PICKUP, ent, 'icon16/package_add.png')
+    icons.Panel:AddSheet('#hl2hud.menu.hudtextures.pickup', ent, 'icon16/package_add.png')
   icons.Populate = function()
     weapons:SetFontSource(settings.ClientScheme.Fonts)
     weapons:Populate(settings.HudTextures.Weapons)

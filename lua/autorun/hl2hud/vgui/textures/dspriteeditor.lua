@@ -3,17 +3,6 @@ if SERVER then return end
 
 local MARGIN = 2
 
-local LOCALE_TEXTURE  = 'Texture'
-local LOCALE_W        = 'Texture file width'
-local LOCALE_H        = 'Texture file height'
-local LOCALE_U1       = 'Sprite\'s left side (leave at 0 for default)'
-local LOCALE_V1       = 'Sprite\'s top side (leave at 0 for default)'
-local LOCALE_U2       = 'Sprite\'s right side (leave at 0 for default)'
-local LOCALE_V2       = 'Sprite\'s bottom side (leave at 0 for default)'
-local LOCALE_XOFF     = 'Horizontal offset'
-local LOCALE_YOFF     = 'Vertical offset'
-local LOCALE_SCALABLE = 'Scaled'
-
 local PANEL = {}
 
 --[[------------------------------------------------------------------
@@ -35,7 +24,7 @@ end
 
 function PANEL:Init()
   local texture = vgui.Create('DTextEntry', self)
-  texture:SetPlaceholderText(LOCALE_TEXTURE)
+  texture:SetPlaceholderText('#hl2hud.menu.hudtextures.properties.texture')
   texture:Dock(FILL)
   texture:DockMargin(0, 0, 2, 0)
   texture:SetUpdateOnType(true)
@@ -46,21 +35,21 @@ function PANEL:Init()
   controls:SetWide(326)
   controls:Dock(RIGHT)
 
-    self.FW = AddNumberWang(controls, LOCALE_W)
-    self.FH = AddNumberWang(controls, LOCALE_H)
-    self.U1 = AddNumberWang(controls, LOCALE_U1)
-    self.V1 = AddNumberWang(controls, LOCALE_V1)
-    self.U2 = AddNumberWang(controls, LOCALE_U2)
-    self.V2 = AddNumberWang(controls, LOCALE_V2)
-    self.XOff = AddNumberWang(controls, LOCALE_XOFF)
+    self.FW = AddNumberWang(controls, '#hl2hud.menu.hudtextures.properties.w')
+    self.FH = AddNumberWang(controls, '#hl2hud.menu.hudtextures.properties.h')
+    self.U1 = AddNumberWang(controls, '#hl2hud.menu.hudtextures.properties.u1')
+    self.V1 = AddNumberWang(controls, '#hl2hud.menu.hudtextures.properties.v1')
+    self.U2 = AddNumberWang(controls, '#hl2hud.menu.hudtextures.properties.u2')
+    self.V2 = AddNumberWang(controls, '#hl2hud.menu.hudtextures.properties.v2')
+    self.XOff = AddNumberWang(controls, '#hl2hud.menu.hudtextures.properties.x')
     self.XOff:SetMin(-9999)
-    self.YOff = AddNumberWang(controls, LOCALE_YOFF)
+    self.YOff = AddNumberWang(controls, '#hl2hud.menu.hudtextures.properties.y')
     self.YOff:SetMin(-9999)
 
     local scalable = vgui.Create('DCheckBoxLabel', controls)
     scalable:SetWide(64)
     scalable:Dock(LEFT)
-    scalable:SetText(LOCALE_SCALABLE)
+    scalable:SetText('#hl2hud.menu.hudtextures.properties.scalable')
     scalable:SetTextColor(self:GetSkin().text_dark)
     scalable:SetChecked(true)
     scalable.OnChange = function() self:OnValueChanged() end

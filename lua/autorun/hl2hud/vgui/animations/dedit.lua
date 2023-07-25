@@ -5,10 +5,6 @@ local PANEL = {}
 
 local COLOUR = Color(255, 255, 215)
 
-local LOCALE_REMOVE   = 'Remove animation command'
-local LOCALE_APPLY    = 'Apply changes'
-local LOCALE_UNDO     = 'Cancel'
-
 --[[------------------------------------------------------------------
   Creates the command type label and the buttons.
 ]]--------------------------------------------------------------------
@@ -19,19 +15,19 @@ function PANEL:Init()
   label:SetTextColor(self:GetSkin().text_dark)
   self.Label = label
 
-  local apply = self:AddButton('icon16/accept.png', LOCALE_APPLY)
+  local apply = self:AddButton('icon16/accept.png', '#hl2hud.menu.hudanimations.command.apply')
   apply.DoClick = function()
     self:DoApply()
     self:Remove()
   end
   self.Apply = apply
 
-  self:AddButton('icon16/delete.png', LOCALE_REMOVE).DoClick = function()
+  self:AddButton('icon16/delete.png', '#hl2hud.menu.hudanimations.command.remove').DoClick = function()
     self:DoRemove()
     self:Remove()
   end
 
-  self:AddButton('icon16/arrow_undo.png', LOCALE_UNDO).DoClick = function() self:Remove() end
+  self:AddButton('icon16/arrow_undo.png', '#hl2hud.menu.hudanimations.command.cancel').DoClick = function() self:Remove() end
 end
 
 --[[------------------------------------------------------------------

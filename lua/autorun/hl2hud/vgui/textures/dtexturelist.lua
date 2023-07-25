@@ -1,9 +1,6 @@
 
 if SERVER then return end
 
-local LOCALE_ADD    = 'Add icon'
-local LOCALE_REMOVE = 'Remove icon'
-
 local PANEL = {}
 
 function PANEL:Init()
@@ -13,7 +10,7 @@ function PANEL:Init()
   editor:DockMargin(2, 2, 2, 2)
   self.Editor = editor
 
-    local add = editor:AddButton('icon16/add.png', LOCALE_ICONS_ADD)
+    local add = editor:AddButton('icon16/add.png', '#hl2hud.menu.hudtextures.list.add')
     add.DoClick = function() self:OnAdded(editor:GenerateIconData()) end
     add:SetEnabled(false)
 
@@ -30,7 +27,7 @@ function PANEL:Populate(list)
     if data == -1 then continue end
     local line, panel = self:AddLine('HL2HUD_TextureEditor')
     panel:SetIconData(class, data)
-    panel:AddButton('icon16/delete.png', LOCALE_REMOVE).DoClick = function() self:OnRemoved(class) end
+    panel:AddButton('icon16/delete.png', '#hl2hud.menu.hudtextures.list.remove').DoClick = function() self:OnRemoved(class) end
     panel:SetFontSource(self.Fonts)
     panel:MakeClassReadOnly()
     panel.OnValueChanged = function() self:OnValueChanged(panel:GenerateIconData()) end

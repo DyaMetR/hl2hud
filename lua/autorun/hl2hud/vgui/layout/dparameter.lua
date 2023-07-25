@@ -6,8 +6,6 @@ if SERVER then return end
 
 local COLOUR_BACKGROUND, COLOUR_TITLE = Color(80, 80, 80), Color(200, 200, 200)
 
-local LOCALE_RESET = 'Reset %s to default'
-
 local PANEL = {}
 
 --[[------------------------------------------------------------------
@@ -44,7 +42,7 @@ function PANEL:SetTitle(title)
 	self.Title.Label:SetText(title)
 	self.Title.Label:SizeToContents()
 	self.Title:SetWide(self.Title.Label:GetWide() + 14)
-  self.Reset:SetTooltip(string.format(LOCALE_RESET, title))
+  self.Reset:SetTooltip(string.format(language.GetPhrase('hl2hud.menu.hudlayout.parameter.reset'), title))
 	self:OnTitleSizeChanged(self.Title:GetWide())
 end
 

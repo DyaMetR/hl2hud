@@ -7,10 +7,6 @@ local BUTTON_WIDTH  = 75
 local BUTTON_HEIGHT = 23
 local BUTTON_MARGIN = 3
 
-local LOCALE_APPLY  = 'Apply'
-local LOCALE_CANCEL = 'Cancel'
-local LOCALE_OK     = 'OK'
-
 --[[------------------------------------------------------------------
   Creates a button from the bottom options.
   @param {Panel} parent panel
@@ -42,15 +38,15 @@ function PANEL:Init()
   options:DockMargin(0, BUTTON_MARGIN, 0, 0)
 
     -- apply scheme
-    local apply = OptionButton(options, LOCALE_APPLY)
+    local apply = OptionButton(options, '#hl2hud.menu.apply')
     apply.DoClick = function() self:ApplyScheme() end
 
     -- cancel
-    local cancel = OptionButton(options, LOCALE_CANCEL)
+    local cancel = OptionButton(options, '#hl2hud.menu.cancel')
     cancel.DoClick = function() self:Close() end
 
     -- apply and close
-    local ok = OptionButton(options, LOCALE_OK)
+    local ok = OptionButton(options, '#hl2hud.menu.ok')
     ok.DoClick = function()
       self:ApplyScheme()
       self:Close()

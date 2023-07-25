@@ -5,8 +5,6 @@ local PANEL = {}
 
 local MARGIN = 2
 
-local LOCALE_DELAY    = 'Delay'
-
 --[[------------------------------------------------------------------
   Creates the editor components.
 ]]--------------------------------------------------------------------
@@ -14,7 +12,7 @@ function PANEL:Init()
   self.Param = vgui.Create('DComboBox', self)
 
   local delay = vgui.Create('DNumberWang', self)
-  delay:SetTooltip(LOCALE_DELAY)
+  delay:SetTooltip('#hl2hud.menu.hudanimations.command.delay')
   self.Delay = delay
 end
 

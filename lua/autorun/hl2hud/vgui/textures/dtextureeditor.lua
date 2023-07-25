@@ -9,8 +9,8 @@ local EDITORS = {
 }
 
 local CHOICES = {
-  [HL2HUD.scheme.ICON_FONT] = 'Icon',
-  [HL2HUD.scheme.ICON_SPRITE] = 'Sprite'
+  [HL2HUD.scheme.ICON_FONT] = '#hl2hud.menu.hudtextures.properties.type.icon',
+  [HL2HUD.scheme.ICON_SPRITE] = '#hl2hud.menu.hudtextures.properties.type.sprite'
 }
 
 function PANEL:Init()

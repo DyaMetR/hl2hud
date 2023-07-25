@@ -7,20 +7,12 @@ local MARGIN = 2
 local NUMBER_WIDTH = 32
 local FIX_WIDTH = (NUMBER_WIDTH * 3) + MARGIN * 2
 
-local LOCALE_PANEL    = 'Element'
-local LOCALE_VARIABLE = 'Variable'
-local LOCALE_VALUE    = 'Value'
-local LOCALE_INTERP   = 'Interpolator'
-local LOCALE_PARAM    = 'Interpolator parameter'
-local LOCALE_DELAY    = 'Delay'
-local LOCALE_DURATION = 'Duration'
-
 --[[------------------------------------------------------------------
   Creates the editor components.
 ]]--------------------------------------------------------------------
 function PANEL:Init()
   local panel = vgui.Create('DComboBox', self)
-  panel:SetTooltip(LOCALE_PANEL)
+  panel:SetTooltip('#hl2hud.menu.hudanimations.command.animate.panel')
   for name, _ in pairs(HL2HUD.elements.All()) do panel:AddChoice(name) end
   panel.OnSelect = function(_, _, option)
     self.Variable:Clear()
@@ -32,7 +24,7 @@ function PANEL:Init()
   self.Panel = panel
 
   local variable = vgui.Create('DComboBox', self)
-  variable:SetTooltip(LOCALE_VARIABLE)
+  variable:SetTooltip('#hl2hud.menu.hudanimations.command.animate.variable')
   variable.OnSelect = function(_, _, option)
     self.Value:Clear()
     self.Value.IsValueValid = function() return true end
@@ -74,7 +66,7 @@ function PANEL:Init()
   self.Variable = variable
 
   local value = vgui.Create('Panel', self)
-  value:SetTooltip(LOCALE_VALUE)
+  value:SetTooltip('#hl2hud.menu.hudanimations.command.animate.value')
   value.GetValue = function(self)
     if self:ChildCount() <= 0 then return end
     return self:GetChild(0):GetValue()
@@ -82,7 +74,7 @@ function PANEL:Init()
   self.Value = value
 
   local interp = vgui.Create('DComboBox', self)
-  interp:SetTooltip(LOCALE_INTERP)
+  interp:SetTooltip('#hl2hud.menu.hudanimations.command.animate.interpolator')
   interp.OnSelect = function(_, _, option)
     self.Interparam:SetEnabled(debug.getinfo(HL2HUD.animations.GetInterpolators()[option], 'u').nparams >= 2)
     self:OnSelectionChanged()
@@ -91,21 +83,21 @@ function PANEL:Init()
   self.Interp = interp
 
   local duration = vgui.Create('DNumberWang', self)
-  duration:SetTooltip(LOCALE_DURATION)
+  duration:SetTooltip('#hl2hud.menu.hudanimations.command.animate.duration')
   duration:SetWide(NUMBER_WIDTH)
   duration:Dock(RIGHT)
   duration:DockMargin(MARGIN, 0, 0, 0)
   self.Duration = duration
 
   local delay = vgui.Create('DNumberWang', self)
-  delay:SetTooltip(LOCALE_DELAY)
+  delay:SetTooltip('#hl2hud.menu.hudanimations.command.delay')
   delay:SetWide(NUMBER_WIDTH)
   delay:Dock(RIGHT)
   delay:DockMargin(MARGIN, 0, 0, 0)
   self.Delay = delay
 
   local interparam = vgui.Create('DNumberWang', self)
-  interparam:SetTooltip(LOCALE_PARAM)
+  interparam:SetTooltip('#hl2hud.menu.hudanimations.command.animate.interpolator_parameter')
   interparam:SetWide(NUMBER_WIDTH)
   interparam:Dock(RIGHT)
   interparam:SetEnabled(false)

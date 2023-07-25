@@ -231,7 +231,7 @@ local function moveCursor(forward)
     local weapon = LocalPlayer():GetActiveWeapon()
 
     -- if there are no weapons equipped, start at the first slot
-    if IsValid(weapon) and weapon:GetSlot() > 0 and weapon:GetSlot() < MAX_SLOTS then
+    if IsValid(weapon) and weapon:GetSlot() >= 0 and weapon:GetSlot() < MAX_SLOTS then
       -- make sure weapon is on the cache
       if not weaponPos[weapon] then
         cacheWeapons(true)
