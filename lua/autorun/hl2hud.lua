@@ -1,7 +1,7 @@
 --[[------------------------------------------------------------------
   Half-Life 2 HUD
-  Version 1.6
-  July 25th, 2023
+  Version 1.6.1
+  July 26th, 2023
   Made by DyaMetR
   * full credits found in the details below
 ]]--------------------------------------------------------------------
@@ -14,8 +14,8 @@ HL2HUD.hookname			= 'hl2hud'
 if CLIENT then
   -- addon information
   HL2HUD.name				= 'Half-Life 2 HUD'
-  HL2HUD.version		= '1.6'
-  HL2HUD.date				= 'July 25th, 2023'
+  HL2HUD.version		= '1.6.1'
+  HL2HUD.date				= 'July 26th, 2023'
   HL2HUD.credits		= { -- {name, contribution}
     {'DyaMetR', '#hl2hud.credits.author'},
     {'Valve Corporation', '#hl2hud.credits.valve'},
