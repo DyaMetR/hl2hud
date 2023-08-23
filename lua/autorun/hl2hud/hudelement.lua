@@ -133,12 +133,6 @@ function ELEMENT:Init(settings) end
 function ELEMENT:ShouldDraw(settings) return true end
 
 --[[------------------------------------------------------------------
-  Called before drawing the element outside of a rendering context.
-  @param {table} element settings
-]]--------------------------------------------------------------------
-function ELEMENT:PreDraw(settings) end
-
---[[------------------------------------------------------------------
   Ran alongside the Paint function. Reserved for animation logic.
   @param {table} element settings
 ]]--------------------------------------------------------------------

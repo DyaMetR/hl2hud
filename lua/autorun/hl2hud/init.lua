@@ -132,11 +132,13 @@ if CLIENT then
   end
 
   -- [[ Run animations before drawing the HUD ]] --
-  hook.Add('PreDrawHUD', HL2HUD.hookname, function()
+  hook.Add('Think', HL2HUD.hookname, function()
     if not HL2HUD.ShouldDraw() or not HL2HUD.IsSuitEquipped() then return end
     HL2HUD.animations.UpdateAnimations()
     for name, element in HL2HUD.elements.Iterator() do
-      element:PreDraw(params)
+      local params = settings.HudLayout[name]
+      if not element:ShouldDraw(params) then continue end
+      element:OnThink(params)
     end
   end)
 
@@ -145,9 +147,7 @@ if CLIENT then
     if not HL2HUD.ShouldDraw() then return end
     for name, element in HL2HUD.elements.Iterator() do
       local params = settings.HudLayout[name]
-      if not element:ShouldDraw(params) then continue end
-      element:OnThink(params)
-      if element.OnTop or (not element.DrawAlways and not HL2HUD.IsSuitEquipped()) then continue end
+      if not element:ShouldDraw(params) or element.OnTop or (not element.DrawAlways and not HL2HUD.IsSuitEquipped()) then continue end
       element:Draw(params, HL2HUD.Scale())
     end
   end)

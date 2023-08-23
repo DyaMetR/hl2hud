@@ -15,7 +15,7 @@ ELEMENT:Number('yoffset')
 
 local override = false
 
-function ELEMENT:PreDraw(settings)
+function ELEMENT:OnThink(settings)
   override = false
   local localPlayer = LocalPlayer()
   if not IsValid(localPlayer) then return end
