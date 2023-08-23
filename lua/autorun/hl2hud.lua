@@ -42,7 +42,8 @@ if CLIENT then
     {'Matthew Welch', 'White Rabbit'},
     {'Subhashish Panigrahi', 'eLePhAnT uNcLe'},
     {'Unknown', 'GarbageFont'},
-    {'Matsilagi', '#hl2hud.credits.other'}
+    {'Matsilagi', '#hl2hud.credits.other'},
+    {'IRBS', '#hl2hud.credits.cn_localization'}
   }
 end
 
