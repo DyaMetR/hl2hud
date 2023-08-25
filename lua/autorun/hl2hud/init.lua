@@ -131,14 +131,16 @@ if CLIENT then
     return HL2HUD.elements.Get(element):ShouldDraw(settings.HudLayout[element])
   end
 
+  -- list of drawable elements
+  local shouldDraw = {}
+
   -- [[ Run animations before drawing the HUD ]] --
   hook.Add('Think', HL2HUD.hookname, function()
     if not HL2HUD.ShouldDraw() or not HL2HUD.IsSuitEquipped() then return end
     HL2HUD.animations.UpdateAnimations()
     for name, element in HL2HUD.elements.Iterator() do
-      local params = settings.HudLayout[name]
-      if not element:ShouldDraw(params) then continue end
-      element:OnThink(params)
+      if not shouldDraw[name] then continue end
+      element:OnThink(settings.HudLayout[name])
     end
   end)
 
@@ -147,7 +149,8 @@ if CLIENT then
     if not HL2HUD.ShouldDraw() then return end
     for name, element in HL2HUD.elements.Iterator() do
       local params = settings.HudLayout[name]
-      if not element:ShouldDraw(params) or element.OnTop or (not element.DrawAlways and not HL2HUD.IsSuitEquipped()) then continue end
+      shouldDraw[name] = element:ShouldDraw(params)
+      if not shouldDraw[name] or element.OnTop or (not element.DrawAlways and not HL2HUD.IsSuitEquipped()) then continue end
       element:Draw(params, HL2HUD.Scale())
     end
   end)
@@ -159,9 +162,8 @@ if CLIENT then
     for name, element in HL2HUD.elements.Iterator() do
       if not element.OnTop then continue end
       if not element.DrawAlways and not HL2HUD.IsSuitEquipped() then continue end
-      local params = settings.HudLayout[name]
-      if not element:ShouldDraw(params) then continue end
-      element:Draw(params, HL2HUD.Scale())
+      if not shouldDraw[name] then continue end
+      element:Draw(settings.HudLayout[name], HL2HUD.Scale())
     end
   end)
 
@@ -171,7 +173,7 @@ if CLIENT then
     if CHudScan then return end
     local replacer = HL2HUD.elements.CHudReplacer(default)
     if not replacer then return end
-    if not replacer:ShouldDraw(settings.HudLayout[replacer.name]) then return end
+    if not shouldDraw[replacer.name] then return end
     return false
   end)
 

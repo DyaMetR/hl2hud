@@ -13,25 +13,23 @@ ELEMENT:Colour('color')
 ELEMENT:Number('xoffset')
 ELEMENT:Number('yoffset')
 
-local override = false
-
-function ELEMENT:OnThink(settings)
-  override = false
-  local localPlayer = LocalPlayer()
-  if not IsValid(localPlayer) then return end
-  local weapon = localPlayer:GetActiveWeapon()
-  if not IsValid(weapon) or not weapon:IsScripted() then return end
-  if not weapon.DrawCrosshair then override = true return end
-  if not weapon.DoDrawCrosshair then return end
-  override = weapon:DoDrawCrosshair(0, 0) or false
-end
-
 function ELEMENT:ShouldDraw(settings)
   local localPlayer = LocalPlayer()
   if GetViewEntity() ~= localPlayer then return false end
+
+  -- in vehicle
   local inVehicle, vehicle = localPlayer:InVehicle(), localPlayer:GetVehicle()
   if (inVehicle and vehicle:GetClass() ~= CLASS_AIRBOAT) or localPlayer:IsFrozen() or not CROSSHAIR_CONVAR:GetBool() then return false end
-  return settings.visible and not override
+
+  -- using a weapon with custom crosshair
+  local weapon = localPlayer:GetActiveWeapon()
+  if IsValid(weapon) and weapon:IsScripted() then
+    if not weapon.DrawCrosshair then return false end
+    if weapon.DoDrawCrosshair and weapon:DoDrawCrosshair(0, 0) then
+      return false
+    end
+  end
+  return settings.visible
 end
 
 function ELEMENT:Draw(settings, scale)

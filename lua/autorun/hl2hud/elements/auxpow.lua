@@ -64,10 +64,10 @@ function ELEMENT:OnThink(settings)
   if localPlayer:WaterLevel() >= 3 then table.insert(actions, settings.oxygen) end
   if localPlayer:FlashlightIsOn() then table.insert(actions, settings.flashlight) end
   if localPlayer:IsSprinting() then table.insert(actions, settings.sprint) end
-  labels = hook.Run(HOOK_ACTIONS) or actions
+  actions = hook.Run(HOOK_ACTIONS) or actions
 
   -- resize depending on amount of labels shown
-  local count = #labels
+  local count = #actions
   if lastCount ~= count then
     HL2HUD.animations.StartAnimationSequence(ANIMATIONS[math.min(count + 1, 4)])
     lastCount = count
@@ -120,7 +120,7 @@ function ELEMENT:Draw(settings, scale)
   end
 
   -- draw functions being used
-  for i, label in pairs(labels) do
+  for i, label in pairs(actions) do
     draw.SimpleText(language.GetPhrase(label), self.fonts.font, x + settings.text2_xpos * scale, y + settings.text2_ypos * scale + settings.text2_gap * scale * (i - 1), self.variables.AuxPowerColor)
   end
   surface.SetAlphaMultiplier(1)
