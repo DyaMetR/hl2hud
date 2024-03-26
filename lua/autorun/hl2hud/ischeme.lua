@@ -552,6 +552,7 @@ end
 
 --[[------------------------------------------------------------------
   Returns whether the scheme exists.
+  @param {string} scheme name
   @return {boolean} does the scheme exist
 ]]--------------------------------------------------------------------
 function HL2HUD.scheme.Exists(scheme)

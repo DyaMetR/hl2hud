@@ -1,7 +1,7 @@
 
 if SERVER then return end
 
-local ELEMENT = HL2HUD.elements.Register('HudWeaponSelection', 'CHudWeaponSelection')
+local ELEMENT = HL2HUD.elements.Register('HudWeaponSelection')
 
 ELEMENT:SetDrawOnTop(true)
 

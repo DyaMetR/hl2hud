@@ -89,6 +89,7 @@ HL2HUD.include('schemes/sports.lua')
 HL2HUD.include('schemes/hl1.lua')
 HL2HUD.include('schemes/hl1b.lua')
 HL2HUD.include('schemes/hl1c.lua')
+HL2HUD.include('schemes/wasteland.lua')
 
 -- [[ Server console variables ]] --
 local hl2hud_csdefaultenabled = CreateConVar('hl2hud_csdefaultenabled', 1, { FCVAR_REPLICATED, FCVAR_ARCHIVE, FCVAR_NOTIFY }, 'Enable addon by default on clients that did not have it previously installed')

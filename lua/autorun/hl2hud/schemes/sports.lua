@@ -3,7 +3,6 @@ if SERVER then return end
 
 local SCHEME = HL2HUD.scheme.Create()
 
-
 SCHEME:Scheme({
   Normal = Color(255, 255, 255),
   Caution = Color(255, 0, 0),

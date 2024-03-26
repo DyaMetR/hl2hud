@@ -1,6 +1,6 @@
 --[[------------------------------------------------------------------
   Half-Life 2 HUD
-  Version 1.7.1
+  Version 1.7.2
   August 25th, 2023
   Made by DyaMetR
   * full credits found in the details below
@@ -14,8 +14,8 @@ HL2HUD.hookname			= 'hl2hud'
 if CLIENT then
   -- addon information
   HL2HUD.name				= 'Half-Life 2 HUD'
-  HL2HUD.version		= '1.7.1'
-  HL2HUD.date				= 'August 25th, 2023'
+  HL2HUD.version		= '1.7.2'
+  HL2HUD.date				= 'March 26th, 2024'
   HL2HUD.credits		= { -- {name, contribution}
     {'DyaMetR', '#hl2hud.credits.author'},
     {'Valve Corporation', '#hl2hud.credits.valve'},
@@ -43,7 +43,8 @@ if CLIENT then
     {'Subhashish Panigrahi', 'eLePhAnT uNcLe'},
     {'Unknown', 'GarbageFont'},
     {'Matsilagi', '#hl2hud.credits.other'},
-    {'IRBS', '#hl2hud.credits.cn_localization'}
+    {'IRBS', '#hl2hud.credits.cn_localization'},
+    {'NovaDiablox', '#hl2hud.credits.tr_localization'}
   }
 end
 

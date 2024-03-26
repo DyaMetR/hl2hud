@@ -37,6 +37,7 @@ Community feedback and contributions are welcome as long as they stay relevant w
 +   Optimization.
 +   Improving code maintainability.
 +   Fixing typos on _UI related labels_ (not code).
++   Localization.
 
 Preferably, keep pull requests centered around a topic, centering on one change (and kind of change) at a time. **And make sure it properly works before submitting** -- _because no one else will make it work for you_.
 

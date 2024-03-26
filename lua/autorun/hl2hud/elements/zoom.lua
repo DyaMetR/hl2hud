@@ -19,7 +19,7 @@ end
 
 local m_bZoomOn, m_flZoomStartTime = false, -1
 function ELEMENT:OnThink()
-  local zoom = LocalPlayer():KeyDown(IN_ZOOM)
+  local zoom = LocalPlayer():KeyDown(IN_ZOOM) and LocalPlayer():GetCanZoom()
   if m_bZoomOn ~= zoom then
     m_flZoomStartTime = CurTime()
     m_bZoomOn = zoom

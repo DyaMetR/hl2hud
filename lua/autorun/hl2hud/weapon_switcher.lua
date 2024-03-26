@@ -296,11 +296,11 @@ end
 local hud_fastswitch = GetConVar('hud_fastswitch')
 UnintrusiveBindPress.add('hl2hud', function(_player, bind, pressed, code)
   if not HL2HUD.ShouldDraw() then return end -- don't do anything if HUD is disabled
-  if not HL2HUD.elements.Get('HudWeaponSelection'):ShouldDraw(HL2HUD.settings.Get().HudLayout.HudWeaponSelection) then return end -- does the element want to be drawn?
-  if hud_fastswitch:GetBool() then return end -- let fast switch do its thing
+  local element = HL2HUD.elements.Get('HudWeaponSelection')
+  if not element:ShouldDraw(HL2HUD.settings.Get().HudLayout.HudWeaponSelection) then return end -- does the element want to be drawn?
   if weaponCount <= 0 or not LocalPlayer():Alive() or LocalPlayer():InVehicle() then return end -- ignore if player has no weapons, is dead or in a vehicle
   if not pressed then return end -- ignore if bind was not pressed
-  local visible = HL2HUD.elements.Get('HudWeaponSelection').variables.Alpha > 0
+  local visible = element.variables.Alpha > 0
 
   -- check whether the physics gun is in use
   local weapon = LocalPlayer():GetActiveWeapon()
@@ -323,14 +323,6 @@ UnintrusiveBindPress.add('hl2hud', function(_player, bind, pressed, code)
     if curPos <= 0  then return true end -- do not show if there is no valid slot
     HL2HUD.animations.StartAnimationSequence('OpenWeaponSelectionMenu')
     return true
-  end
-
-  -- last weapon
-  if bind == LAST_INV then
-    local lastWeapon = LocalPlayer():GetPreviousWeapon()
-    if IsValid(lastWeapon) and lastWeapon:IsWeapon() then
-      input.SelectWeapon(lastWeapon)
-    end
   end
 
   -- cycle through slot

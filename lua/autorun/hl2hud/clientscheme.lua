@@ -16,6 +16,8 @@ local LOG_VERSION = Color(128, 128, 128)
 local LOG_NORMAL = Color(255, 255, 255)
 local LOG_ERROR = Color(255, 0, 0)
 
+local REPEATED_SUFFIX = '%s (1)' -- avoid conflict with user generated schemes
+
 HL2HUD.settings.overrides = {} -- submitted scheme overrides
 local settings = HL2HUD.scheme.CreateDataTable() -- merged settings
 local client -- client settings
@@ -179,6 +181,7 @@ function HL2HUD.settings.Init()
   local files = file.Find(FIND, PATH)
   for _, filename in pairs(files) do
     local scheme = HL2HUD.settings.LoadSchemeFromDisk(SCHEMES .. filename)
+    if HL2HUD.scheme.Exists(scheme.Name) then scheme.Name = string.format(REPEATED_SUFFIX, scheme.Name) end
     HL2HUD.scheme.Register(scheme.Name, scheme, true)
   end
   MsgC(LOG_NORMAL, table.Count(files) .. ' schemes loaded.\n')
