@@ -37,6 +37,7 @@ SCHEME:Layout({
     text = 'AWARENESS'
   },
   HudSuit = {
+    xpos = 108,
     wide = 84,
     tall = 40,
     digit_xpos = 32,
