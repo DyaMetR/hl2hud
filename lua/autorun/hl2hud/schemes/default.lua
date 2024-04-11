@@ -219,7 +219,7 @@ SCHEME:Layout({
     SelectSnd = 'common/wpn_hudoff.wav'
   },
   HudCrosshair = {
-    visible = true,
+    visible = false,
     font = 'Crosshairs',
     crosshair = 'Q',
     color = 'ZoomReticleColor',

@@ -94,6 +94,12 @@ HL2HUD.include('schemes/wasteland.lua')
 -- [[ Server console variables ]] --
 local hl2hud_csdefaultenabled = CreateConVar('hl2hud_csdefaultenabled', 1, { FCVAR_REPLICATED, FCVAR_ARCHIVE, FCVAR_NOTIFY }, 'Enable addon by default on clients that did not have it previously installed')
 
+-- [[ Load third-party add-ons ]] --
+local files, directories = file.Find('autorun/hl2hud/add-ons/*.lua', 'LUA')
+for _, file in pairs(files) do
+  HL2HUD.include('add-ons/' .. file)
+end
+
 if CLIENT then
 
   -- [[ Console variables ]] --
@@ -178,10 +184,4 @@ if CLIENT then
     return false
   end)
 
-end
-
--- load third-party add-ons
-local files, directories = file.Find('autorun/hl2hud/add-ons/*.lua', 'LUA')
-for _, file in pairs(files) do
-  HL2HUD.include('add-ons/' .. file)
 end
