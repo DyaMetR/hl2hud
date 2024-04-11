@@ -215,7 +215,7 @@ Interpolators_e.Flicker = function(t, param) if math.random() < param then retur
 -- option fetching functions
 local getSequences = function(scheme)
 	local sequences = {}
-	for sequence, _ in pairs(HL2HUD.scheme.GetDefault().HudAnimations) do sequences[sequence] = true end
+	for sequence, _ in pairs(HL2HUD.scheme.DefaultSettings().HudAnimations) do sequences[sequence] = true end
 	for sequence, _ in pairs(scheme.HudAnimations) do sequences[sequence] = true end
 	return sequences
 end

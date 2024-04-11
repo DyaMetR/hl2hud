@@ -26,7 +26,7 @@ local client -- client settings
   Copies the default scheme into the current settings table.
 ]]--------------------------------------------------------------------
 local function ApplyDefault()
-  local default = HL2HUD.scheme.GetDefault()
+  local default = HL2HUD.scheme.DefaultSettings()
   table.Empty(settings.ClientScheme.Colors)
   table.Empty(settings.HudTextures)
   settings.HudLayout = table.Copy(default.HudLayout)

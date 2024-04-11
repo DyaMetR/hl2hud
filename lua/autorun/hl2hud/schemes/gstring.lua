@@ -203,7 +203,7 @@ for id, icon in pairs(AMMOTYPES) do
   SCHEME:AmmoPickup(id, 'AmmoIcons', icon)
 end
 
-for weapon, _ in pairs(HL2HUD.scheme.GetDefault().HudTextures.Selected) do
+for weapon, _ in pairs(HL2HUD.scheme.DefaultSettings().HudTextures.Selected) do
   SCHEME:RemoveSelectedWeaponIcon(weapon)
 end
 

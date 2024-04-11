@@ -35,6 +35,7 @@ local DATA_TABLE = { -- blank scheme data structure
 
 local schemes = {} -- registered presets
 local parse = {} -- animation commands parse functions
+local default -- default scheme whole
 
 local SCHEME = { settings = table.Copy(DATA_TABLE) }
 
@@ -125,6 +126,7 @@ end
   @param {table} parameters
 ]]--------------------------------------------------------------------
 function SCHEME:Element(element, parameters)
+  if not self.settings.HudLayout[element] then self.settings.HudLayout[element] = {} end
   table.Merge(self.settings.HudLayout[element], parameters)
 end
 
@@ -499,12 +501,21 @@ function HL2HUD.scheme.Create()
 end
 
 --[[------------------------------------------------------------------
-  Returns the fallback scheme.
+  Returns the default scheme whole, so it can be edited by third parties.
   @param {table} default scheme
 ]]--------------------------------------------------------------------
-function HL2HUD.scheme.GetDefault()
+function HL2HUD.scheme.Default()
+  return default
+end
+
+--[[------------------------------------------------------------------
+  Returns the fallback scheme.
+  @param {table} default scheme's settings
+]]--------------------------------------------------------------------
+function HL2HUD.scheme.DefaultSettings()
   return schemes[HL2HUD.scheme.default]
 end
+
 
 --[[------------------------------------------------------------------
   Registers a scheme.
@@ -523,6 +534,7 @@ function HL2HUD.scheme.Register(name, scheme, userDefined)
   if scheme.default then
     userDefined = false
     HL2HUD.scheme.default = name
+    default = scheme
   end
 
   -- only settings are kept

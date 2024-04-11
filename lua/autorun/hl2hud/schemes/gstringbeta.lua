@@ -171,7 +171,7 @@ SCHEME:Animations({
   SquadStatusShow = {}
 })
 
-for weapon, _ in pairs(HL2HUD.scheme.GetDefault().HudTextures.Selected) do
+for weapon, _ in pairs(HL2HUD.scheme.DefaultSettings().HudTextures.Selected) do
   SCHEME:RemoveSelectedWeaponIcon(weapon)
 end
 

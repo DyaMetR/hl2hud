@@ -27,7 +27,7 @@ local ILLEGAL_CHARACTERS = {'\'', '/', ':', '*', '?', '"', '<', '>', '|'}
 ]]--------------------------------------------------------------------
 concommand.Add('hl2hud_menu', function()
 
-  local default = HL2HUD.scheme.GetDefault()
+  local default = HL2HUD.scheme.DefaultSettings()
   local cache = table.Copy(HL2HUD.settings.Client()) -- cache client scheme
 	if table.IsEmpty(cache) then cache = HL2HUD.scheme.CreateDataTable() end -- if empty, create a blank data table
   local settings = table.Copy(default) -- create merged settings table between default and diff

@@ -30,7 +30,7 @@ if SERVER then
   -- [[ Submit server information after joining ]] --
   hook.Add('PlayerInitialSpawn', HL2HUD.hookname, function(_player)
     if game.SinglePlayer() then return end
-    
+
     -- send default scheme
     if not table.IsEmpty(default) then
       net.Start(NET_DEFAULT)
@@ -136,14 +136,14 @@ if CLIENT then
   -- [[ Submit default scheme console command ]] --
   concommand.Add('hl2hud_submitdefault', function()
     local scheme = HL2HUD.settings.Client()
-    if table.IsEmpty(scheme) then scheme = HL2HUD.scheme.GetDefault() end
+    if table.IsEmpty(scheme) then scheme = HL2HUD.scheme.DefaultSettings() end
     HL2HUD.server.SubmitDefault(scheme)
   end)
 
   -- [[ Submit scheme override console command ]] --
   concommand.Add('hl2hud_submitoverride', function()
     local scheme = HL2HUD.settings.Client()
-    if table.IsEmpty(scheme) then scheme = HL2HUD.scheme.GetDefault() end
+    if table.IsEmpty(scheme) then scheme = HL2HUD.scheme.DefaultSettings() end
     HL2HUD.server.SubmitOverride(scheme)
   end)
 
