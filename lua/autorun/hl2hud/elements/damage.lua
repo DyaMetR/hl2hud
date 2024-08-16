@@ -50,7 +50,7 @@ end
 -- [[ Put camera on the floor if enabled ]] --
 local OFFSET = Vector(0, 0, 5)
 hook.Add('CalcView', HOOK, function(_player, pos, ang, fov)
-  if not HL2HUD.ShouldDraw() or not ELEMENT:ShouldDraw(HL2HUD.settings.Get().HudLayout.HudDamageIndicator) then return end
+  if not HL2HUD.ShouldDraw or not HL2HUD.ShouldDraw() or not ELEMENT:ShouldDraw(HL2HUD.settings.Get().HudLayout.HudDamageIndicator) then return end
   local view = {}
   view.origin = _player:GetPos() + OFFSET
   local ragdoll = LocalPlayer():GetRagdollEntity()
