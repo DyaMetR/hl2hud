@@ -56,7 +56,7 @@ The scheme customization menu allows you to change numerous aspects of your HUD,
 
 ### Manual initialization
 
-In case you're playing on a server that has `sv_allowcslua` enabled, you can initialize this HUD with the console command: `lua_openscript_cl hl2hud_init.lua`
+In case you're playing on a server that has `sv_allowcslua` enabled, you can initialize this HUD with the console command: `lua_openscript_cl hl2hud.lua`
 
 **BEWARE**: The following features will NOT work on a server that does not have this addon installed.
 
