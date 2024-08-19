@@ -59,6 +59,7 @@ HL2HUD.include('elements/zoom.lua')
 HL2HUD.include('elements/squad.lua')
 HL2HUD.include('elements/pickup.lua')
 HL2HUD.include('elements/damage.lua')
+HL2HUD.include('elements/money.lua')
 
 -- Half-Life 2 schemes
 HL2HUD.include('schemes/default.lua')

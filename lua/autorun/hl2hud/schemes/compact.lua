@@ -45,6 +45,16 @@ SCHEME:Layout({
   HudSuitPower = {
     ypos = 60
   },
+  HudAccount = {
+    xpos = 17,
+    ypos = 61,
+    wide = 86,
+    tall = 44,
+    digit_xpos = 7,
+    digit_ypos = 9,
+    text_xpos = 7,
+    text_ypos = 4
+  },
   HudSquadStatus = {
     ypos = 60
   },

@@ -22,7 +22,6 @@ SCHEME:Scheme({
   SquadMemberDied = Color(0, 0, 0),
   ZoomReticleColor = Color(135, 145, 75),
   Crosshair = Color(255, 255, 255),
-  Blank = Color(0, 0, 0, 0),
   Disabled = Color(120, 130, 60)
 })
 
