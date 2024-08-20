@@ -91,7 +91,7 @@ SCHEME:Layout({
     text_ypos = 4,
     digit2_xpos = 50,
     digit2_ypos = 0,
-    text2_xpos = 45,
+    text2_xpos = 42,
     text2_ypos = 0
   },
   HudHistoryResource = {

@@ -53,7 +53,11 @@ SCHEME:Layout({
     digit_xpos = 7,
     digit_ypos = 9,
     text_xpos = 7,
-    text_ypos = 4
+    text_ypos = 4,
+    digit2_xpos = 48,
+    digit2_ypos = 0,
+    text2_ypos = 1,
+    text2_xpos = 39
   },
   HudSquadStatus = {
     ypos = 60

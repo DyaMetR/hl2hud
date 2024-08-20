@@ -39,6 +39,9 @@ SCHEME:Layout({
   HudAmmoSecondary = {
     text_ypos = 20,
     digit_ypos = 3
+  },
+  HudAccount = {
+    text2_ypos = 0
   }
 })
 
