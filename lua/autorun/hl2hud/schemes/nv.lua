@@ -86,6 +86,20 @@ SCHEME:Layout({
     BarChunkGap = 2,
     BarHeight = 7
   },
+  HudAccount = {
+    wide = 84,
+    tall = 44,
+    digit_xpos = 74,
+    digit_ypos = -2,
+    digit_align = 2,
+    text_xpos = 50,
+    text_ypos = 30,
+    text = 'FUNDS',
+    digit2_xpos = 15,
+    digit2_ypos = 26,
+    text2_xpos = 6,
+    text2_ypos = 28
+  },
   HudSquadStatus = {
     ypos = 62,
     text_ypos = 32

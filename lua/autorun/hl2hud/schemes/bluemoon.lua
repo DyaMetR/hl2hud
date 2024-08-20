@@ -81,6 +81,19 @@ SCHEME:Layout({
     xpos = 78,
     ypos = 12
   },
+  HudAccount = {
+    xpos = 79,
+    ypos = 12,
+    wide = 92,
+    tall = 44,
+    digit_xpos = 7,
+    digit_ypos = 10,
+    text_ypos = 4,
+    digit2_xpos = 50,
+    digit2_ypos = 0,
+    text2_xpos = 42,
+    text2_ypos = 0
+  },
   HudHistoryResource = {
     tall = 272
   },

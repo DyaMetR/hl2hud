@@ -12,6 +12,7 @@ SCHEME:Scheme({
 SCHEME:Font('WeaponIcons', 'HalfLife2', 62, 0, true)
 SCHEME:Font('WeaponIconsSelected', 'HalfLife2', 62, 0, true, 5, 2)
 SCHEME:Font('HudIcons', 'HalfLife2', 34, 0, true)
+SCHEME:Font('HudIcons2', 'csd', 32, 0, true)
 
 SCHEME:Layout({
   HudHealth = {
@@ -46,6 +47,20 @@ SCHEME:Layout({
     icon_abspos = true,
     icon_xpos = 16,
     icon_ypos = 18
+  },
+  HudAccount = {
+    wide = 104,
+    digit_xpos = 24,
+    text_xpos = -2,
+    text_ypos = 12,
+    text_font = 'HudIcons2',
+    text = 'g',
+    digit2_xpos = 25,
+    digit2_ypos = 0,
+    digit2_font = 'HudHintTextSmall',
+    text2_xpos = 20,
+    text2_ypos = 0,
+    text2_font = 'HudHintTextSmall'
   },
   HudWeaponSelection = {
     compact = false,

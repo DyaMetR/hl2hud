@@ -94,6 +94,22 @@ SCHEME:Layout({
     icon_xpos = 24,
     icon_ypos = 18
   },
+  HudAccount = {
+    xpos = 24,
+    ypos = 45,
+    wide = 102,
+    tall = 46,
+    digit_xpos = 92,
+    digit_ypos = 12,
+    digit_align = 2,
+    text_xpos = 10,
+    text_ypos = 19,
+    text_font = 'HudNumbersSmall',
+    text = '$',
+    text2_xpos = 10,
+    digit2_xpos = 92,
+    digit2_align = 2
+  },
   HudWeaponSelection = {
     compact = false,
     SmallBoxSize = 24,
@@ -133,6 +149,9 @@ SCHEME:Layout({
 })
 
 SCHEME:Animations({
+  Init = {
+    { 'Animate', 'HudAccount', 'Blur', .3, 'Linear', 0, 0 }
+  },
   HealthIncreased = {
     { 'StopEvent', 'HealthLow', 0 },
 		{ 'Animate', 'HudHealth', 'BgColor', 'BgColor', 'Linear', 0, 0 },
@@ -204,6 +223,26 @@ SCHEME:Animations({
   AmmoSecondaryEmpty = {
     { 'Animate', 'HudAmmoSecondary', 'FgColor', 'BrightDamagedFg', 'Linear', 0, .2 },
     { 'Animate', 'HudAmmoSecondary', 'FgColor', 'DamagedFg', 'Accel', 0.2, 1.2 }
+  },
+  AccountMoneyAdded = {
+    { 'StopEvent', 'AccountMoneyRemoved', 0 },
+    { 'Animate', 'HudAccount', 'BgColor', 'BgColor', 'Linear', 0, 0 },
+    { 'Animate', 'HudAccount', 'FgColor', 'BrightFg', 'Linear', 0, .25 },
+    { 'Animate', 'HudAccount', 'FgColor', 'FgColor', 'Linear', .3, .75 },
+    { 'Animate', 'HudAccount', 'Blur', 3, 'Linear', 0, .1 },
+    { 'Animate', 'HudAccount', 'Blur', .3, 'Deaccel', .1, 2 },
+    { 'Animate', 'HudAccount', 'Ammo2Color', 'HudIcon_Green', 'Linear', 0, 0 },
+    { 'Animate', 'HudAccount', 'Ammo2Color', 'HudIcon_Blank', 'Accel', 0, 3 }
+  },
+  AccountMoneyRemoved = {
+    { 'StopEvent', 'AccountMoneyAdded', 0 },
+    { 'Animate', 'HudAccount', 'BgColor', 'BgColor', 'Linear', 0, 0 },
+    { 'Animate', 'HudAccount', 'FgColor', 'BrightFg', 'Linear', 0, .25 },
+    { 'Animate', 'HudAccount', 'FgColor', 'FgColor', 'Linear', .3, .75 },
+    { 'Animate', 'HudAccount', 'Blur', 3, 'Linear', 0, .1 },
+    { 'Animate', 'HudAccount', 'Blur', .3, 'Deaccel', .1, 2 },
+    { 'Animate', 'HudAccount', 'Ammo2Color', 'HudIcon_Red', 'Linear', 0, 0 },
+    { 'Animate', 'HudAccount', 'Ammo2Color', 'HudIcon_Blank', 'Accel', 0, 3 }
   },
   WeaponChanged = {},
   WeaponUsesClips = {},

@@ -97,6 +97,21 @@ SCHEME:Layout({
     BarInsetY = 148,
     font = 'FlashlightIcon'
   },
+  HudAccount = {
+    xpos = 22,
+    ypos = 67,
+    wide = 110,
+    tall = 34,
+    valign = 1,
+    text_xpos = 8,
+    text_ypos = 22,
+    digit_xpos = 12,
+    digit_ypos = 1,
+    digit2_xpos = 60,
+    digit2_ypos = 19,
+    text2_xpos = 50,
+    text2_ypos = 19
+  },
   HudZoom = {
     Circle1Radius = 0,
     Circle2Radius = 0,
@@ -186,6 +201,16 @@ SCHEME:Animations({
     { 'Animate', 'HudAmmoSecondary', 'Alpha', 0, 'Linear', 0, .1 }
   },
   SuitAuxPowerNotMax = {},
+  AccountMoneyAdded = {
+    { 'StopEvent', 'AccountMoneyRemoved', 0 },
+    { 'Animate', 'HudAccount', 'Ammo2Color', 'HudIcon_Green', 'Linear', 0, 0 },
+    { 'Animate', 'HudAccount', 'Ammo2Color', 'Blank', 'Accel', 0, 3 }
+  },
+  AccountMoneyRemoved = {
+    { 'StopEvent', 'AccountMoneyAdded', 0 },
+    { 'Animate', 'HudAccount', 'Ammo2Color', 'HudIcon_Red', 'Linear', 0, 0 },
+    { 'Animate', 'HudAccount', 'Ammo2Color', 'Blank', 'Accel', 0, 3 }
+  },
   SquadStatusShow = {}
 })
 

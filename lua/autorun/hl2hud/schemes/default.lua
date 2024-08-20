@@ -35,7 +35,10 @@ SCHEME:Scheme({
   SquadMemberLeft = Color(0, 0, 0),
   SquadMemberDying = Color(255, 0, 0, 255),
   SquadMemberDied = Color(0, 0, 0),
-  ZoomReticleColor = Color(255, 220, 0)
+  ZoomReticleColor = Color(255, 220, 0),
+  HudIcon_Red = Color(255, 0, 0),
+  HudIcon_Green = Color(0, 255, 0),
+  Blank = Color(0, 0, 0, 0)
 })
 
 SCHEME:Font('WeaponIcons', 'HalfLife2', 56, 0, true)
@@ -166,6 +169,33 @@ SCHEME:Layout({
     oxygen = '#Valve_Hud_OXYGEN',
     flashlight = '#Valve_Hud_FLASHLIGHT',
     sprint = '#Valve_Hud_SPRINT'
+  },
+  HudAccount = {
+    visible = true,
+    xpos = 16,
+    ypos = 64,
+    wide = 130,
+    tall = 36,
+    halign = 2,
+    valign = 2,
+    digit_xpos = 50,
+    digit_ypos = 2,
+    digit_font = 'HudNumbers',
+    digit_font_glow = 'HudNumbersGlow',
+    digit_align = 1,
+    text_xpos = 8,
+    text_ypos = 20,
+    text_font = 'HudHintTextSmall',
+    text = 'MONEY',
+    digit2_xpos = 18,
+    digit2_ypos = 1,
+    digit2_font = 'HudNumbersSmall',
+    digit2_align = 1,
+    text2_xpos = 8,
+    text2_ypos = 2,
+    text2_font = 'HudHintTextLarge',
+    plus = '+',
+    minus = '-'
   },
   HudFlashlight = {
     visible = true,
@@ -501,6 +531,26 @@ SCHEME:Animations({
   WeaponDoesNotUseSecondaryAmmo = {
     { 'StopPanelAnimations', 'HudAmmoSecondary', 0 },
     { 'Animate', 'HudAmmoSecondary', 'Alpha', 0, 'Linear', 0, .1 }
+  },
+  AccountMoneyAdded = {
+    { 'StopEvent', 'AccountMoneyRemoved', 0 },
+    { 'Animate', 'HudAccount', 'BgColor', 'BgColor', 'Linear', 0, 0 },
+    { 'Animate', 'HudAccount', 'FgColor', 'BrightFg', 'Linear', 0, .25 },
+    { 'Animate', 'HudAccount', 'FgColor', 'FgColor', 'Linear', .3, .75 },
+    { 'Animate', 'HudAccount', 'Blur', 3, 'Linear', 0, .1 },
+    { 'Animate', 'HudAccount', 'Blur', 0, 'Deaccel', .1, 2 },
+    { 'Animate', 'HudAccount', 'Ammo2Color', 'HudIcon_Green', 'Linear', 0, 0 },
+    { 'Animate', 'HudAccount', 'Ammo2Color', 'Blank', 'Accel', 0, 3 }
+  },
+  AccountMoneyRemoved = {
+    { 'StopEvent', 'AccountMoneyAdded', 0 },
+    { 'Animate', 'HudAccount', 'BgColor', 'BgColor', 'Linear', 0, 0 },
+    { 'Animate', 'HudAccount', 'FgColor', 'BrightFg', 'Linear', 0, .25 },
+    { 'Animate', 'HudAccount', 'FgColor', 'FgColor', 'Linear', .3, .75 },
+    { 'Animate', 'HudAccount', 'Blur', 3, 'Linear', 0, .1 },
+    { 'Animate', 'HudAccount', 'Blur', 0, 'Deaccel', .1, 2 },
+    { 'Animate', 'HudAccount', 'Ammo2Color', 'HudIcon_Red', 'Linear', 0, 0 },
+    { 'Animate', 'HudAccount', 'Ammo2Color', 'Blank', 'Accel', 0, 3 }
   },
   HintMessageShow = {
     { 'Animate', 'HudHintDisplay', 'Alpha', 255, 'Linear', 0, .5 },

@@ -22,7 +22,6 @@ SCHEME:Scheme({
   SquadMemberDied = Color(0, 0, 0),
   ZoomReticleColor = Color(135, 145, 75),
   Crosshair = Color(255, 255, 255),
-  Blank = Color(0, 0, 0, 0),
   Disabled = Color(120, 130, 60)
 })
 
@@ -109,6 +108,24 @@ SCHEME:Layout({
     text_xpos = 78,
     text_ypos = 25
   },
+  HudAccount = {
+    xpos = 18,
+    wide = 68,
+    tall = 34,
+    digit_xpos = 64,
+    digit_ypos = 16,
+    digit_align = 2,
+    digit_font = 'HudNumbersSmall',
+    text_ypos = 16,
+    text_font = 'HudNumbersSmall',
+    text = '$',
+    digit2_align = 2,
+    digit2_xpos = 64,
+    digit2_ypos = 1,
+    text2_xpos = 8,
+    text2_ypos = 1,
+    text2_font = 'HudNumbersSmall'
+  },
   HudSquadStatus = {
     wide = 72,
     tall = 38,
@@ -135,7 +152,8 @@ SCHEME:Animations({
     { 'Animate', 'HudSuit', 'BgColor', 'Blank', 'Linear', 0, 0 },
     { 'Animate', 'HudPoisonDamageIndicator', 'BgColor', 'BgColor', 'Linear', 0, 0 },
     { 'Animate', 'HudPoisonDamageIndicator', 'FgColor', 'Disabled', 'Linear', 0, 0 },
-    { 'Animate', 'HudPoisonDamageIndicator', 'Alpha', 255, 'Linear', 0, 0 }
+    { 'Animate', 'HudPoisonDamageIndicator', 'Alpha', 255, 'Linear', 0, 0 },
+    { 'Animate', 'HudAccount', 'Ammo2Color', 'Disabled', 'Linear', 0, 0 }
   },
   OpenWeaponSelectionMenu = {
     { 'StopEvent', 'CloseWeaponSelectionMenu', 0 },
@@ -201,6 +219,16 @@ SCHEME:Animations({
   SuitAuxPowerOneItemActive = {},
   SuitAuxPowerTwoItemsActive = {},
   SuitAuxPowerThreeItemsActive = {},
+  AccountMoneyAdded = {
+    { 'StopEvent', 'AccountMoneyRemoved', 0 },
+    { 'Animate', 'HudAccount', 'Ammo2Color', 'FgColor', 'Accel', 0, .2 },
+    { 'Animate', 'HudAccount', 'Ammo2Color', 'Disabled', 'Accel', 3, .2 }
+  },
+  AccountMoneyRemoved = {
+    { 'StopEvent', 'AccountMoneyAdded', 0 },
+    { 'Animate', 'HudAccount', 'Ammo2Color', 'FgColor', 'Accel', 0, .2 },
+    { 'Animate', 'HudAccount', 'Ammo2Color', 'Disabled', 'Accel', 3, .2 }
+  },
   PoisonDamageTaken = {
     { 'RunEvent', 'PoisonPulse', 0 }
   },

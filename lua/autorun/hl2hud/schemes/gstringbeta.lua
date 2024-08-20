@@ -73,6 +73,19 @@ SCHEME:Layout({
     digit_xpos = 10,
     digit_ypos = 2
   },
+  HudAccount = {
+    tall = 48,
+    ypos = 66,
+    valign = 1,
+    digit_xpos = 24,
+    text_ypos = 10,
+    text_font = 'HudHintTextLarge',
+    text = '¢',
+    digit2_xpos = 28,
+    digit2_ypos = 34,
+    text2_xpos = 14,
+    text2_ypos = 36
+  },
   HudWeaponSelection = {
     compact = false,
     ypos = 10,
@@ -166,6 +179,16 @@ SCHEME:Animations({
   WeaponDoesNotUseSecondaryAmmo = {
     { 'StopPanelAnimations', 'HudAmmoSecondary', 0 },
     { 'Animate', 'HudAmmoSecondary', 'Alpha', 0, 'Linear', 0, .1 }
+  },
+  AccountMoneyAdded = {
+    { 'StopEvent', 'AccountMoneyRemoved', 0 },
+    { 'Animate', 'HudAccount', 'Ammo2Color', 'HudIcon_Green', 'Linear', 0, 0 },
+    { 'Animate', 'HudAccount', 'Ammo2Color', 'Blank', 'Accel', 0, 3 }
+  },
+  AccountMoneyRemoved = {
+    { 'StopEvent', 'AccountMoneyAdded', 0 },
+    { 'Animate', 'HudAccount', 'Ammo2Color', 'HudIcon_Red', 'Linear', 0, 0 },
+    { 'Animate', 'HudAccount', 'Ammo2Color', 'Blank', 'Accel', 0, 3 }
   },
   SuitAuxPowerNotMax = {},
   SquadStatusShow = {}

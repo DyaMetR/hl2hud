@@ -78,6 +78,20 @@ SCHEME:Layout({
     BarChunkWidth = 1,
     BarChunkGap = 2,
   },
+  HudAccount = {
+    ypos = 66,
+    wide = 108,
+    tall = 48,
+    digit_xpos = 28,
+    digit_ypos = 16,
+    text_ypos = 16,
+    text_font = 'HudNumbers',
+    text = '$',
+    digit2_xpos = 28,
+    digit2_ypos = 3,
+    text2_xpos = 16,
+    text2_ypos = 2
+  },
   HudWeaponSelection = {
     compact = false,
     LargeBoxTall = 64,
