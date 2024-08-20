@@ -90,6 +90,19 @@ SCHEME:Layout({
     BarChunkWidth = 4,
     BarChunkGap = 2
   },
+  HudAccount = {
+    wide = 114,
+    tall = 40,
+    digit_xpos = 32,
+    digit_ypos = -1,
+    text_xpos = 7,
+    text_ypos = 26,
+    text = 'WEALTH',
+    digit2_xpos = 48,
+    digit2_ypos = 24,
+    text2_xpos = 41,
+    text2_ypos = 24
+  },
   HudSquadStatus = {
     xpos = 18,
     wide = 84,

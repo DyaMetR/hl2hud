@@ -22,6 +22,7 @@ SCHEME:Scheme({
 SCHEME:Font('WeaponIconsMP', 'HL2MP', 28, 0, true)
 SCHEME:Font('WeaponIconsSmallMP', 'HL2MP', 32, 0, true)
 SCHEME:Font('HudIcons', 'HalfLife2', 24, 0, true)
+SCHEME:Font('HudIcons2', 'csd', 24, 0, true)
 SCHEME:Font('HudIconsSmall', 'HalfLife2', 16, 0, true)
 SCHEME:Font('HudNumbers', 'SMODGUI', 24, 0, true)
 SCHEME:Font('HudNumbersGlow', 'SMODGUI', 24, 0, true, 4, 2)
@@ -114,6 +115,22 @@ SCHEME:Layout({
     font = 'HudIconsSmall',
     text = '*',
     text2_ypos = 24
+  },
+  HudAccount = {
+  	xpos			= 18,
+  	ypos			= 40,
+  	wide			= 76,
+  	tall			= 25,
+  	digit_xpos	= 24,
+  	digit_ypos	= 2,
+  	digit_font	= 'HudNumbers',
+  	digit_font_glow	= 'HudNumbersGlow',
+  	text_xpos	= -2,
+  	text_ypos	= 6,
+  	text_font	= 'HudIcons2',
+  	text		= 'g',
+    digit2_ypos = 32,
+    text2_ypos = 32
   },
   HudWeaponSelection = {
     compact = false,

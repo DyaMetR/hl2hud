@@ -59,6 +59,18 @@ SCHEME:Layout({
     BarInsetY = 17,
     text2_ypos = 23
   },
+  HudAccount = {
+    wide = 150,
+    digit_xpos = 40,
+    digit_ypos = -12,
+    text_xpos = 4,
+    text_ypos = 1,
+    digit2_xpos = 11,
+    digit2_ypos = 14,
+    digit2_font = 'HudHintTextSmall',
+    text2_xpos = 4,
+    text2_ypos = 14
+  },
   HudWeaponSelection = {
     uppercase = true
   },

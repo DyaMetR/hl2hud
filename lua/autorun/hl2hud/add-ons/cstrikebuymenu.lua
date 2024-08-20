@@ -10,3 +10,8 @@ hook.Add('HL2HUD_GetAccountMoney', 'cstrikebuymenu', function()
   if money == -1 then return end
   return money
 end)
+
+hook.Add('CStrike_MoneyHUD', 'hl2hud', function()
+  if not HL2HUD.ShouldDraw() then return end
+  return true
+end)
