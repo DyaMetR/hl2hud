@@ -102,7 +102,12 @@ SCHEME:Animations({
   SuitAuxPowerNoItemsActive = {},
   SuitAuxPowerOneItemActive = {},
   SuitAuxPowerTwoItemsActive = {},
-  SuitAuxPowerThreeItemsActive = {}
+  SuitAuxPowerThreeItemsActive = {},
+  SquadStatusShow = {
+    { 'StopEvent', 'SquadStatusHide', 0 },
+    { 'Animate', 'HudSquadStatus', 'Alpha', 255, 'Linear', 0, .3 },
+    { 'Animate', 'HudAccount', 'Position', Vector(0, 36), 'Deaccel', 0, .5 }
+  }
 })
 
 HL2HUD.scheme.Register('G&Mod', SCHEME)

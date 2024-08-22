@@ -75,17 +75,24 @@ SCHEME:Layout({
   }
 })
 
-SCHEME:Sequence('WeaponUsesSecondaryAmmo', {
-  { 'StopAnimation', 'HudAmmo', 'Position', 0 },
-  { 'StopAnimation', 'HudAmmo', 'Size', 0 },
-  { 'StopPanelAnimations', 'HudAmmoSecondary', 0 },
-  { 'Animate', 'HudAmmoSecondary', 'BgColor', 'BrightBg', 'Linear', 0, .1 },
-  { 'Animate', 'HudAmmoSecondary', 'BgColor', 'BgColor', 'Deaccel', .1, 1 },
-  { 'Animate', 'HudAmmoSecondary', 'FgColor', 'BrightFg', 'Linear', 0, .1 },
-  { 'Animate', 'HudAmmoSecondary', 'FgColor', 'FgColor', 'Linear', .2, 1.5 },
-  { 'Animate', 'HudAmmoSecondary', 'Alpha', 255, 'Linear', 0, .1 },
-	{ 'Animate', 'HudAmmo', 'Position', Vector(60, 0), 'Deaccel', 0, .5 },
-	{ 'Animate', 'HudAmmo', 'Size', Vector(0, 0), 'Deaccel', 0, .4 }
+SCHEME:Animations({
+  WeaponUsesSecondaryAmmo = {
+    { 'StopAnimation', 'HudAmmo', 'Position', 0 },
+    { 'StopAnimation', 'HudAmmo', 'Size', 0 },
+    { 'StopPanelAnimations', 'HudAmmoSecondary', 0 },
+    { 'Animate', 'HudAmmoSecondary', 'BgColor', 'BrightBg', 'Linear', 0, .1 },
+    { 'Animate', 'HudAmmoSecondary', 'BgColor', 'BgColor', 'Deaccel', .1, 1 },
+    { 'Animate', 'HudAmmoSecondary', 'FgColor', 'BrightFg', 'Linear', 0, .1 },
+    { 'Animate', 'HudAmmoSecondary', 'FgColor', 'FgColor', 'Linear', .2, 1.5 },
+    { 'Animate', 'HudAmmoSecondary', 'Alpha', 255, 'Linear', 0, .1 },
+    { 'Animate', 'HudAmmo', 'Position', Vector(60, 0), 'Deaccel', 0, .5 },
+    { 'Animate', 'HudAmmo', 'Size', Vector(0, 0), 'Deaccel', 0, .4 }
+  },
+  SquadStatusShow = {
+    { 'StopEvent', 'SquadStatusHide', 0 },
+    { 'Animate', 'HudSquadStatus', 'Alpha', 255, 'Linear', 0, .3 },
+    { 'Animate', 'HudAccount', 'Position', Vector(0, 45), 'Deaccel', 0, .5 }
+  }
 })
 
 HL2HUD.scheme.Register('Iconic', SCHEME)

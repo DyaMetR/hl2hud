@@ -155,6 +155,14 @@ SCHEME:Animations({
     { 'Animate', 'HudAmmoSecondary', 'FgColor', 'BrightFg', 'Linear', 0, .1 },
     { 'Animate', 'HudAmmoSecondary', 'FgColor', 'FgColor', 'Linear', .2, 1.5 },
     { 'Animate', 'HudAmmoSecondary', 'Alpha', 255, 'Linear', 0, .1 }
+  },
+  SquadStatusShow = {
+    { 'StopEvent', 'SquadStatusHide', 0 },
+    { 'Animate', 'HudSquadStatus', 'Alpha', 255, 'Linear', 0, .3 }
+  },
+  SquadStatusHide = {
+    { 'StopEvent', 'SquadStatusShow', 0 },
+    { 'Animate', 'HudSquadStatus', 'Alpha', 0, 'Linear', 0, .5 }
   }
 })
 

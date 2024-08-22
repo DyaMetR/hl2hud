@@ -195,7 +195,8 @@ SCHEME:Animations({
   SquadStatusShow = {
     { 'StopEvent', 'SquadStatusHide', 0 },
     { 'Animate', 'HudSquadStatus', 'Alpha', 255, 'Linear', 0, .3 },
-    { 'Animate', 'HudSquadStatus', 'SquadTextColor', 'FgColor', 'Linear', 0, .3 }
+    { 'Animate', 'HudSquadStatus', 'SquadTextColor', 'FgColor', 'Linear', 0, .3 },
+    { 'Animate', 'HudAccount', 'Position', Vector(0, 48), 'Deaccel', 0, .5 }
   }
 })
 

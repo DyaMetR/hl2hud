@@ -93,6 +93,7 @@ SCHEME:Layout({
   HudAccount = {
     wide = 114,
     tall = 40,
+    xpos = 18,
     digit_xpos = 32,
     digit_ypos = -1,
     text_xpos = 7,
@@ -113,6 +114,12 @@ SCHEME:Layout({
     IconInsetY = -5,
     IconGap = 13
   }
+})
+
+SCHEME:Sequence('SquadStatusShow', {
+  { 'StopEvent', 'SquadStatusHide', 0 },
+  { 'Animate', 'HudSquadStatus', 'Alpha', 255, 'Linear', 0, .3 },
+  { 'Animate', 'HudAccount', 'Position', Vector(0, 42), 'Deaccel', 0, .5 }
 })
 
 HL2HUD.scheme.Register('Wasteland', SCHEME)

@@ -173,7 +173,7 @@ SCHEME:Layout({
   HudAccount = {
     visible = true,
     xpos = 16,
-    ypos = 64,
+    ypos = 54,
     wide = 130,
     tall = 36,
     halign = 2,
@@ -572,11 +572,13 @@ SCHEME:Animations({
   },
   SquadStatusShow = {
     { 'StopEvent', 'SquadStatusHide', 0 },
-    { 'Animate', 'HudSquadStatus', 'Alpha', 255, 'Linear', 0, .3 }
+    { 'Animate', 'HudSquadStatus', 'Alpha', 255, 'Linear', 0, .3 },
+    { 'Animate', 'HudAccount', 'Position', Vector(0, 52), 'Deaccel', 0, .5 }
   },
   SquadStatusHide = {
     { 'StopEvent', 'SquadStatusShow', 0 },
-    { 'Animate', 'HudSquadStatus', 'Alpha', 0, 'Linear', 0, .5 }
+    { 'Animate', 'HudSquadStatus', 'Alpha', 0, 'Linear', 0, .5 },
+    { 'Animate', 'HudAccount', 'Position', Vector(0, 0), 'Deaccel', 0, .5 }
   },
   SquadMemberAdded = {
     { 'StopEvent', 'SquadMemberDied', 0 },

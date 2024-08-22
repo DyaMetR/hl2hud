@@ -86,6 +86,11 @@ SCHEME:Animations({
     { 'Animate', 'HudAmmoSecondary', 'Alpha', 255, 'Linear', 0, .1 },
   	{ 'Animate', 'HudAmmo', 'Position', Vector(42, 0), 'Deaccel', 0, .5 },
   	{ 'Animate', 'HudAmmo', 'Size', Vector(0, 0), 'Deaccel', 0, .4 }
+  },
+  SquadStatusShow = {
+    { 'StopEvent', 'SquadStatusHide', 0 },
+    { 'Animate', 'HudSquadStatus', 'Alpha', 255, 'Linear', 0, .3 },
+    { 'Animate', 'HudAccount', 'Position', Vector(0, 48), 'Deaccel', 0, .5 }
   }
 })
 

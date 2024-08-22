@@ -72,7 +72,6 @@ SCHEME:Layout({
     BarInsetY = 6
   },
   HudAccount = {
-    ypos = 66,
     wide = 108,
     tall = 48,
     digit_xpos = 28,
@@ -115,7 +114,12 @@ SCHEME:Animations({
   WeaponDoesNotUseClips = {
 		{ 'Animate', 'HudAmmo', 'Position', Vector(0, 0), 'Deaccel', 0, .4 },
 		{ 'Animate', 'HudAmmo', 'Size', Vector(-26, 0), 'Deaccel', 0, .4 }
-	}
+	},
+  SquadStatusShow = {
+    { 'StopEvent', 'SquadStatusHide', 0 },
+    { 'Animate', 'HudSquadStatus', 'Alpha', 255, 'Linear', 0, .3 },
+    { 'Animate', 'HudAccount', 'Position', Vector(0, 48), 'Deaccel', 0, .5 }
+  }
 })
 
 HL2HUD.scheme.Register('Anomalous Materials', SCHEME)

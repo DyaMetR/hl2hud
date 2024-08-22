@@ -193,7 +193,11 @@ SCHEME:Animations({
   },
   AmmoSecondaryEmpty = {},
   AmmoSecondaryIncreased = {},
-  AmmoSecondaryDecreased = {}
+  AmmoSecondaryDecreased = {},
+  SquadStatusShow = {
+    { 'StopEvent', 'SquadStatusHide', 0 },
+    { 'Animate', 'HudSquadStatus', 'Alpha', 255, 'Linear', 0, .3 }
+  }
 })
 
 for id, _ in pairs(HL2HUD.utils.DefaultIcons.ammo) do

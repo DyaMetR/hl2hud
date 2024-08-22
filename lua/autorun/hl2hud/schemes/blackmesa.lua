@@ -273,6 +273,11 @@ SCHEME:Animations({
   SuitAuxPowerOneItemActive = {},
   SuitAuxPowerTwoItemsActive = {},
   SuitAuxPowerThreeItemsActive = {},
+  SquadStatusShow = {
+    { 'StopEvent', 'SquadStatusHide', 0 },
+    { 'Animate', 'HudSquadStatus', 'Alpha', 255, 'Linear', 0, .3 },
+    { 'Animate', 'HudAccount', 'Position', Vector(0, 30), 'Deaccel', 0, .5 }
+  },
   PoisonDamageTaken = {
     { 'Animate', 'HudPoisonDamageIndicator', 'FgColor', 'BrightFg', 'Linear', 0, 0 },
     { 'RunEvent', 'PoisonPulse', 0 }
