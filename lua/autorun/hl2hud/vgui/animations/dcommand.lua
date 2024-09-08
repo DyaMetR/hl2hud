@@ -10,7 +10,7 @@ local PANEL = {}
 ]]--------------------------------------------------------------------
 function PANEL:AddColumn(text, tooltip)
   local label = vgui.Create('DLabel', self)
-  label:SetTextColor(self:GetSkin().text_dark)
+  label:SetTextColor(self:GetSkin().Colours.Label.Dark)
   label:SetText(text)
   label:SizeToContents()
   label:SetTooltip(tooltip)

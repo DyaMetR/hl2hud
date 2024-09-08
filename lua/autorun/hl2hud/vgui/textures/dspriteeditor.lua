@@ -50,7 +50,7 @@ function PANEL:Init()
     scalable:SetWide(64)
     scalable:Dock(LEFT)
     scalable:SetText('#hl2hud.menu.hudtextures.properties.scalable')
-    scalable:SetTextColor(self:GetSkin().text_dark)
+    scalable:SetTextColor(self:GetSkin().Colours.Label.Dark)
     scalable:SetChecked(true)
     scalable.OnChange = function() self:OnValueChanged() end
     self.Scalable = scalable

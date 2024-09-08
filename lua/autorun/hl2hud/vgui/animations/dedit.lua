@@ -12,7 +12,7 @@ function PANEL:Init()
   local label = vgui.Create('DLabel', self)
   label:Dock(LEFT)
   label:DockMargin(5, 0, 0, 0)
-  label:SetTextColor(self:GetSkin().text_dark)
+  label:SetTextColor(self:GetSkin().Colours.Label.Dark)
   self.Label = label
 
   local apply = self:AddButton('icon16/accept.png', '#hl2hud.menu.hudanimations.command.apply')

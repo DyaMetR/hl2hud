@@ -14,7 +14,7 @@ function PANEL:Init()
   label:SetWide(LABEL_WIDTH)
   label:Dock(LEFT)
   label:DockMargin(LABEL_MARGIN, 0, 0, 0)
-  label:SetTextColor(self:GetSkin().text_dark)
+  label:SetTextColor(self:GetSkin().Colours.Label.Dark)
   self.Label = label
 
   local editor = vgui.Create('HL2HUD_FontEditor', self)

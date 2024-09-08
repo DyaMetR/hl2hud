@@ -20,7 +20,7 @@ function PANEL:Init()
 
   local label = vgui.Create('DLabel', self)
   label:SetPos(self.Colour:GetX() + self.Colour:GetWide() + LABEL_MARGIN, LABEL_MARGIN)
-  label:SetTextColor(self:GetSkin().text_dark)
+  label:SetTextColor(self:GetSkin().Colours.Label.Dark)
   self.Label = label
 end
 
