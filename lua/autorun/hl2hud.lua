@@ -1,7 +1,7 @@
 --[[------------------------------------------------------------------
   Half-Life 2 HUD
-  Version 1.9.2
-  September 9th, 2024
+  Version 1.9.3
+  September 17th, 2024
   Made by DyaMetR
   * full credits found in the details below
 ]]--------------------------------------------------------------------
