@@ -14,8 +14,8 @@ HL2HUD.hookname			= 'hl2hud'
 if CLIENT then
   -- addon information
   HL2HUD.name				= 'Half-Life 2 HUD'
-  HL2HUD.version		= '1.9.2'
-  HL2HUD.date				= 'September 9th, 2024'
+  HL2HUD.version		= '1.9.3'
+  HL2HUD.date				= 'September 17th, 2024'
   HL2HUD.credits		= { -- {name, contribution}
     {'DyaMetR', '#hl2hud.credits.author'},
     {'Valve Corporation', '#hl2hud.credits.valve'},

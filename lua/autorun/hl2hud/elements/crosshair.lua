@@ -1,6 +1,9 @@
 
 if SERVER then return end
 
+local ScrW = ScrW
+local ScrH = ScrH
+
 local CLASS_AIRBOAT = 'prop_vehicle_airboat'
 local CROSSHAIR_CONVAR = GetConVar('crosshair')
 
@@ -25,7 +28,7 @@ function ELEMENT:ShouldDraw(settings)
   local weapon = localPlayer:GetActiveWeapon()
   if IsValid(weapon) and weapon:IsScripted() then
     if not weapon.DrawCrosshair then return false end
-    if weapon.DoDrawCrosshair and weapon:DoDrawCrosshair(0, 0) then
+    if weapon.DoDrawCrosshair and weapon:DoDrawCrosshair(-ScrW(), -ScrH()) then
       return false
     end
   end
