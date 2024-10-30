@@ -24,8 +24,7 @@ SCHEME:Layout({
     compact = false,
     uppercase = true,
     TextYPos = 64,
-    TextAlign = 1,
-    SkipEmpty = true
+    TextAlign = 1
   },
   HUDQuickInfo = {
     visible = true
@@ -33,9 +32,6 @@ SCHEME:Layout({
   HudHistoryResource = {
     Episodic = true,
     ShowMissingIcons = false
-  },
-  HudDamageIndicator = {
-    visible = true
   }
 })
 

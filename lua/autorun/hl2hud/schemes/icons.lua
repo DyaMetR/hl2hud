@@ -66,8 +66,7 @@ SCHEME:Layout({
     compact = false,
     uppercase = true,
     TextYPos = 64,
-    TextAlign = 1,
-    SkipEmpty = true
+    TextAlign = 1
   },
   HudSquadStatus = {
     tall = 40,

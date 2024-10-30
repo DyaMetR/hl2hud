@@ -27,14 +27,10 @@ SCHEME:Layout({
     compact = false,
     uppercase = true,
     TextYPos = 64,
-    TextAlign = 1,
-    SkipEmpty = true
+    TextAlign = 1
   },
   HudHistoryResource = {
     ShowMissingIcons = false
-  },
-  HudDamageIndicator = {
-    visible = true
   }
 })
 

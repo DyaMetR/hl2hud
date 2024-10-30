@@ -34,15 +34,11 @@ SCHEME:Layout({
   HudWeaponSelection = {
     compact = false,
     LargeBoxTall = 64,
-    TextYPos = 64,
-    SkipEmpty = true
+    TextYPos = 64
   },
   HudHistoryResource = {
     Episodic = true,
     ShowMissingIcons = false
-  },
-  HudDamageIndicator = {
-    visible = true
   }
 })
 

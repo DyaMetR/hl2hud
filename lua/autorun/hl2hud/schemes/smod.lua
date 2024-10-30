@@ -138,8 +138,7 @@ SCHEME:Layout({
     LargeBoxWide = 128,
     LargeBoxTall = 32,
     TextYPos = 4,
-    TextAlign = 1,
-    SkipEmpty = true
+    TextAlign = 1
   },
   HudCrosshair = {
     color = 'Crosshair'
@@ -152,9 +151,6 @@ SCHEME:Layout({
     IconInsetX = 4,
     IconInsetY = -6,
     IconFont = 'HudIcons'
-  },
-  HudDamageIndicator = {
-    visible = true
   },
   HudFlashlight = {
     xpos = 16,

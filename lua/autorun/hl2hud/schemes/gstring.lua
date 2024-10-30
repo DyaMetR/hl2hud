@@ -127,7 +127,6 @@ SCHEME:Layout({
     SelectionNumberXPos = 10,
     SelectionNumberYPos = 5,
     TextYPos = 34,
-    SkipEmpty = true,
     MoveSnd = 'hl2hud/gstring/wpn_moveselect.wav',
     SelectSnd = 'hl2hud/gstring/wpn_select.wav'
   },
@@ -138,9 +137,6 @@ SCHEME:Layout({
     right_bracket = '',
     right_bracket_empty = '',
     warning_sound = 'hl2hud/gstring/warning.wav'
-  },
-  HudDamageIndicator = {
-    visible = true
   }
 })
 

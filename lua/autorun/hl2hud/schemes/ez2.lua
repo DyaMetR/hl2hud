@@ -54,7 +54,6 @@ SCHEME:Layout({
     uppercase = true,
     TextYPos = 64,
     TextAlign = 1,
-    SkipEmpty = true,
     MoveSnd = 'hl2hud/ez2/wpn_moveselect.wav',
     SelectSnd = 'hl2hud/ez2/wpn_hudoff.wav'
   },
@@ -69,9 +68,6 @@ SCHEME:Layout({
     right_bracket = '',
     right_bracket_empty = '',
     warning_sound = 'hl2hud/ez2/warning.wav'
-  },
-  HudDamageIndicator = {
-    visible = true
   }
 })
 

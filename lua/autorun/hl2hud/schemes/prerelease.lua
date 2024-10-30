@@ -43,8 +43,7 @@ SCHEME:Layout({
     LargeBoxWide = 108,
     LargeBoxTall = 64,
     TextYPos = 48,
-    TextAlign = 1,
-    SkipEmpty = true
+    TextAlign = 1
   },
   HudSuitPower = {
     tall = 30,
@@ -57,9 +56,6 @@ SCHEME:Layout({
     text_inset = 40,
     NumberFont = 'HudNumbersTiny',
     ShowMissingIcons = false
-  },
-  HudDamageIndicator = {
-    visible = true
   }
 })
 

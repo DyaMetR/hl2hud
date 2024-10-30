@@ -91,7 +91,6 @@ SCHEME:Layout({
     ypos = 10,
     LargeBoxWide = 97,
     LargeBoxTall = 39,
-    SkipEmpty = true,
     MoveSnd = 'hl2hud/gstringbeta/wpn_moveselect.wav',
     SelectSnd = 'hl2hud/gstringbeta/wpn_select.wav'
   },
@@ -102,9 +101,6 @@ SCHEME:Layout({
     right_bracket = '',
     right_bracket_empty = '',
     warning_sound = 'hl2hud/gstringbeta/warning.wav'
-  },
-  HudDamageIndicator = {
-    visible = true
   },
   HudFlashlight = {
     xpos = 22,

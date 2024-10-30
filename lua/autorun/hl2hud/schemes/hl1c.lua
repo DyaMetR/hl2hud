@@ -93,8 +93,7 @@ SCHEME:Layout({
     compact = false,
     LargeBoxTall = 64,
     SelectionNumberXPos = 8,
-    SelectionNumberYPos = 3,
-    SkipEmpty = true
+    SelectionNumberYPos = 3
   },
   HudFlashlight = {
     xpos = 12,
