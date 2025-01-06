@@ -16,8 +16,8 @@ SCHEME:Scheme({
   ZoomReticleColor = Color(0, 255, 217)
 })
 
-SCHEME:Font('WeaponIcons', 'HalfLife2', 62, 0, true)
-SCHEME:Font('WeaponIconsSelected', 'HalfLife2', 62, 0, true, 5, 2)
+SCHEME:Font('WeaponIcons', 'HalfLife2', 62, 0, true, nil, nil, nil, HL2HUD.FONTSCALING_LIMITED)
+SCHEME:Font('WeaponIconsSelected', 'HalfLife2', 62, 0, true, 5, 2, nil, HL2HUD.FONTSCALING_LIMITED)
 SCHEME:Font('HudNumbers', 'Android Insomnia', 32, 0, true)
 SCHEME:Font('HudNumbersGlow', 'Android Insomnia', 32, 0, true, 4, 2)
 SCHEME:Font('HudNumbersSmall', 'Android Insomnia', 16, 1000, true)

@@ -17,9 +17,9 @@ SCHEME:Scheme({
   ZoomReticleColor = Color(35, 115, 255)
 })
 
-SCHEME:Font('WeaponIconsMP', 'HL2MP', 60, 0, true)
-SCHEME:Font('WeaponIconsSelected', 'HL2MP', 60, 0, true, 5, 2)
-SCHEME:Font('WeaponIconsSmallMP', 'HL2MP', 32, 0, true)
+SCHEME:Font('WeaponIconsMP', 'HL2MP', 60, 0, true, nil, nil, nil, HL2HUD.FONTSCALING_LIMITED)
+SCHEME:Font('WeaponIconsSelected', 'HL2MP', 60, 0, true, 5, 2, nil, HL2HUD.FONTSCALING_LIMITED)
+SCHEME:Font('WeaponIconsSmallMP', 'HL2MP', 32, 0, true, nil, nil, nil, HL2HUD.FONTSCALING_LIMITED)
 SCHEME:Font('HudNumbers', 'Coolvetica', 35, 500, true)
 SCHEME:Font('HudNumbersGlow', 'Coolvetica', 35, 500, true, 4, 2)
 SCHEME:Font('HudNumbersSmall', 'Coolvetica', 16, 500, true)

@@ -73,11 +73,12 @@ end
   @param {number} blur size
   @param {number} scanlines margin
   @param {boolean} is symbolic font
-  @param {boolean} scalable
+  @param {HL2HUD.FONTSCALING} scaling
   @param {boolean} antialias
 ]]--------------------------------------------------------------------
-function SCHEME:Font(name, font, size, weight, additive, blur, scanlines, symbol, scalable, antialias)
-  if scalable == nil then scalable = true end
+function SCHEME:Font(name, font, size, weight, additive, blur, scanlines, symbol, scaling, antialias)
+  if scaling == nil then scaling = HL2HUD.FONTSCALING_UNLIMITED end
+  if isbool(scaling) then scaling = scaling and HL2HUD.FONTSCALING_UNLIMITED or HL2HUD.FONTSCALING_NONE end -- retro-compatibility with pre 1.10
   if antialias == nil then antialias = true end
   self.settings.ClientScheme.Fonts[name] = {
     font = font,
@@ -87,7 +88,7 @@ function SCHEME:Font(name, font, size, weight, additive, blur, scanlines, symbol
     blur = blur,
     scanlines = scanlines,
     symbol = symbol,
-    scalable = scalable,
+    scaling = scaling,
     antialias = antialias
   }
 end

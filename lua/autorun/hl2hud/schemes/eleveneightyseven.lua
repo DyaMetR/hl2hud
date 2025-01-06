@@ -17,8 +17,8 @@ SCHEME:Scheme({
   ZoomReticleColor = Color(255, 255, 255)
 })
 
-SCHEME:Font('WeaponIcons', 'HalfLife2', 64, 0, true)
-SCHEME:Font('WeaponIconsSelected', 'HalfLife2', 64, 0, true, 5)
+SCHEME:Font('WeaponIcons', 'HalfLife2', 64, 0, true, nil, nil, nil, HL2HUD.FONTSCALING_LIMITED)
+SCHEME:Font('WeaponIconsSelected', 'HalfLife2', 64, 0, true, 5, nil, nil, HL2HUD.FONTSCALING_LIMITED)
 SCHEME:Font('HudNumbers', 'Pricedown', 32, 0, true)
 SCHEME:Font('HudNumbersGlow', 'Pricedown', 32, 0, true, 4)
 SCHEME:Font('HudNumbersSmall', 'Pricedown', 16, 1000, true)

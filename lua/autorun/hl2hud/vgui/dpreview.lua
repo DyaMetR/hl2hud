@@ -104,9 +104,9 @@ end
   @param {string} font
 ]]--------------------------------------------------------------------
 function PANEL:CreateFontPreview(font)
-  local scale = HL2HUD.Scale()
   local data = self.Scheme.ClientScheme.Fonts[font]
-  if not data.scalable then scale = 1 end
+  local scale = HL2HUD.Scale()
+  scale = data.scaling == HL2HUD.FONTSCALING_NONE and 1 or ( data.scaling == HL2HUD.FONTSCALING_LIMITED and math.min(scale, 1080 / 480) ) or scale
   surface.CreateFont(FONT_PREFIX .. font, {
     font = data.font,
     size = data.size * scale,
@@ -131,18 +131,24 @@ function PANEL:ReloadFonts()
   -- create weapon icon fonts
   local size, scale = 56, HL2HUD.Scale()
 
+  local WeaponIcons = self.Scheme.ClientScheme.Fonts.WeaponIcons
+  local scaling = WeaponIcons.scaling
+  if scaling == nil then scaling = WeaponIcons.scalable and HL2HUD.FONTSCALING_UNLIMITED or HL2HUD.FONTSCALING_NONE end
   surface.CreateFont(FONT_WEAPONICON, {
     font = 'HalfLife2',
-    size = size * HL2HUD.Scale(),
+    size = size * ( scaling == HL2HUD.FONTSCALING_NONE and 1 or ( scaling == HL2HUD.FONTSCALING_LIMITED and math.min(scale, 1080 / 480) ) or scale ),
     weight = 0,
-    additive = self.Scheme.ClientScheme.Fonts.WeaponIcons.additive
+    additive = WeaponIcons.additive
   })
 
+  local WeaponIconsSelected = self.Scheme.ClientScheme.Fonts.WeaponIconsSelected
+  local scaling = WeaponIconsSelected.scaling
+  if scaling == nil then scaling = WeaponIconsSelected.scalable and HL2HUD.FONTSCALING_UNLIMITED or HL2HUD.FONTSCALING_NONE end
   surface.CreateFont(FONT_WEAPONICONGLOW, {
     font = 'HalfLife2',
-    size = size * HL2HUD.Scale(),
+    size = size * ( scaling == HL2HUD.FONTSCALING_NONE and 1 or ( scaling == HL2HUD.FONTSCALING_LIMITED and math.min(scale, 1080 / 480) ) or scale ),
     weight = 0,
-    additive = self.Scheme.ClientScheme.Fonts.WeaponIconsSelected.additive,
+    additive = WeaponIconsSelected.additive,
     blursize = 5 * scale,
     scanlines = 2 * scale
   })

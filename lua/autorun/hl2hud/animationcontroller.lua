@@ -29,6 +29,7 @@ local m_PostedMessages = {} -- queued event commands
 ]]--------------------------------------------------------------------
 local function UpdatePostedMessages()
 	for i, msgRef in SortedPairs(m_PostedMessages) do
+		if not msgRef then m_PostedMessages[i] = nil continue end -- safe-guard for interrupted animations
 		if CurTime() < msgRef.startTime then continue end
 		m_PostedMessages[i] = nil -- remove the event
 		Commands_e[msgRef.commandType].run(msgRef) -- run the command type

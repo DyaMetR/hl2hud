@@ -8,7 +8,7 @@
     - Apply a scheme override. You can find the scheme table structure
     in the 'ischeme.lua' script file.
 
-  > Hl2HUD.override.Remove(id)
+  > HL2HUD.override.Remove(id)
     - Reverts an override.
 
   WARNING: Do not submit overrides in loops or paint functions as

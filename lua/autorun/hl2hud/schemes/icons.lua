@@ -9,8 +9,8 @@ SCHEME:Scheme({
   SelectionTextFg = Color(0, 0, 0, 0)
 })
 
-SCHEME:Font('WeaponIcons', 'HalfLife2', 62, 0, true)
-SCHEME:Font('WeaponIconsSelected', 'HalfLife2', 62, 0, true, 5, 2)
+SCHEME:Font('WeaponIcons', 'HalfLife2', 62, 0, true, nil, nil, nil, HL2HUD.FONTSCALING_LIMITED)
+SCHEME:Font('WeaponIconsSelected', 'HalfLife2', 62, 0, true, 5, 2, nil, HL2HUD.FONTSCALING_LIMITED)
 SCHEME:Font('HudIcons', 'HalfLife2', 34, 0, true)
 SCHEME:Font('HudIcons2', 'csd', 32, 0, true)
 

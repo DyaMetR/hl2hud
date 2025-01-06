@@ -19,7 +19,7 @@ SCHEME:Scheme({
   ZoomReticleColor = Color(255, 255, 255)
 })
 
-SCHEME:Font('Crosshairs', 'GarbageFont1', 40, 0, true, nil, nil, nil, false, false)
+SCHEME:Font('Crosshairs', 'GarbageFont1', 40, 0, true, nil, nil, nil, HL2HUD.FONTSCALING_NONE, false)
 SCHEME:Font('QuickInfo', 'GarbageFont', 28, 0, true)
 SCHEME:Font('FlashlightIcon', 'gstring2', 32, 0, true)
 SCHEME:Font('HudNumbers', 'eLePhAnT uNcLe', 32, 0, true)

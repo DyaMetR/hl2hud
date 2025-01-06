@@ -318,7 +318,7 @@ concommand.Add('hl2hud_menu', function()
         local line, panel = fonts.Panel:AddLine('HL2HUD_FontResource')
         panel:DockPadding(2, 2, 0, 2)
         panel:SetText(name)
-        panel:SetFont(font.font, font.size, font.weight, font.additive, font.blur, font.scanlines, font.symbol, font.scalable, font.antialias)
+        panel:SetFont(font.font, font.size, font.weight, font.additive, font.blur, font.scanlines, font.symbol, font.scaling ~= nil and font.scaling or font.scalable, font.antialias)
         panel.OnValueChanged = function(_, value)
           cache.ClientScheme.Fonts[name] = value
           settings.ClientScheme.Fonts[name] = value

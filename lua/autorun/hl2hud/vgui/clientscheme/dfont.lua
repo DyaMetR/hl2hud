@@ -32,11 +32,11 @@ end
   @param {number} blur size
   @param {number} scanlines gap
   @param {boolean} enable symbolic fonts
-  @param {boolean} is it scalable
+  @param {HL2HUD.FONTSCALING} scaling
   @param {boolean} antialias
 ]]--------------------------------------------------------------------
-function PANEL:SetFont(font, size, weight, additive, blur, scanlines, symbol, scalable, antialias)
-  self.Editor:SetFont(font, size, weight, additive, blur, scanlines, symbol, scalable, antialias)
+function PANEL:SetFont(font, size, weight, additive, blur, scanlines, symbol, scaling, antialias)
+  self.Editor:SetFont(font, size, weight, additive, blur, scanlines, symbol, scaling, antialias)
 end
 
 --[[------------------------------------------------------------------

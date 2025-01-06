@@ -10,8 +10,8 @@ SCHEME:Scheme({
   DamagedBg = Color(90, 0, 0, 140)
 })
 
-SCHEME:Font('WeaponIcons', 'HalfLife2', 62, 0, true)
-SCHEME:Font('WeaponIconsSelected', 'HalfLife2', 62, 0, true, 5, 2)
+SCHEME:Font('WeaponIcons', 'HalfLife2', 62, 0, true, nil, nil, nil, HL2HUD.FONTSCALING_LIMITED)
+SCHEME:Font('WeaponIconsSelected', 'HalfLife2', 62, 0, true, 5, 2, nil, HL2HUD.FONTSCALING_LIMITED)
 SCHEME:Font('HudNumbers', 'BoxRocket', 32, 0, true)
 SCHEME:Font('HudNumbersGlow', 'BoxRocket', 32, 0, true, 4, 2)
 SCHEME:Font('HudNumbersSmall', 'BoxRocket', 16, 1000, true)

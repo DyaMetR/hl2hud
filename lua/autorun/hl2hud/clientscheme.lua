@@ -100,7 +100,7 @@ function HL2HUD.settings.GenerateFonts()
   end
   for name, _ in pairs(fonts) do
     local font = settings.ClientScheme.Fonts[name]
-    HL2HUD.fonts.Add(string.format(HL2HUD.scheme.ICON_FORMAT, name), font.font, font.size, font.weight, font.additive, font.blur, font.scanlines, font.symbol, font.scalable, font.antialias)
+    HL2HUD.fonts.Add(string.format(HL2HUD.scheme.ICON_FORMAT, name), font.font, font.size, font.weight, font.additive, font.blur, font.scanlines, font.symbol, font.scaling ~= nil and font.scaling or font.scalable, font.antialias)
   end
 
   -- fonts used by parameters
@@ -108,7 +108,7 @@ function HL2HUD.settings.GenerateFonts()
     for p, parameter in pairs(element.parameters) do
       if parameter.type ~= HL2HUD.elements.PARAM_FONT then continue end
       local font = settings.ClientScheme.Fonts[settings.HudLayout[e][p]]
-      HL2HUD.fonts.Add(parameter.font, font.font, font.size, font.weight, font.additive, font.blur, font.scanlines, font.symbol, font.scalable, font.antialias)
+      HL2HUD.fonts.Add(parameter.font, font.font, font.size, font.weight, font.additive, font.blur, font.scanlines, font.symbol, font.scaling ~= nil and font.scaling or font.scalable, font.antialias)
     end
   end
 end

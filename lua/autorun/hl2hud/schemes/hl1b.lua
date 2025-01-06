@@ -23,8 +23,8 @@ SCHEME:Scheme({
   ZoomReticleColor = Color(32, 255, 32)
 })
 
-SCHEME:Font('WeaponIcons', 'HalfLife2', 56, 0, true, 0, 1)
-SCHEME:Font('WeaponIconsSmall', 'HalfLife2', 32, 0, true, 0, 1)
+SCHEME:Font('WeaponIcons', 'HalfLife2', 56, 0, true, 0, 1, nil, HL2HUD.FONTSCALING_LIMITED)
+SCHEME:Font('WeaponIconsSmall', 'HalfLife2', 32, 0, true, 0, 1, nil, HL2HUD.FONTSCALING_LIMITED)
 SCHEME:Font('HudNumbers', 'AlphavilleLight', 30, 1000, true, 0, 1)
 SCHEME:Font('HudNumbersGlow', 'AlphavilleLight', 30, 1000, true, 4, 2)
 SCHEME:Font('HudNumbersSmall', 'AlphavilleLight', 14, 1000, true, 0, 1)

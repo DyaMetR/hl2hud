@@ -8,8 +8,8 @@ SCHEME:Scheme({
   BrightFg = Color(255, 220, 0)
 })
 
-SCHEME:Font('WeaponIcons', 'HalfLife2', 62, 0, true)
-SCHEME:Font('WeaponIconsSelected', 'HalfLife2', 62, 0, true, 5, 2)
+SCHEME:Font('WeaponIcons', 'HalfLife2', 62, 0, true, nil, nil, nil, HL2HUD.FONTSCALING_LIMITED)
+SCHEME:Font('WeaponIconsSelected', 'HalfLife2', 62, 0, true, 5, 2, nil, HL2HUD.FONTSCALING_LIMITED)
 
 SCHEME:Layout({
   HudAmmo = {
