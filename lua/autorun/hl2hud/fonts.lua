@@ -25,7 +25,13 @@ end
 function HL2HUD.fonts.Create(name)
   local font = fonts[name] -- fetch font details
   local scale = HL2HUD.Scale()
-  scale = font.scaling == HL2HUD.FONTSCALING_NONE and 1 or ( font.scaling == HL2HUD.FONTSCALING_LIMIT and math.min(scale, 1080 / 480) ) or scale
+
+  if font.scaling == HL2HUD.FONTSCALING_NONE then
+    scale = 1
+  elseif font.scaling == HL2HUD.FONTSCALING_LIMITED then
+    scale = math.min(scale, 1080 / 480)
+  end
+
   surface.CreateFont(name, {
     font = font.font,
     size = math.ceil(font.size * scale),
