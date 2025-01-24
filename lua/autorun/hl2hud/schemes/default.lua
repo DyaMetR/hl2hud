@@ -56,6 +56,7 @@ SCHEME:Font('HudHintTextLarge', 'Verdana', 14, 1000, true)
 SCHEME:Font('HudSelectionNumbers', 'Verdana', 11, 700)
 SCHEME:Font('HudSelectionText', 'Verdana', 7, 1000)
 SCHEME:Font('SquadIcon', 'HalfLife2', 32, 0, true)
+SCHEME:Font('FlashlightIcon', 'HalfLife2', 32, 0, true)
 SCHEME:Font('MissingIcon', 'Arial', 6, 1000, true)
 SCHEME:Font('Default', 'Verdana', 9, 1000)
 
@@ -205,7 +206,7 @@ SCHEME:Layout({
     tall = 24,
     halign = 1,
     valign = 2,
-    font = 'WeaponIconsSmall',
+    font = 'FlashlightIcon',
     icon_off = '®',
     icon_on = '©',
     icon_xpos = 4,

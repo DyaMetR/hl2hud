@@ -203,7 +203,7 @@ local function parseHints(raw)
       bind = input.LookupBinding(string.sub(matched, 2, string.len(matched) - 1))
       desc = string.sub(line, string.len(matched) + 1)
     end
-    local hint = { bind = string.upper(bind), hint = desc }
+    local hint = { bind = string.upper(bind or ""), hint = desc }
     table.insert(hints.hints, hint)
     if string.len(hint.bind) > string.len(hints.bind) then hints.bind = hint.bind end
     if string.len(hint.hint) > string.len(hints.hint) then hints.hint = hint.hint end
