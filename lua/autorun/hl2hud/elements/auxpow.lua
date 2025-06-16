@@ -96,7 +96,7 @@ function ELEMENT:Draw(settings, scale)
   local alpha = self.variables.Alpha / 255
 
   -- get dimensions
-  local inx, iny, chw, bh, gap = settings.BarInsetX * scale, settings.BarInsetY * scale, settings.BarChunkWidth * scale, settings.BarHeight * scale, settings.BarChunkGap * scale
+  local inx, iny, chw, bh, gap = settings.BarInsetX * scale, settings.BarInsetY * scale, math.max(settings.BarChunkWidth, 1) * scale, math.max(settings.BarHeight, 0) * scale, math.max(settings.BarChunkGap, 0) * scale
   local x, y = (settings.xpos + self.variables.Position.x) * scale, (settings.ypos + self.variables.Position.y) * scale
   local w, h = (settings.wide + self.variables.Size.x) * scale, (settings.tall + self.variables.Size.y) * scale
   if settings.halign > 1 then x = ScrW() - (x + w) end

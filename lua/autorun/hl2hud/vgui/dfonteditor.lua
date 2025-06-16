@@ -152,7 +152,7 @@ function PANEL:SetFont(font, size, weight, additive, blur, scanlines, symbol, sc
   local bold = false
   if weight then bold = weight >= 1000 end
   self.Font:SetText(font)
-  self.Size:SetText(size)
+  self.Size:SetText(size or 0)
   self.Weight:SetToggle(bold)
   self.Additive:SetToggle(additive)
   self.Blur:SetText(blur or 0)
